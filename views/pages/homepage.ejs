@@ -1,0 +1,116 @@
+<br>
+<br>
+<br>
+<br>
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+
+            <div class="media">
+                <img src="/img/mas_bandera.png" width="180px" height="120px" class="mr-3 img-thumbnail" alt="...">
+                <div class="media-body">
+                    <h5 class="mt-0">MOVIMIENTO AL SOCIALISMO</h5>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row justify-content-md-center">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-8">
+            <form id="buscarCedula" method="POST" action="/militante/buscarCedula">
+                <div class="form-group">
+                    <label for="Documento de Identidad">Ducumento de Identidad</label>
+                    <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Introdusca su Documento de Identidad">
+                    <small id="ciayuda" class="form-text text-muted">Introdusca el documento de identidad del
+                            militante sin extencion</small>
+                </div>
+
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="BUSCAR">
+            </form>
+        </div>
+        <div class="col-sm-2">
+        </div>
+
+
+    </div>
+
+    <br>
+    <% if(militante.length >0){%>
+        <div class="card text-white mb-3" style="background-color: #143a83;">
+            <div class="card-header">Datos Generales</div>
+            <div class="card-body ">
+                <h5 class="card-title">
+                    <%= militante[0].paterno %>
+                        <%= militante[0].materno %>
+                            <%= militante[0].nombre %>
+                </h5>
+                <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+
+                <table class="table table-dark">
+
+                    <tbody>
+                        <tr>
+                            <th>CEDULA</th>
+                            <td>
+                                <%= militante[0].cedula %>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>RECINTO</th>
+                            <td>
+                                <%= militante[0].recinto %>
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <th>MESA</th>
+                            <td>
+                                <%= militante[0].mesa %>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th>ZONA</th>
+                            <td>
+                                <%= militante[0].zona %>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th>DISTRITO</th>
+                            <td>
+                                <%= militante[0].distrito %>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th>CIRCUNSCRIPCION</th>
+                            <td>
+                                <%= militante[0].circunscripcion %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <%}%>
+
+
+</main>
+
+
+<script>
+    // $("#buscarCedula").submit(function(event) {
+    //     console.log("form", this)
+    // })
+</script>
