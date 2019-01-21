@@ -84,5 +84,25 @@ module.exports = {
 
 
 
+    },
+    actualizarRecintoDelegado: function(req, res) {
+
+        Recinto.find().exec(function(err, datoRecintos) {
+
+
+            async.eachSeries(datoRecintos, function(recinto, cb) {
+                sails.log("RECINTO", recinto)
+                Militante.update({ recintoDelegado: recinto.nombre }, { idRecintoDelegado: recinto.id }).exec(function(err, datoMilitante) {
+                        console.log("Actualizado Militante recinto Delegado")
+                        cb(null);
+                    },
+                    function(error) {
+                        console.log("-------------------FINAL TODO -----------------------")
+
+                    })
+            })
+
+        })
+        res.send("actualizando Recinto Delegando")
     }
 };

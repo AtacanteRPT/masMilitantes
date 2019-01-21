@@ -49,7 +49,8 @@ module.exports.datastores = {
          *                                                                          *
          ***************************************************************************/
         adapter: 'sails-mysql',
-        url: 'mysql://root@localhost:3306/masmilitantes',
+        // url: 'mysql://root@localhost:3306/masmilitantes',
+        url: 'mysql://root:vps-carlos-mas@157.230.87.7:3306/masMilitantes',
 
         connectTimeout: 60 * 60 * 1000,
         aquireTimeout: 60 * 60 * 1000,
