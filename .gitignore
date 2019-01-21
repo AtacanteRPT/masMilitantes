@@ -46,7 +46,8 @@
 ################################################
 
 config/local.js
-
+config/datastores.js
+config/bootstrap.js
 
 ################################################
 # Dependencies
