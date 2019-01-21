@@ -16,7 +16,10 @@ passport.use(new LocalStrategy({
     Usuario.findOne({
         username: username
     }, function(err, user) {
-        if (err) return cb(err);
+        if (err) {
+            sails.log("ERROR AL BUSCAR")
+            return cb(err);
+        }
         if (!user) return cb(null, false, {
             message: 'Username no encontrado'
         });

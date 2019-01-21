@@ -1,0 +1,66 @@
+<br>
+<br>
+<br>
+<br>
+
+
+
+<div class="container">
+    <h3>
+        <%= delegado.paterno%>
+            <%= delegado.materno%>
+                <%= delegado.nombre%>
+    </h3>
+    <h5>
+        Recinto a cargo:
+        <%= delegado.recintoDelegado%>
+
+    </h5>
+    <h5>
+        Mesa a cargo:
+        <%= delegado.mesaDelegado%>
+    </h5>
+
+    <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nro</th>
+
+                <th scope="col">Nombre</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Celular</th>
+                <th scope="col">VOTACIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i =0;i<militantes.length;i++){%>
+                <th>
+                    <%= i+1 %>
+                </th>
+                <th>
+                    <%= militantes[i].paterno%>
+                        <%= militantes[i].materno%>
+                            <%= militantes[i].nombre%>
+                </th>
+                <td>
+                    <%= militantes[i].cedula%>
+                </td>
+                <td>
+                    <%= militantes[i].celular%>
+                </td>
+                <td>
+
+                    <% if(militantes[i].voto == false){%>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch<%=i+1%>">
+                            <label class="custom-control-label" for="customSwitch<%=i+1%>"></label>
+                        </div>
+                        <%}%>
+                </td>
+                </tr>
+                <%}%>
+        </tbody>
+    </table>
+</div>

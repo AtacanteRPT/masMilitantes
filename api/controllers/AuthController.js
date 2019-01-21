@@ -11,12 +11,12 @@ module.exports = {
         passport.authenticate('local', function(err, user, info) {
             if ((err) || (!user)) {
                 // return res.send({
-                //   message: info.message,
-                //   user
+                //     message: info.message,
+                //     user
                 // });
                 console.log("no logueado")
 
-                return res.redirect("auth/loguearse");
+                return res.redirect("/");
             }
 
             req.logIn(user, function(err) {
@@ -32,11 +32,11 @@ module.exports = {
 
 
                 if (req.isAuthenticated()) {
-                    console.log("Redireccionando a /principal/index")
-                    res.redirect("/principal/index");
+                    console.log("Redireccionando a /principal delegado")
+                    res.redirect("/recintoDelegado/principal");
                 } else {
 
-                    res.view("login/login");
+                    res.redirect("/");
                 }
 
             });
