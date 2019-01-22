@@ -17,7 +17,7 @@ module.exports = {
                     sails.log("RECINTO", recinto)
                     Militante.find({ idRecintoDelegado: recinto.id }).exec(function(err, datoMilitantes) {
                         console.log("Actualizado Militante recinto Delegado")
-                        async.each(datoMilitantes, function(militante, cb2) {
+                        async.eachSeries(datoMilitantes, function(militante, cb2) {
 
                                 Mesa.findOrCreate({ nombre: militante.mesa, idRecinto: recinto.id }, {
                                     nombre: militante.mesa,
