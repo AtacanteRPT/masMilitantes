@@ -23,7 +23,9 @@
 
     <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">
 
-    <table class="table table-striped">
+
+    <div id="militante"></div>
+    <table class="table table-striped" id="tablaMilitantes">
         <thead>
             <tr>
                 <th scope="col">Nro</th>
@@ -35,32 +37,85 @@
             </tr>
         </thead>
         <tbody>
-            <% for(var i =0;i<militantes.length;i++){%>
-                <th>
-                    <%= i+1 %>
-                </th>
-                <th>
-                    <%= militantes[i].paterno%>
-                        <%= militantes[i].materno%>
-                            <%= militantes[i].nombre%>
-                </th>
-                <td>
-                    <%= militantes[i].cedula%>
-                </td>
-                <td>
-                    <%= militantes[i].celular%>
-                </td>
-                <td>
 
-                    <% if(militantes[i].voto == false){%>
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch<%=i+1%>">
-                            <label class="custom-control-label" for="customSwitch<%=i+1%>"></label>
-                        </div>
-                        <%}%>
-                </td>
-                </tr>
-                <%}%>
+            <!--<% var listaMilitantes = [] %>
+
+
+                <% for(var i =0;i<militantes.length;i++){%>
+
+                    <% var auxMIlitante = {} %>
+                        <th>
+                            <%= i+1 %>
+                        </th>
+                        <th>
+                            <%= militantes[i].paterno%>
+                                <%= militantes[i].materno%>
+                                    <%= militantes[i].nombre%>
+                        </th>
+                        <td>
+                            <%= militantes[i].cedula%>
+                        </td>
+                        <td>
+                            <%= militantes[i].celular%>
+                        </td>
+                        <td>
+                            <form method="POST" action="/recintoDelegado/random">
+                                <div class="custom-control custom-switch">
+                                    <input type="text" name="nombre" value="oso">
+                                    <input type="checkbox" name="voto" class="custom-control-input" id="voto<%=i+1%>">
+                                    <label class="custom-control-label" for="voto<%=i+1%>"></label>
+                                </div>
+                                <input type="submit" value="CAMBIO">
+                            </form>
+
+                        </td>
+                        </tr>
+                        <%}%>-->
+            <!--<th value="1">1</th>
+            <th value="oso pato topa"></th>
+            <th value="432423"></th>
+            <th value="7898799"></th>
+            <th>
+                <div class="custom-control custom-switch">
+
+                    <input type="checkbox" name="voto" class="custom-control-input" id="voto1">
+                    <label class="custom-control-label" for="voto1"></label>
+                </div>
+            </th>-->
+
         </tbody>
     </table>
+    <script>
+        var auxMilitantes = <%- JSON.stringify(militantes) %>
+        console.log(auxMilitantes)
+
+        auxMilitantes.forEach(function(militante, index) {
+            $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                '<th>' + (index + 1) + '</th>' +
+                '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                '<th>' + militante.cedula + '</th>' +
+                '<th>' + militante.celular + '</th>' +
+                '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                '</tr>')
+            $('#voto' + (index + 1)).attr('checked', militante.voto)
+            $('#voto' + (index + 1)).click(function() {
+                console.log($('#voto' + (index + 1)).prop('checked'))
+                $.post("/militante/actualizarVoto", {
+                        id: militante.id,
+                        voto: $('#voto' + (index + 1)).prop('checked')
+                    },
+                    function(data, status) {
+                        alert("Data: " + data + "\nStatus: " + status);
+                    });
+                console.log($('#voto' + (index + 1)).attr('checked', false))
+
+                // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
+            })
+        }, this);
+
+        //$('#voto2').attr('checked', false)
+
+        // console.log($('#voto1').val())
+    </script>
+
 </div>

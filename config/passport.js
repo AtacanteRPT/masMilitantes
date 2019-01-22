@@ -5,7 +5,7 @@ passport.serializeUser(function(user, cb) {
     cb(null, user.id);
 });
 passport.deserializeUser(function(id, cb) {
-    Usuario.findOne(id, function(err, user) {
+    Usuario.findOne(id).populate('idMilitante').exec(function(err, user) {
         cb(err, user);
     });
 });

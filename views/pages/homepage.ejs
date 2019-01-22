@@ -101,9 +101,34 @@
                     </tbody>
                 </table>
 
+                <h5>Delegado a cargo de:</h5>
+                <% if(militante[0].idDelegado.tipo!='NO'){%>
+                    <table class="table table-bordered">
+
+                        <tbody>
+                            <tr>
+                                <th>RECINTO</th>
+                                <td>
+                                    <%= militante[0].recintoDelegado %>
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                <th>MESA</th>
+                                <td>
+                                    <%= militante[0].mesaDelegado %>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <%}%>
             </div>
         </div>
         <%}%>
+
+
 
 
 </main>

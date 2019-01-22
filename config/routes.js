@@ -25,6 +25,7 @@ module.exports.routes = {
      ***************************************************************************/
 
     'get /': 'MilitanteController.principal',
+    'get /militante/buscarCedula': 'MilitanteController.principal',
 
     // view: 'pages/homepage'
 

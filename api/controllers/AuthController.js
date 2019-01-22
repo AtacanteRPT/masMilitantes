@@ -32,8 +32,10 @@ module.exports = {
 
 
                 if (req.isAuthenticated()) {
-                    console.log("Redireccionando a /principal delegado")
-                    res.redirect("/recintoDelegado/principal");
+                    console.log("Redireccionando a /principal delegado", req.user)
+
+
+                    res.redirect("/auth/usuarios")
                 } else {
 
                     res.redirect("/");
@@ -41,6 +43,28 @@ module.exports = {
 
             });
         })(req, res);
+    },
+    usuarios: function(req, res) {
+        switch (req.user.rol) {
+            case 'delegado':
+                sails.log("DELEGADO ::", req.user)
+
+                res.redirect("/recintoDelegado/principal");
+                break;
+            case 'admin':
+                sails.log("ADMIN ::", req.user)
+
+                res.redirect("/admin/principal");
+
+                break;
+            default:
+                sails.log("OTRO ::", req.user)
+
+                res.redirect("/");
+
+                break;
+        }
+
     },
     salir: function(req, res) {
         req.logout();

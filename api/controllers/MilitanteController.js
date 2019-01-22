@@ -10,9 +10,7 @@ module.exports = {
 
     buscarCedula: function(req, res) {
 
-
-
-        Militante.find({ cedula: req.param('cedula') }).exec(function(err, datoMilitante) {
+        Militante.find({ cedula: req.param('cedula') }).populate('idDelegado').exec(function(err, datoMilitante) {
             if (err) { return res.serverError(err); }
             sails.log("militante buscado", datoMilitante[0])
             return res.view('pages/homepage', {
@@ -104,5 +102,10 @@ module.exports = {
 
         })
         res.send("actualizando Recinto Delegando")
+    },
+    actualizarVoto: function(req, res) {
+        Militante.update(req.param('id'), { voto: req.param('voto') }).fetch().exec(function(err, datoMilitante) {
+
+        })
     }
 };
