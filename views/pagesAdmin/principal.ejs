@@ -1,5 +1,139 @@
 <br>
 <br>
 <br>
-<br>
-<h3>SUPER ADMIN</h3>
+<!--<h3>SUPER ADMIN 12</h3>-->
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-12 col-md-2" style="background-color: #143a83;">
+
+
+            <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Circunscripción</a>
+
+                <a class="nav-link " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Distrito</a>
+
+
+                <a class="nav-link " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Zona</a>
+
+                <a class="nav-link " id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Recinto</a>
+
+            </div>
+
+        </div>
+
+        <main role="main" class="col-12 col-md-10">
+
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Dashboard</h1>
+            </div>
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+
+                    <h5>Militantes por distrito</h5>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Distritos La Paz</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <% for(var i =0;i< distritos.length;i++){%>
+                                <option><%= distritos[i].id%> <%= distritos[i].nombre%></option>
+                            <%}%>
+                        </select>
+                    </div>
+
+
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    ...C</div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    ...Ds</div>
+            </div>
+
+            <h4>Lista Militantes</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm" id="tablaMilitantesDistrito">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NOMBRE</th>
+                            <th>CEDULA</th>
+                            <th>CELULAR</th>
+                            <th>VOTO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script>
+        $('#exampleFormControlSelect1').change(function(event) {
+            var dato = $('#exampleFormControlSelect1').val()
+            var selectDato = dato.split(' ')
+            console.log(selectDato);
+
+            $.get("/distrito/militantesPorDistritos/" + selectDato[0], function(datoDistritos, status) {
+                $('#tablaMilitantesDistrito > tbody ').empty();
+                datoDistritos.forEach(function(militante, index) {
+                    $('#tablaMilitantesDistrito > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                        '<th>' + (index + 1) + '</th>' +
+                        '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                        '<th>' + militante.cedula + '</th>' +
+                        '<th>' + militante.celular + '</th>' +
+                        '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                        '</tr>')
+                    $('#voto' + (index + 1)).attr('checked', militante.voto)
+                    $('#voto' + (index + 1)).click(function() {
+                        console.log($('#voto' + (index + 1)).prop('checked'))
+                        $.post("/militante/actualizarVoto", {
+                                id: militante.id,
+                                voto: $('#voto' + (index + 1)).prop('checked')
+                            },
+                            function(data, status) {
+                                alert("Data: " + data + "\nStatus: " + status);
+                            });
+                        console.log($('#voto' + (index + 1)).attr('checked', false))
+
+                        // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
+                    })
+                }, this);
+            });
+        });
+
+        console.log(auxMilitantes)
+        var auxMilitantes = [];
+        auxMilitantes.forEach(function(militante, index) {
+            $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                '<th>' + (index + 1) + '</th>' +
+                '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                '<th>' + militante.cedula + '</th>' +
+                '<th>' + militante.celular + '</th>' +
+                '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                '</tr>')
+            $('#voto' + (index + 1)).attr('checked', militante.voto)
+            $('#voto' + (index + 1)).click(function() {
+                console.log($('#voto' + (index + 1)).prop('checked'))
+                $.post("/militante/actualizarVoto", {
+                        id: militante.id,
+                        voto: $('#voto' + (index + 1)).prop('checked')
+                    },
+                    function(data, status) {
+                        alert("Data: " + data + "\nStatus: " + status);
+                    });
+                console.log($('#voto' + (index + 1)).attr('checked', false))
+
+                // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
+            })
+        }, this);
+    </script>
