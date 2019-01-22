@@ -26,6 +26,9 @@ module.exports = {
         idRecinto: {
             model: 'recinto',
         },
+        idMesa: {
+            model: 'mesa',
+        },
         idRecintoDelegado: {
             model: 'recinto',
         },

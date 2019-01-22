@@ -14,17 +14,17 @@ module.exports = {
             required: false,
             allowNull: true
         },
-        nulos: {
+        nulosBocaUrna: {
             type: 'number',
             required: false,
             allowNull: true
         },
-        blancos: {
+        blancosBocaUrna: {
             type: 'number',
             required: false,
             allowNull: true
         },
-        asistencias: {
+        asistenciasBocaUrna: {
             type: 'number',
             required: false,
             allowNull: true
@@ -35,7 +35,7 @@ module.exports = {
         idMilitante: {
             model: 'militante'
         },
-        modificado: {
+        modificable: {
             type: 'boolean'
         }
     },
