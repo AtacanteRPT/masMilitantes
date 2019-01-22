@@ -7,7 +7,7 @@
 
 module.exports = {
 
-    militantesPorDistrito: function(req, res) {
+    militantesPorDistritos: function(req, res) {
         var militantesDistrito = [];
         if (req.param('id') != undefined) {
             Zona.find({ idDistrito: req.param('id') }).exec(function(err, datoZonas) {
@@ -42,6 +42,62 @@ module.exports = {
         } else {
 
             res.json(militantesDistrito)
+        }
+
+
+    },
+
+    militantesPorZonas: function(req, res) {
+        var militantesZona = [];
+        if (req.param('id') != undefined) {
+
+
+            Recinto.find({ idZona: req.param('id') }).exec(function(err, datoRecintos) {
+                if (err) { return res.serverError(err); }
+
+                async.each(datoRecintos, function(recinto, cb2) {
+
+                    Militante.find({ idRecinto: recinto.id }).exec(function(err, datoMilitantes) {
+                        sails.log(recinto)
+                        if (err) { return res.serverError(err); }
+
+                        militantesZona = militantesZona.concat(datoMilitantes);
+                        sails.log("TAMAÑO", militantesZona.length)
+                        cb2();
+                    });
+
+                }, function(error) {
+                    res.json(militantesZona)
+                })
+
+            })
+
+        } else {
+
+            res.json(militantesZona)
+        }
+
+
+    },
+    militantesPorRecintos: function(req, res) {
+        var militantesRecinto = [];
+        if (req.param('id') != undefined) {
+
+
+
+            Militante.find({ idRecinto: req.param('id') }).exec(function(err, datoMilitantes) {
+
+                if (err) { return res.serverError(err); }
+
+                res.json(datoMilitantes)
+            });
+
+
+
+
+        } else {
+
+            res.json(militantesRecinto)
         }
 
 

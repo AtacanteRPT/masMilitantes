@@ -6,6 +6,84 @@
 
 
 <div class="container">
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header" id="Total">Militantes Inscritos</div>
+                <div class="card-body">
+                    <h5 class="card-title">Número de militantes inscritos</h5>
+                    <p class="card-text" id="inscritos">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-header">Votos</div>
+                <div class="card-body">
+                    <h5 class="card-title"> Recinto :
+                        <%= delegado.recintoDelegado%>
+                    </h5>
+                    <h5 class="card-title">Votos en la Mesa :
+                        <%= delegado.mesaDelegado%>
+                    </h5>
+                    <p class="card-text" id="datoVoto1"></p>
+                    <p class="card-text" id="datoVoto2"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <form>
+
+            </form>
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h5 class="card-title">Success card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">Danger card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">Warning card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">Info card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">Light card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">Dark card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>-->
     <h3>
         <%= delegado.paterno%>
             <%= delegado.materno%>
@@ -65,6 +143,12 @@
                 // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
             })
         }, this);
+
+        $('#inscritos').text('TOTAL:' + auxMilitantes.length);
+        var votosTrue = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
+        $('#datoVoto1').text('Asistencia: ' + votosTrue.length);
+        $('#datoVoto2').text('Faltas: ' + (auxMilitantes.length - votosTrue.length));
+
 
         //$('#voto2').attr('checked', false)
 

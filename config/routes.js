@@ -26,7 +26,9 @@ module.exports.routes = {
 
     'get /': 'MilitanteController.principal',
     'get /militante/buscarCedula': 'MilitanteController.principal',
-    'get /distrito/militantesPorDistritos/:id': 'DistritoController.militantesPorDistrito',
+    'get /distrito/militantesPorDistritos/:id': 'DistritoController.militantesPorDistritos',
+    'get /distrito/militantesPorZonas/:id': 'DistritoController.militantesPorZonas',
+    'get /distrito/militantesPorRecintos/:id': 'DistritoController.militantesPorRecintos',
 
     // view: 'pages/homepage'
 

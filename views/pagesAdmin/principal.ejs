@@ -11,7 +11,7 @@
             <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
 
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Circunscripción</a>
+                <a class="nav-link active" disabled id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Circunscripción</a>
 
                 <a class="nav-link " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Distrito</a>
 
@@ -38,11 +38,13 @@
                 </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
-
+                    <div id="spinner" class="spinner-border spinner-border-sm" role="status">
+                        <!--<span class="sr-only">Loading...</span>-->
+                    </div>
                     <h5>Militantes por distrito</h5>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Distritos La Paz</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <label for="selectDistritos">Distritos La Paz</label>
+                        <select class="form-control" id="selectDistritos">
                             <% for(var i =0;i< distritos.length;i++){%>
                                 <option><%= distritos[i].id%> <%= distritos[i].nombre%></option>
                             <%}%>
@@ -53,9 +55,33 @@
 
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                    ...C</div>
+                    <div id="spinner2" class="spinner-border spinner-border-sm" role="status">
+                    </div>
+                    <h5>Militantes por Zona</h5>
+                    <div class="form-group">
+                        <label for="selectZonas">Zonas La Paz</label>
+                        <select class="form-control" id="selectZonas">
+                            <% for(var i =0;i< zonas.length;i++){%>
+                                <option><%= zonas[i].id%> <%= zonas[i].nombre%></option>
+                            <%}%>
+                        </select>
+                    </div>
+
+
+                </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    ...Ds</div>
+                    <div id="spinner3" class="spinner-border spinner-border-sm" role="status">
+                    </div>
+                    <h5>Militantes por Recinto</h5>
+                    <div class="form-group">
+                        <label for="selectRecinto">Recintos La Paz</label>
+                        <select class="form-control" id="selectRecinto">
+                            <% for(var i =0;i< recintos.length;i++){%>
+                                <option><%= recintos[i].id%> <%= recintos[i].nombre%></option>
+                            <%}%>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <h4>Lista Militantes</h4>
@@ -78,62 +104,70 @@
         </main>
     </div>
     <script>
-        $('#exampleFormControlSelect1').change(function(event) {
-            var dato = $('#exampleFormControlSelect1').val()
+        $("#spinner").hide();
+        $('#selectDistritos').change(function(event) {
+            var dato = $('#selectDistritos').val()
             var selectDato = dato.split(' ')
             console.log(selectDato);
-
+            $("#spinner").show();
             $.get("/distrito/militantesPorDistritos/" + selectDato[0], function(datoDistritos, status) {
-                $('#tablaMilitantesDistrito > tbody ').empty();
+                $('#tablaMilitantesDistrito > tbody').empty();
+                $("#spinner").hide();
                 datoDistritos.forEach(function(militante, index) {
                     $('#tablaMilitantesDistrito > tbody').append('<tr id="tr' + (index + 1) + '">' +
                         '<th>' + (index + 1) + '</th>' +
                         '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
                         '<th>' + militante.cedula + '</th>' +
                         '<th>' + militante.celular + '</th>' +
-                        '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                        '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input"  disabled id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
                         '</tr>')
                     $('#voto' + (index + 1)).attr('checked', militante.voto)
-                    $('#voto' + (index + 1)).click(function() {
-                        console.log($('#voto' + (index + 1)).prop('checked'))
-                        $.post("/militante/actualizarVoto", {
-                                id: militante.id,
-                                voto: $('#voto' + (index + 1)).prop('checked')
-                            },
-                            function(data, status) {
-                                alert("Data: " + data + "\nStatus: " + status);
-                            });
-                        console.log($('#voto' + (index + 1)).attr('checked', false))
 
-                        // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
-                    })
                 }, this);
             });
         });
+        $("#spinner2").hide();
+        $('#selectZonas').change(function(event) {
+            var dato = $('#selectZonas').val()
+            var selectDato = dato.split(' ')
+            console.log(selectDato);
+            $("#spinner2").show();
+            $.get("/distrito/militantesPorZonas/" + selectDato[0], function(datoDistritos, status) {
+                $('#tablaMilitantesDistrito > tbody').empty();
+                $("#spinner2").hide();
+                datoDistritos.forEach(function(militante, index) {
+                    $('#tablaMilitantesDistrito > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                        '<th>' + (index + 1) + '</th>' +
+                        '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                        '<th>' + militante.cedula + '</th>' +
+                        '<th>' + militante.celular + '</th>' +
+                        '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input"  disabled id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                        '</tr>')
+                    $('#voto' + (index + 1)).attr('checked', militante.voto)
 
-        console.log(auxMilitantes)
-        var auxMilitantes = [];
-        auxMilitantes.forEach(function(militante, index) {
-            $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
-                '<th>' + (index + 1) + '</th>' +
-                '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
-                '<th>' + militante.cedula + '</th>' +
-                '<th>' + militante.celular + '</th>' +
-                '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
-                '</tr>')
-            $('#voto' + (index + 1)).attr('checked', militante.voto)
-            $('#voto' + (index + 1)).click(function() {
-                console.log($('#voto' + (index + 1)).prop('checked'))
-                $.post("/militante/actualizarVoto", {
-                        id: militante.id,
-                        voto: $('#voto' + (index + 1)).prop('checked')
-                    },
-                    function(data, status) {
-                        alert("Data: " + data + "\nStatus: " + status);
-                    });
-                console.log($('#voto' + (index + 1)).attr('checked', false))
+                }, this);
+            });
+        });
+        $("#spinner3").hide();
+        $('#selectRecinto').change(function(event) {
+            var dato = $('#selectRecinto').val()
+            var selectDato = dato.split(' ')
+            console.log(selectDato);
+            $("#spinner3").show();
+            $.get("/distrito/militantesPorRecintos/" + selectDato[0], function(datoRecintos, status) {
+                $('#tablaMilitantesDistrito > tbody').empty();
+                $("#spinner3").hide();
+                datoRecintos.forEach(function(militante, index) {
+                    $('#tablaMilitantesDistrito > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                        '<th>' + (index + 1) + '</th>' +
+                        '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                        '<th>' + militante.cedula + '</th>' +
+                        '<th>' + militante.celular + '</th>' +
+                        '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input"  disabled id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                        '</tr>')
+                    $('#voto' + (index + 1)).attr('checked', militante.voto)
 
-                // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
-            })
-        }, this);
+                }, this);
+            });
+        });
     </script>

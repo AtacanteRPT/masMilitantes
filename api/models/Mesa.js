@@ -7,23 +7,37 @@
 
 module.exports = {
 
-  attributes: {
+    attributes: {
 
-    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
-    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
-    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-
-
-    //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
-    //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
-    //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
-
-
-    //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
-    //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
-    //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-
-  },
+        nombre: {
+            type: 'string',
+            required: false,
+            allowNull: true
+        },
+        nulos: {
+            type: 'number',
+            required: false,
+            allowNull: true
+        },
+        blancos: {
+            type: 'number',
+            required: false,
+            allowNull: true
+        },
+        asistencias: {
+            type: 'number',
+            required: false,
+            allowNull: true
+        },
+        idRecinto: {
+            model: 'recinto'
+        },
+        idMilitante: {
+            model: 'militante'
+        },
+        modificado: {
+            type: 'boolean'
+        }
+    },
 
 };
-
