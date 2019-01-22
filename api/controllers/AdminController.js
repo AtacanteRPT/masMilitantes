@@ -9,6 +9,7 @@ module.exports = {
 
 
     principal: function(req, res) {
+
         res.view('pagesAdmin/principal')
     }
 
