@@ -22,7 +22,6 @@
     </h5>
 
 
-
     <!--<input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">-->
 
 
@@ -182,12 +181,12 @@
                 $.post("/militante/actualizarVoto", {
                         id: militante.id,
                         voto: $('#voto' + (index + 1)).prop('checked'),
-                        idMesa: <%= delegado.mesaDelegado.id %>,
+                        idMesa: <%= mesaDelegado.id %>,
                         votosSi: votosSi.length
 
                     },
                     function(data, status) {
-                        alert("Data: " + data + "\nStatus: " + status);
+                        // alert("Mensaje" + data);
                     });
                 console.log($('#voto' + (index + 1)).attr('checked', false))
 
