@@ -147,7 +147,7 @@ module.exports = {
                                         nombre: militante.nombre,
                                         cedula: militante.cedula,
                                         usuario: datoUsuario.username,
-                                        password: datoUsuario.passowrd
+                                        password: militante.id + militante.cedula,
 
                                     })
                                     sails.log("USUARIO ACTUALIZADO", conut++)
