@@ -4,7 +4,8 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-
+var stringify = require('csv-stringify');
+var fs = require('fs')
 var contador = 0;
 module.exports = {
 
@@ -104,8 +105,78 @@ module.exports = {
         res.send("actualizando Recinto Delegando")
     },
     actualizarVoto: function(req, res) {
+
+        sails.log("VOTO MIlitante", req.body)
         Militante.update(req.param('id'), { voto: req.param('voto') }).fetch().exec(function(err, datoMilitante) {
 
+            Mesa.update(req.param('idMesa'), { asistencias: req.param('votosSi') }).exec(function(err, datoMesa) {
+
+                res.send("Voto Actualizado")
+            })
         })
+    },
+    generarUsuarios: function(req, res) {
+
+        var conut = 0;
+        var listaUsuario = [{
+            paterno: 'PATERNO',
+            materno: 'MATERNO',
+            nombre: 'NOMBRES',
+            cedula: 'CEDULA',
+            usuario: 'USUARIO',
+            password: 'CONTRASEÑA - PASSWORD'
+        }]
+        Recinto.find().exec(function(err, datoRecintos) {
+
+
+            async.eachSeries(datoRecintos, function(recinto, cb) {
+                    sails.log("RECINTO", recinto)
+                    Militante.find({ idRecintoDelegado: recinto.id }).exec(function(err, datoMilitantes) {
+                        console.log("Actualizado Militante recinto Delegado")
+                        async.eachSeries(datoMilitantes, function(militante, cb2) {
+
+                                Usuario.create({
+                                    username: militante.cedula,
+                                    passowrd: militante.id + militante.cedula,
+                                    rol: 'delegado',
+                                    idMilitante: militante.id
+                                }).fetch().exec(function(err, datoUsuario) {
+                                    listaUsuario.push({
+                                        paterno: militante.paterno,
+                                        materno: militante.materno,
+                                        nombre: militante.nombre,
+                                        cedula: militante.cedula,
+                                        usuario: datoUsuario.username,
+                                        password: datoUsuario.passowrd
+
+                                    })
+                                    sails.log("USUARIO ACTUALIZADO", conut++)
+                                    cb2(null);
+                                })
+                            },
+                            function(error) {
+                                console.log("-------------------FINAL Lista Recinto -----------------------")
+                                cb(null);
+                            })
+                    })
+                },
+                function(error) {
+
+
+                    stringify(listaUsuario, function(err, output) {
+                        fs.writeFile("lista_Usuario_Delegados", output, 'utf8', function(err) {
+                            if (err) {
+                                console.log('Some error occured - file either not saved or corrupted file saved.');
+                            } else {
+                                console.log('It\'s saved!');
+                            }
+                        });
+                    });
+                    console.log("-------------------FINAL TODO -----------------------")
+
+                })
+
+        })
+        res.send("actualizando Usuarios Delegando")
     }
 };

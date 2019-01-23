@@ -29,6 +29,11 @@ module.exports = {
             required: false,
             allowNull: true
         },
+        asistencias: {
+            type: 'number',
+            required: false,
+            allowNull: true
+        },
         idRecinto: {
             model: 'recinto'
         },

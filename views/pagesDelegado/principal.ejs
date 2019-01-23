@@ -23,7 +23,7 @@
 
 
 
-    <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">
+    <!--<input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">-->
 
 
     <div id="militante"></div>
@@ -163,6 +163,8 @@
     <script>
         var auxMilitantes = <%- JSON.stringify(militantes) %>
         console.log(auxMilitantes)
+        var votosSi = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
+
 
         <% if(mesaDelegado.modificable){%>
 
@@ -179,7 +181,10 @@
                 console.log($('#voto' + (index + 1)).prop('checked'))
                 $.post("/militante/actualizarVoto", {
                         id: militante.id,
-                        voto: $('#voto' + (index + 1)).prop('checked')
+                        voto: $('#voto' + (index + 1)).prop('checked'),
+                        idMesa: <%= delegado.mesaDelegado.id %>,
+                        votosSi: votosSi.length
+
                     },
                     function(data, status) {
                         alert("Data: " + data + "\nStatus: " + status);
@@ -213,6 +218,7 @@
                     blancos: $('#inputVoto').val(),
                     nulos: $('#inputVoto2').val(),
                     asistencias: $('#inputVoto3').val(),
+                    votostrue: votosTrue.length,
                 },
                 function(data, status) {
                     console.log("ENTRA AQUI ???")

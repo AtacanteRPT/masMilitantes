@@ -25,10 +25,58 @@
         </div>
 
         <main role="main" class="col-12 col-md-10">
+            <br>
+            <div class="row">
+
+                <div class="col-6 col-md-6">
+                    <div class="card border-success mb-3">
+                        <div class="card-body ">
+                            <div class="card-header">Total Votos</div>
+                            <h5 class="card-title">Boca de Urna</h5>
+                            <h6 class="card-title">
+                                <% var totalBocaUrna =resultados.validos + resultados.blancos + resultados.nulos %>
+                                    <% var porcentajeValidos = ((resultados.validos)*100)/totalBocaUrna %>
+                                        <% var porcentajeNulos=((resultados.nulos)*100)/totalBocaUrna %>
+                                            <% var porcentajeBlancos=((resultados.blancos)*100)/totalBocaUrna %>
+                                                Válidos :
+                                                <%= resultados.validos%> -
+                                                    <%= porcentajeValidos%> %
+                                                        <br> Nulos :
+                                                        <%= resultados.nulos%> -
+                                                            <%= porcentajeNulos%> %
+                                                                <br> Blancos :
+                                                                <%= resultados.blancos%> -
+                                                                    <%= porcentajeBlancos%> %
+
+                            </h6>
+                            <h5 class="card-title">
+                                TOTAL :
+                                <%= totalBocaUrna%>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-6">
+                    <div class="card border-success mb-3">
+
+                        <div class="card-body ">
+                            <div class="card-header">Total En es Sistema</div>
+                            <h5 class="card-title">Nulos Boca de Urna</h5>
+                            <p class="card-title">
+                                <%= resultados.nulos%>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Dashboard</h1>
+
+
             </div>
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">

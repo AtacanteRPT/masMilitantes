@@ -10,7 +10,11 @@ module.exports = {
 
     principal: function(req, res) {
 
-
+        var resultados = {
+            validos: 0,
+            blancos: 0,
+            nulos: 0
+        };
         Circunscripcion.find().exec(function(err, datoCircunscripciones) {
             if (err) { return res.serverError(err); }
             sails.log("DatoCricunscripcion")
@@ -23,20 +27,54 @@ module.exports = {
                     sails.log("atoZonas")
 
                     Recinto.find().exec(function(err, datoRecintos) {
+
                         if (err) { return res.serverError(err); }
                         sails.log("DatosRecintos")
 
+                        Mesa.find().exec(function(err, datoMesas) {
+                            if (err) { return res.serverError(err); }
+                            async.each(datoMesas, function(mesa, cb) {
 
-                        res.view('pagesAdmin/principal', {
-                            circunscripciones: datoCircunscripciones,
-                            distritos: datoDistritos,
-                            zonas: datoZonas,
-                            recintos: datoRecintos
+
+                                resultados.validos = resultados.validos + mesa.asistenciasBocaUrna
+                                resultados.blancos = resultados.blancos + mesa.blancosBocaUrna
+                                resultados.nulos = resultados.nulos + mesa.nulosBocaUrna
+                                cb();
+
+                            }, function(error) {
+                                res.view('pagesAdmin/principal', {
+                                    circunscripciones: datoCircunscripciones,
+                                    distritos: datoDistritos,
+                                    zonas: datoZonas,
+                                    recintos: datoRecintos,
+                                    resultados: resultados
+                                })
+                            })
                         })
+
+
                     })
+
+
                 })
             })
         })
+    },
+
+    generarListaUsuario: function(req, res) {
+        var lista = [{
+            usuario: 'USUARIO',
+            password: 'CONTRASEÑA - PASSWORD'
+        }]
+        stringify(listaPrincipal, function(err, output) {
+            fs.writeFile("lista_Usuario_Delegados", output, 'utf8', function(err) {
+                if (err) {
+                    console.log('Some error occured - file either not saved or corrupted file saved.');
+                } else {
+                    console.log('It\'s saved!');
+                }
+            });
+        });
     }
 
 };
