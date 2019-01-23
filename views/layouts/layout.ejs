@@ -66,9 +66,15 @@
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=req.user.idMilitante.nombre%> <%=req.user.idMilitante.paterno%> <%=req.user.idMilitante.materno%></button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/recintoDelegado/principal">Militantes</a>
-                            <a class="dropdown-item" href="/auth/salir">Salir</a>
-                            <!--<a class="dropdown-item" href="#">Something else here</a>-->
+
+                            <%if(req.user.rol=='admin'){%>
+                                <a class="dropdown-item" href="/admin/principal">Panel</a>
+                                <%}else{%>
+                                    <a class="dropdown-item" href="/recintoDelegado/principal">Militantes</a>
+
+                                    <%}%>
+                                        <a class="dropdown-item" href="/auth/salir">Salir</a>
+                                        <!--<a class="dropdown-item" href="#">Something else here</a>-->
                         </div>
                     </div>
                     <%}%>
@@ -142,7 +148,7 @@
     -->
 
         <!--TEMPLATES-->
-        
+
         <!--TEMPLATES END-->
 
 
