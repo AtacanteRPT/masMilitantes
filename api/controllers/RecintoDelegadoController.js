@@ -10,16 +10,17 @@ module.exports = {
     principal: function(req, res) {
         sails.log("Usuario Maestro", req.user);
 
-        Militante.findOne(req.user.idMilitante).populate('idRecintoDelegado').exec((err, datoMilitanteDelegado) => {
+        Militante.findOne(req.user.idMilitante).populate('idRecintoDelegado').populate('idMesa').exec((err, datoMilitanteDelegado) => {
             if (err) { return res.serverError(err); }
             sails.log("Recindo del Delegado", datoMilitanteDelegado)
 
             Militante.find({ idRecinto: datoMilitanteDelegado.idRecintoDelegado.id, mesa: datoMilitanteDelegado.mesaDelegado }).exec(function(err, datoMilitantes) {
                 if (err) { return res.serverError(err); }
-
+                sails.log("delegado MESA")
                 res.view('pagesDelegado/principal', {
                     delegado: datoMilitanteDelegado,
-                    militantes: datoMilitantes
+                    militantes: datoMilitantes,
+                    mesaDelegado: datoMilitanteDelegado.idMesa
                 })
             })
 

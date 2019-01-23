@@ -6,84 +6,6 @@
 
 
 <div class="container">
-
-    <div class="row">
-        <div class="col-12 col-md-4">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-header" id="Total">Militantes Inscritos</div>
-                <div class="card-body">
-                    <h5 class="card-title">Número de militantes inscritos</h5>
-                    <p class="card-text" id="inscritos">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="card text-white bg-secondary mb-3">
-                <div class="card-header">Votos</div>
-                <div class="card-body">
-                    <h5 class="card-title"> Recinto :
-                        <%= delegado.recintoDelegado%>
-                    </h5>
-                    <h5 class="card-title">Votos en la Mesa :
-                        <%= delegado.mesaDelegado%>
-                    </h5>
-                    <p class="card-text" id="datoVoto1"></p>
-                    <p class="card-text" id="datoVoto2"></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <form>
-
-            </form>
-            <div class="card text-white bg-success mb-3">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Success card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <!--<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h5 class="card-title">Danger card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-    <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h5 class="card-title">Warning card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-    <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h5 class="card-title">Info card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-    <div class="card bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h5 class="card-title">Light card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h5 class="card-title">Dark card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>-->
     <h3>
         <%= delegado.paterno%>
             <%= delegado.materno%>
@@ -98,6 +20,126 @@
         Mesa a cargo:
         <%= delegado.mesaDelegado%>
     </h5>
+
+    <div class="row">
+
+        <div class="col-12 col-md-6">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-header">Votos Sistema</div>
+                <div class="card-body">
+                    <h5 class="card-title">Número de militantes inscritos</h5>
+                    <p class="card-text" id="inscritos">.</p>
+                    <h5 class="card-title"> Recinto :
+                        <%= delegado.recintoDelegado%>
+                    </h5>
+                    <h5 class="card-title">Votos en la Mesa :
+                        <%= delegado.mesaDelegado%>
+                    </h5>
+                    <p class="card-text" id="datoVoto1"></p>
+                    <p class="card-text" id="datoVoto2"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <% if(mesaDelegado.modificable){%>
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Resultados</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Resultados en Boca de Urna</h5>
+                        <p class="card-text">
+                            <form method="POST" action="/mesa/cambiarMesa">
+                                <input type="number" name="id" value="<%= mesaDelegado.id %>" hidden="true">
+                                <div class="form-group row">
+                                    <label for="inputVoto" class="col-sm-4 col-form-label col-form-label-sm">BLANCOS</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" required name="blancos" class="form-control form-control-sm" id="inputVoto" placeholder="blancos en Boca de urna">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputVoto2" class="col-sm-4 col-form-label col-form-label-sm">NULOS</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" required name="nulos" class="form-control form-control-sm" id="inputVoto2" placeholder="nulos en Boca de urna">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputVoto3" class="col-sm-4 col-form-label col-form-label-sm">VALIDOS</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" required name="asistencias" class="form-control form-control-sm" id="inputVoto3" placeholder="total votos en Boca de urna">
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning" role="alert">
+                                    Una vez que se envía los datos ya no son modificables.
+                                </div>
+                                <div class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#confirmacion">Guardar Datos</div>
+
+
+
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Enviar información de mesa</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Una vez enviado no se podrá modificar
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <input type="button" type="submit" id="enviarTodo" class="btn btn-primary" value="Confirmar"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal-->
+                </form>
+
+                <%}else {%>
+                    <div class="card text-white bg-info mb-3">
+                        <div class="card-header">Resultados</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Resultados en Boca de Urna</h5>
+                            <p class="card-text">
+                                <form method="POST" action="/mesa/cambiarMesa">
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">BLANCOS</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" disabled name="blancos" class="form-control form-control-sm" value="<%= mesaDelegado.blancosBocaUrna%>" id="colFormLabelSm" placeholder="blancos en Boca de urna">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm2" class="col-sm-4 col-form-label col-form-label-sm">NULOS</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" value="<%= mesaDelegado.nulosBocaUrna%>" disabled name="nulos" class="form-control form-control-sm" id="colFormLabelSm2" placeholder="nulos en Boca de urna">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="colFormLabelSm3" class="col-sm-4 col-form-label col-form-label-sm">TOTAL</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" value="<%= mesaDelegado.asistenciasBocaUrna%>" disabled name="asistencias" class="form-control form-control-sm" id="colFormLabelSm3" placeholder="votos Validos">
+                                        </div>
+                                    </div>
+                                    <input type="number" disabled name="id" value="<%= mesaDelegado.id %>" hidden="true">
+                                    <button disabled class="btn btn-danger btn-lg btn-block">Guardar Datos</button>
+
+                                </form>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <%}%>
+        </div>
+    </div>
+
+
 
     <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">
 
@@ -119,6 +161,8 @@
     <script>
         var auxMilitantes = <%- JSON.stringify(militantes) %>
         console.log(auxMilitantes)
+
+        <% if(mesaDelegado.modificable){%>
 
         auxMilitantes.forEach(function(militante, index) {
             $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
@@ -143,12 +187,36 @@
                 // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
             })
         }, this);
+        <%}else{%>
+        auxMilitantes.forEach(function(militante, index) {
+            $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                '<th>' + (index + 1) + '</th>' +
+                '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                '<th>' + militante.cedula + '</th>' +
+                '<th>' + militante.celular + '</th>' +
+                '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto" disabled class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                '</tr>')
+            $('#voto' + (index + 1)).attr('checked', militante.voto)
+        }, this);
+        <%}%>
 
         $('#inscritos').text('TOTAL:' + auxMilitantes.length);
         var votosTrue = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
         $('#datoVoto1').text('Asistencia: ' + votosTrue.length);
         $('#datoVoto2').text('Faltas: ' + (auxMilitantes.length - votosTrue.length));
 
+        $('#enviarTodo').click(function(event) {
+            $.post("/mesa/cambiarMesa", {
+                    id: <%= mesaDelegado.id%>,
+                    blancos: $('#inputVoto').val(),
+                    nulos: $('#inputVoto2').val(),
+                    asistencias: $('#inputVoto3').val(),
+                },
+                function(data, status) {
+                    console.log("ENTRA AQUI ???")
+                    window.location.href = "/recintoDelegado/principal";
+                });
+        })
 
         //$('#voto2').attr('checked', false)
 

@@ -48,6 +48,34 @@ module.exports = {
 
         })
         res.send("actualizando Recinto Delegando")
+    },
+    cambiarMesa: function(req, res) {
+        sails.log("req.body MESA:", req.body)
+
+        Mesa.findOne(req.param('id')).exec(function(err, mesa) {
+            if (err) { return res.serverError(err); }
+
+            sails.log("MESA ", mesa)
+            if (mesa.modificable) {
+
+                Mesa.update(req.param('id'), {
+                    blancosBocaUrna: req.param('blancos'),
+                    nulosBocaUrna: req.param('nulos'),
+                    asistenciasBocaUrna: req.param('asistencias'),
+                    modificable: false
+                }).exec(function(err, datoMesa) {
+                    if (err) { return res.serverError(err); }
+
+                    res.redirect('/recintoDelegado/principal')
+                })
+
+            } else {
+                res.redirect('/recintoDelegado/principal')
+
+            }
+        })
+
+
     }
 
 };
