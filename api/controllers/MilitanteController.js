@@ -137,7 +137,7 @@ module.exports = {
 
                                 Usuario.create({
                                     username: militante.cedula,
-                                    passowrd: militante.id + militante.cedula,
+                                    password: militante.id + militante.cedula,
                                     rol: 'delegado',
                                     idMilitante: militante.id
                                 }).fetch().exec(function(err, datoUsuario) {
@@ -148,7 +148,6 @@ module.exports = {
                                         cedula: militante.cedula,
                                         usuario: datoUsuario.username,
                                         password: militante.id + militante.cedula,
-
                                     })
                                     sails.log("USUARIO ACTUALIZADO", conut++)
                                     cb2(null);
