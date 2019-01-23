@@ -21,6 +21,26 @@
         <%= delegado.mesaDelegado%>
     </h5>
 
+
+
+    <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">
+
+
+    <div id="militante"></div>
+    <table class="table table-striped" id="tablaMilitantes">
+        <thead>
+            <tr>
+                <th scope="col">Nro</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Celular</th>
+                <th scope="col">VOTACIÓN</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
     <div class="row">
 
         <div class="col-12 col-md-6">
@@ -140,24 +160,6 @@
     </div>
 
 
-
-    <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Buscar por CI">
-
-
-    <div id="militante"></div>
-    <table class="table table-striped" id="tablaMilitantes">
-        <thead>
-            <tr>
-                <th scope="col">Nro</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Cedula</th>
-                <th scope="col">Celular</th>
-                <th scope="col">VOTACIÓN</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
     <script>
         var auxMilitantes = <%- JSON.stringify(militantes) %>
         console.log(auxMilitantes)
