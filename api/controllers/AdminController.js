@@ -13,7 +13,8 @@ module.exports = {
         var resultados = {
             validos: 0,
             blancos: 0,
-            nulos: 0
+            nulos: 0,
+            asistencias: 0
         };
         Circunscripcion.find().exec(function(err, datoCircunscripciones) {
             if (err) { return res.serverError(err); }
@@ -39,6 +40,7 @@ module.exports = {
                                 resultados.validos = resultados.validos + mesa.asistenciasBocaUrna
                                 resultados.blancos = resultados.blancos + mesa.blancosBocaUrna
                                 resultados.nulos = resultados.nulos + mesa.nulosBocaUrna
+                                resultados.asistencias = resultados.asistencias + mesa.asistencias
                                 cb();
 
                             }, function(error) {

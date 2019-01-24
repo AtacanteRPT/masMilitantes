@@ -29,117 +29,140 @@
     </div>
 
 
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <form id="buscarCedula" method="POST" action="/publico/buscarCedula">
+                    <div class="form-group">
 
-
-    <div class="row justify-content-md-center">
-        <div class="col-sm-2">
-        </div>
-        <div class="col-sm-8">
-            <form id="buscarCedula" method="POST" action="/militante/buscarCedula">
-                <div class="form-group">
-                    <label for="Documento de Identidad">Ducumento de Identidad</label>
-                    <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Introdusca su Documento de Identidad">
-                    <small id="ciayuda" class="form-text text-muted">Introdusca el documento de identidad del
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <label for="paterno">Apellido Paterno</label>
+                                <input type="text" name="paterno" class="form-control" id="paterno" aria-describedby="ciayuda" placeholder="Apellido Paterno">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="paterno">Apellido Materno</label>
+                                <input type="text" name="materno" class="form-control" id="materno" aria-describedby="ciayuda" placeholder="Apellido Materno">
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <label for="Documento de Identidad">Documento de Identidad</label>
+                                <input type="text" name="cedula" class="form-control" id="ci" aria-describedby="ciayuda" placeholder="Introdusca su Documento de Identidad">
+                                <small id="ciayuda" class="form-text text-muted">Introdusca el documento de identidad del
                             militante sin extencion</small>
-                </div>
+                            </div>
+                        </div>
 
-                <input type="submit" class="btn btn-dark btn-lg btn-block active" value="BUSCAR">
-            </form>
+
+                    </div>
+
+                    <input type="submit" class="btn btn-dark btn-lg btn-block active" value="BUSCAR">
+                </form>
+            </div>
+            <div class="col-sm-2">
+            </div>
+
+
         </div>
-        <div class="col-sm-2">
-        </div>
-
-
     </div>
 
+
+
     <br>
-    <% if(militante.length >0){%>
-        <div class="card text-white mb-3" style="background-color: #143a83;">
-            <div class="card-header">Datos Generales</div>
-            <div class="card-body ">
-                <h5 class="card-title">
-                    <%= militante[0].paterno %>
-                        <%= militante[0].materno %>
-                            <%= militante[0].nombre %>
-                </h5>
-                <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+    <div>
 
-                <table class="table table-dark">
-
-                    <tbody>
-                        <tr>
-                            <th>CEDULA</th>
-                            <td>
-                                <%= militante[0].cedula %>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th>RECINTO</th>
-                            <td>
-                                <%= militante[0].recinto %>
-                            </td>
-
-                        </tr>
-                        <tr>
-
-                            <th>MESA</th>
-                            <td>
-                                <%= militante[0].mesa %>
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <th>ZONA</th>
-                            <td>
-                                <%= militante[0].zona %>
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <th>DISTRITO</th>
-                            <td>
-                                <%= militante[0].distrito %>
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <th>CIRCUNSCRIPCION</th>
-                            <td>
-                                <%= militante[0].circunscripcion %>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h5>Delegado a cargo de:</h5>
-                <% if(militante[0].idDelegado.tipo!='NO'){%>
-                    <table class="table table-bordered">
-
-                        <tbody>
-                            <tr>
-                                <th>RECINTO</th>
-                                <td>
-                                    <%= militante[0].recintoDelegado %>
-                                </td>
-
-                            </tr>
-                            <tr>
-
-                                <th>MESA</th>
-                                <td>
-                                    <%= militante[0].mesaDelegado %>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                    <%}%>
-            </div>
+    </div>
+    <% if(mensaje.length>0){%>
+        <div class="alert alert-dark" role="alert">
+            <%= mensaje%>
         </div>
         <%}%>
+            <% if(militante.length >0){%>
+                <div class="card text-white mb-3" style="background-color: #143a83;">
+                    <div class="card-header">Datos Generales</div>
+                    <div class="card-body ">
+                        <h5 class="card-title">
+                            <%= militante[0].paterno %>
+                                <%= militante[0].materno %>
+                                    <%= militante[0].nombre %>
+                        </h5>
+                        <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
 
+                        <table class="table table-dark">
 
+                            <tbody>
+                                <tr>
+                                    <th>CEDULA</th>
+                                    <td>
+                                        <%= militante[0].cedula %>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th>RECINTO</th>
+                                    <td>
+                                        <%= militante[0].recinto %>
+                                    </td>
+
+                                </tr>
+                                <tr>
+
+                                    <th>MESA</th>
+                                    <td>
+                                        <%= militante[0].mesa %>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th>ZONA</th>
+                                    <td>
+                                        <%= militante[0].zona %>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th>DISTRITO</th>
+                                    <td>
+                                        <%= militante[0].distrito %>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <th>CIRCUNSCRIPCION</th>
+                                    <td>
+                                        <%= militante[0].circunscripcion %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h5>Delegado a cargo de:</h5>
+                        <% if(militante[0].idDelegado.tipo!='NO'){%>
+                            <table class="table table-bordered">
+
+                                <tbody>
+                                    <tr>
+                                        <th>RECINTO</th>
+                                        <td>
+                                            <%= militante[0].recintoDelegado %>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <th>MESA</th>
+                                        <td>
+                                            <%= militante[0].mesaDelegado %>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <%}%>
+                    </div>
+                </div>
+                <%}%>
 
 
 </main>

@@ -9,6 +9,7 @@ module.exports = {
 
     militantesPorDistritos: function(req, res) {
         var militantesDistrito = [];
+        var mesas = []
         if (req.param('id') != undefined) {
             Zona.find({ idDistrito: req.param('id') }).exec(function(err, datoZonas) {
                 if (err) { return res.serverError(err); }
@@ -26,7 +27,13 @@ module.exports = {
 
                                 militantesDistrito = militantesDistrito.concat(datoMilitantes);
                                 sails.log("TAMAÑO", militantesDistrito.length)
-                                cb2();
+
+                                Mesa.find({ idRecinto: recinto.id }).exec(function(err, datoMesas) {
+                                    mesas = mesas.concat(datoMesas)
+                                    cb2();
+                                })
+
+
                             });
 
                         }, function(error) {
@@ -35,22 +42,28 @@ module.exports = {
 
                     })
                 }, function(error) {
-                    res.json(militantesDistrito)
+                    res.json({
+                        militantesDistrito: militantesDistrito,
+                        mesas: []
+                    })
                 })
 
             })
         } else {
 
-            res.json(militantesDistrito)
+            res.json({
+                militantesDistrito: militantesDistrito,
+                mesas: []
+            })
         }
 
 
     },
 
     militantesPorZonas: function(req, res) {
-        var militantesZona = [];
+        var militantesDistrito = [];
+        var mesas = []
         if (req.param('id') != undefined) {
-
 
             Recinto.find({ idZona: req.param('id') }).exec(function(err, datoRecintos) {
                 if (err) { return res.serverError(err); }
@@ -61,45 +74,56 @@ module.exports = {
                         sails.log(recinto)
                         if (err) { return res.serverError(err); }
 
-                        militantesZona = militantesZona.concat(datoMilitantes);
-                        sails.log("TAMAÑO", militantesZona.length)
-                        cb2();
+                        militantesDistrito = militantesDistrito.concat(datoMilitantes);
+                        sails.log("TAMAÑO", militantesDistrito.length)
+                        Mesa.find({ idRecinto: recinto.id }).exec(function(err, datoMesas) {
+                            mesas = mesas.concat(datoMesas)
+                            cb2();
+                        })
+
                     });
 
                 }, function(error) {
-                    res.json(militantesZona)
+                    res.json({
+                        militantesDistrito: militantesDistrito,
+                        mesas: mesas
+                    })
                 })
 
             })
 
         } else {
 
-            res.json(militantesZona)
+            res.json(militantesDistrito)
         }
-
 
     },
     militantesPorRecintos: function(req, res) {
-        var militantesRecinto = [];
+        var militantesDistrito = [];
+        var mesas = []
         if (req.param('id') != undefined) {
 
 
-
             Militante.find({ idRecinto: req.param('id') }).exec(function(err, datoMilitantes) {
-
                 if (err) { return res.serverError(err); }
+                // sails.log(recinto)
 
-                res.json(datoMilitantes)
-            });
-
-
-
+                Mesa.find({ idRecinto: req.param('id') }).exec(function(err, datoMesas) {
+                    mesas = mesas.concat(datoMesas)
+                    res.json({
+                        militantesDistrito: datoMilitantes,
+                        mesas: mesas
+                    })
+                })
+            })
 
         } else {
 
-            res.json(militantesRecinto)
+            res.json({
+                militantesDistrito: [],
+                mesas: []
+            })
         }
-
 
     }
 

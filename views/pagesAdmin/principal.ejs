@@ -11,7 +11,7 @@
             <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
 
-                <a class="nav-link active" disabled id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Circunscripción</a>
+                <a class="nav-link active" disabled id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">General</a>
 
                 <a class="nav-link " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Distrito</a>
 
@@ -60,12 +60,14 @@
                     <div class="card border-success mb-3">
 
                         <div class="card-body ">
-                            <div class="card-header">Total En es Sistema</div>
-                            <h5 class="card-title">Nulos Boca de Urna</h5>
-                            <p class="card-title">
-                                <%= resultados.nulos%>
-
-                            </p>
+                            <div class="card-header">Datos en Sistema</div>
+                            <h5 class="card-title">Asistencias en Total</h5>
+                            <h6 class="card-title">
+                                Votos Marcado :
+                                <%= resultados.asistencias%>
+                                    Faltantes :
+                                    <%= (84800-resultados.asistencias)%>
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -132,6 +134,21 @@
                 </div>
             </div>
 
+
+            <div class="row">
+                <div class="col-6">
+                    <div id="datosFiltro">
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div id="datosFiltro2">
+
+                    </div>
+                </div>
+            </div>
+
+
             <h4>Lista Militantes</h4>
             <div class="table-responsive">
                 <table class="table table-striped table-sm" id="tablaMilitantesDistrito">
@@ -150,15 +167,21 @@
                 </table>
             </div>
         </main>
+
     </div>
     <script>
         $("#spinner").hide();
         $('#selectDistritos').change(function(event) {
+            $('#datosFiltro').empty()
+            $('#datosFiltro2').empty()
+
             var dato = $('#selectDistritos').val()
             var selectDato = dato.split(' ')
             console.log(selectDato);
             $("#spinner").show();
-            $.get("/distrito/militantesPorDistritos/" + selectDato[0], function(datoDistritos, status) {
+            $.get("/distrito/militantesPorDistritos/" + selectDato[0], function(response, status) {
+                var datoDistritos = response.militantesDistrito
+                var datoMesas = response.mesas
                 $('#tablaMilitantesDistrito > tbody').empty();
                 $("#spinner").hide();
                 datoDistritos.forEach(function(militante, index) {
@@ -172,18 +195,73 @@
                     $('#voto' + (index + 1)).attr('checked', militante.voto)
 
                 }, this);
+                var votosTrue = datoDistritos.filter(auxVoto => auxVoto.voto == true);
+                $('#datosFiltro').append(
+                    '<div class="card border-success mb-3">' +
+
+                    ' <div class="card-body ">' +
+                    '<div class="card-header">Datos en sistema del Recinto: ' + selectDato[1] + '</div>' +
+                    '<h5 class="card-title">Asistencias en Total</h5>' +
+                    '<h6 class="card-title">' +
+                    'Marcados :' + votosTrue.length +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Faltas :' + (datoDistritos.length - votosTrue.length) +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Total :' + datoDistritos.length +
+                    '</h6>' +
+                    '</div>' +
+                    '</div>'
+                )
+                var resultadosMesas = {
+                    blancos: 0,
+                    nulos: 0,
+                    validos: 0
+                }
+                datoMesas.forEach(function(mesa) {
+                    resultadosMesas.blancos = resultadosMesas.blancos + mesa.blancosBocaUrna
+                    resultadosMesas.nulos = resultadosMesas.nulos + mesa.nulosBocaUrna
+                    resultadosMesas.validos = resultadosMesas.validos + mesa.asistenciasBocaUrna
+                }, this);
+                $('#datosFiltro2').append(
+                    '<div class="card border-success mb-3">' +
+
+                    ' <div class="card-body ">' +
+                    '<div class="card-header">Datos Boca de Urna en el recinto: ' + selectDato[1] + '</div>' +
+                    '<h6 class="card-title">' +
+                    'Blancos :' + resultadosMesas.blancos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Nulos :' + resultadosMesas.nulos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'EVO :' + resultadosMesas.validos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'TOTAL :' + (resultadosMesas.validos + resultadosMesas.nulos + resultadosMesas.blancos) +
+                    '</h6>' +
+                    '</div>' +
+                    '</div>'
+                )
+
             });
         });
         $("#spinner2").hide();
         $('#selectZonas').change(function(event) {
+            $('#datosFiltro').empty()
+            $('#datosFiltro2').empty()
+
             var dato = $('#selectZonas').val()
             var selectDato = dato.split(' ')
             console.log(selectDato);
             $("#spinner2").show();
-            $.get("/distrito/militantesPorZonas/" + selectDato[0], function(datoDistritos, status) {
+            $.get("/distrito/militantesPorZonas/" + selectDato[0], function(response, status) {
+                var datoZonas = response.militantesDistrito
+                var datoMesas = response.mesas
                 $('#tablaMilitantesDistrito > tbody').empty();
                 $("#spinner2").hide();
-                datoDistritos.forEach(function(militante, index) {
+                datoZonas.forEach(function(militante, index) {
                     $('#tablaMilitantesDistrito > tbody').append('<tr id="tr' + (index + 1) + '">' +
                         '<th>' + (index + 1) + '</th>' +
                         '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
@@ -194,15 +272,71 @@
                     $('#voto' + (index + 1)).attr('checked', militante.voto)
 
                 }, this);
+                var votosTrue = datoZonas.filter(auxVoto => auxVoto.voto == true);
+                $('#datosFiltro').append(
+                    '<div class="card border-success mb-3">' +
+
+                    ' <div class="card-body ">' +
+                    '<div class="card-header">Datos en sistema del Recinto: ' + selectDato[1] + '</div>' +
+                    '<h5 class="card-title">Asistencias en Total</h5>' +
+                    '<h6 class="card-title">' +
+                    'Marcados :' + votosTrue.length +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Faltas :' + (datoZonas.length - votosTrue.length) +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Total :' + datoZonas.length +
+                    '</h6>' +
+                    '</div>' +
+                    '</div>'
+                )
+                var resultadosMesas = {
+                    blancos: 0,
+                    nulos: 0,
+                    validos: 0
+                }
+                datoMesas.forEach(function(mesa) {
+                    resultadosMesas.blancos = resultadosMesas.blancos + mesa.blancosBocaUrna
+                    resultadosMesas.nulos = resultadosMesas.nulos + mesa.nulosBocaUrna
+                    resultadosMesas.validos = resultadosMesas.validos + mesa.asistenciasBocaUrna
+                }, this);
+                $('#datosFiltro2').append(
+                    '<div class="card border-success mb-3">' +
+
+                    ' <div class="card-body ">' +
+                    '<div class="card-header">Datos Boca de Urna en el recinto: ' + selectDato[1] + '</div>' +
+                    '<h6 class="card-title">' +
+                    'Blancos :' + resultadosMesas.blancos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Nulos :' + resultadosMesas.nulos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'EVO :' + resultadosMesas.validos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'TOTAL :' + (resultadosMesas.validos + resultadosMesas.nulos + resultadosMesas.blancos) +
+                    '</h6>' +
+                    '</div>' +
+                    '</div>'
+                )
+
             });
         });
+
+
         $("#spinner3").hide();
         $('#selectRecinto').change(function(event) {
+            $('#datosFiltro').empty()
+            $('#datosFiltro2').empty()
             var dato = $('#selectRecinto').val()
             var selectDato = dato.split(' ')
             console.log(selectDato);
             $("#spinner3").show();
-            $.get("/distrito/militantesPorRecintos/" + selectDato[0], function(datoRecintos, status) {
+            $.get("/distrito/militantesPorRecintos/" + selectDato[0], function(response, status) {
+                var datoRecintos = response.militantesDistrito
+                var datoMesas = response.mesas
                 $('#tablaMilitantesDistrito > tbody').empty();
                 $("#spinner3").hide();
                 datoRecintos.forEach(function(militante, index) {
@@ -216,6 +350,56 @@
                     $('#voto' + (index + 1)).attr('checked', militante.voto)
 
                 }, this);
+                var votosTrue = datoRecintos.filter(auxVoto => auxVoto.voto == true);
+                $('#datosFiltro').append(
+                    '<div class="card border-success mb-3">' +
+
+                    ' <div class="card-body ">' +
+                    '<div class="card-header">Datos en sistema del Recinto: ' + selectDato[1] + '</div>' +
+                    '<h5 class="card-title">Asistencias en Total</h5>' +
+                    '<h6 class="card-title">' +
+                    'Marcados :' + votosTrue.length +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Faltas :' + (datoRecintos.length - votosTrue.length) +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Total :' + datoRecintos.length +
+                    '</h6>' +
+                    '</div>' +
+                    '</div>'
+                )
+                var resultadosMesas = {
+                    blancos: 0,
+                    nulos: 0,
+                    validos: 0
+                }
+                datoMesas.forEach(function(mesa) {
+                    resultadosMesas.blancos = resultadosMesas.blancos + mesa.blancosBocaUrna
+                    resultadosMesas.nulos = resultadosMesas.nulos + mesa.nulosBocaUrna
+                    resultadosMesas.validos = resultadosMesas.validos + mesa.asistenciasBocaUrna
+                }, this);
+                $('#datosFiltro2').append(
+                    '<div class="card border-success mb-3">' +
+
+                    ' <div class="card-body ">' +
+                    '<div class="card-header">Datos Boca de Urna en el recinto: ' + selectDato[1] + '</div>' +
+                    '<h6 class="card-title">' +
+                    'Blancos :' + resultadosMesas.blancos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'Nulos :' + resultadosMesas.nulos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'EVO :' + resultadosMesas.validos +
+                    '</h6>' +
+                    '<h6 class="card-title">' +
+                    'TOTAL :' + (resultadosMesas.validos + resultadosMesas.nulos + resultadosMesas.blancos) +
+                    '</h6>' +
+                    '</div>' +
+                    '</div>'
+                )
+
             });
         });
     </script>

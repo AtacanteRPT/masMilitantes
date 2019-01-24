@@ -162,7 +162,6 @@
     <script>
         var auxMilitantes = <%- JSON.stringify(militantes) %>
         console.log(auxMilitantes)
-        var votosSi = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
 
 
         <% if(mesaDelegado.modificable){%>
@@ -181,8 +180,7 @@
                 $.post("/militante/actualizarVoto", {
                         id: militante.id,
                         voto: $('#voto' + (index + 1)).prop('checked'),
-                        idMesa: <%= mesaDelegado.id %>,
-                        votosSi: votosSi.length
+                        idMesa: <%= mesaDelegado.id %>
 
                     },
                     function(data, status) {
@@ -193,6 +191,19 @@
                 // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
             })
         }, this);
+
+        $('#enviarTodo').click(function(event) {
+            $.post("/mesa/cambiarMesa", {
+                    id: <%= mesaDelegado.id%>,
+                    blancos: $('#inputVoto').val(),
+                    nulos: $('#inputVoto2').val(),
+                    asistencias: $('#inputVoto3').val()
+                },
+                function(data, status) {
+                    console.log("ENTRA AQUI ???")
+                    window.location.href = "/recintoDelegado/principal";
+                });
+        })
         <%}else{%>
         auxMilitantes.forEach(function(militante, index) {
             $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
@@ -211,19 +222,7 @@
         $('#datoVoto1').text('Asistencia: ' + votosTrue.length);
         $('#datoVoto2').text('Faltas: ' + (auxMilitantes.length - votosTrue.length));
 
-        $('#enviarTodo').click(function(event) {
-            $.post("/mesa/cambiarMesa", {
-                    id: <%= mesaDelegado.id%>,
-                    blancos: $('#inputVoto').val(),
-                    nulos: $('#inputVoto2').val(),
-                    asistencias: $('#inputVoto3').val(),
-                    votostrue: votosTrue.length,
-                },
-                function(data, status) {
-                    console.log("ENTRA AQUI ???")
-                    window.location.href = "/recintoDelegado/principal";
-                });
-        })
+
 
         //$('#voto2').attr('checked', false)
 

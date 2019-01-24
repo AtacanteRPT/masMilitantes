@@ -11,19 +11,30 @@ module.exports = {
 
     buscarCedula: function(req, res) {
 
-        Militante.find({ cedula: req.param('cedula') }).populate('idDelegado').exec(function(err, datoMilitante) {
+        Militante.find({ cedula: req.param('cedula'), paterno: req.param('paterno'), materno: req.param('materno') }).populate('idDelegado').exec(function(err, datoMilitante) {
             if (err) { return res.serverError(err); }
             sails.log("militante buscado", datoMilitante[0])
-            return res.view('pages/homepage', {
-                militante: datoMilitante
-            });
+
+            if (datoMilitante.length > 0) {
+                return res.view('pages/homepage', {
+                    militante: datoMilitante,
+                    mensaje: ""
+                });
+            } else {
+                return res.view('pages/homepage', {
+                    militante: datoMilitante,
+                    mensaje: "No es militante"
+                });
+            }
+
 
         })
     },
     principal: function(req, res) {
 
         return res.view('pages/homepage', {
-            militante: []
+            militante: [],
+            mensaje: ""
         });
     },
 
@@ -109,10 +120,19 @@ module.exports = {
         sails.log("VOTO MIlitante", req.body)
         Militante.update(req.param('id'), { voto: req.param('voto') }).fetch().exec(function(err, datoMilitante) {
 
-            Mesa.update(req.param('idMesa'), { asistencias: req.param('votosSi') }).exec(function(err, datoMesa) {
+            Mesa.findOne(req.param('idMesa')).exec(function(err, datoMesa) {
+                var votoSuma = 1;
+                if (req.param('voto') == 'true') {
+                    votoSuma = 1;
+                } else {
+                    votoSuma = -1;
+                }
+                Mesa.update(req.param('idMesa'), { asistencias: (datoMesa.asistencias + votoSuma) }).exec(function(err, datoMesa) {
 
-                res.send("Voto Actualizado")
+                    res.send("Voto Actualizado")
+                })
             })
+
         })
     },
     generarUsuarios: function(req, res) {
