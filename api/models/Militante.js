@@ -33,10 +33,6 @@ module.exports = {
             model: 'recinto',
         },
 
-
-
-
-
         institucion: {
             type: 'string'
         },
@@ -59,6 +55,9 @@ module.exports = {
             type: 'string'
         },
         circunscripcion: {
+            type: 'string'
+        },
+        direccion: {
             type: 'string'
         }
 
