@@ -17,13 +17,13 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
-    MilitanteController: {
-        '*': false,
-        'actualizarVoto': ['AccesoDelegados']
-    },
-    PublicoController: {
-        '*': true
-    }
+    // MilitanteController: {
+    //     '*': false,
+    //     'actualizarVoto': ['AccesoDelegados']
+    // },
+    // PublicoController: {
+    //     '*': true
+    // }
 
     // '*': true,
 };
