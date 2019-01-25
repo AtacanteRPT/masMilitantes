@@ -35,19 +35,21 @@ async.eachSeries(files, function(file, callback) {
             // personaMilitante.nombre = militante.NOMBRES;
             // personaMilitante.paterno = militante.PATERNO;
             // personaMilitante.materno = militante.MATERNO;
+
+
             personaMilitante.cedula = militante['DOCUMENTO IDENTIDAD'];
             personaMilitante.direccion = militante.DIRECCION;
             personaMilitante.celular = militante.CONTACTO
+            personaMilitante.circunscripcion = militante.CIRCUNSCRIPCION
 
 
 
             console.log("Militante", militante);
 
 
-
             rest.postJson('http://localhost:1337/admin/actualizarDireccion', personaMilitante).on('complete', function(data2, response2) {
                 // handle response
-                console.log('PERSONA CREADA')
+
                 console.log("contador", contador++)
                 cb(null);
 

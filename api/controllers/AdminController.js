@@ -81,7 +81,11 @@ module.exports = {
 
     actualizarDireccion: function(req, res) {
         var contador = 0;
-        Militante.update({ cedula: req.param('cedula') }, { direccion: req.param('direccion'), celular: req.param('celular') }).exec(function(err, datoMIlitat) {
+        Militante.update({ cedula: req.param('cedula') }, {
+            direccion: req.param('direccion'),
+            celular: req.param('celular'),
+            circunscripcion: req.param('circunscripcion')
+        }).exec(function(err, datoMIlitat) {
             sails.log('Se actualizo militante', contador++)
             res.send("todo posi")
         })
