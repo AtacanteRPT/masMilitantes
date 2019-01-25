@@ -144,11 +144,26 @@
                             </tbody>
                         </table>
 
-                        <h5>Delegado a cargo de:</h5>
                         <% if(militante[0].idDelegado.tipo!='NO'){%>
+                            <h5>Delegado
+                                <%= tipoDelegado%> a cargo de:</h5>
                             <table class="table table-bordered">
 
                                 <tbody>
+                                    <tr>
+                                        <th>DISTRITO</th>
+                                        <td>
+                                            <%= distritoDelegado %>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>ZONA</th>
+                                        <td>
+                                            <%= zonaDelegado%>
+                                        </td>
+
+                                    </tr>
                                     <tr>
                                         <th>RECINTO</th>
                                         <td>
