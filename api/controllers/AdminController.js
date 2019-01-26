@@ -89,6 +89,17 @@ module.exports = {
             sails.log('Se actualizo militante', contador++)
             res.send("todo posi")
         })
+    },
+
+    actualizarZona: function(req, res) {
+
+        var cedula = req.param('cedula')
+        var materno = req.param('materno')
+        Militante.update({ cedula: cedula, materno: materno }, {
+            idRecinto: 177
+        }).exec(function(err, datoMilitante) {
+            res.send('MILITANTE ACTUALIZADO ZONA')
+        });
     }
 
 };
