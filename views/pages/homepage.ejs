@@ -187,26 +187,35 @@
                                             <%= militante[0].mesaDelegado %>
                                         </td>
                                     </tr>
-                                    <tr>
 
-                                        <th> Delegado
-                                            <%= otroDelegado.idDelegado.tipo%> del Recinto
-                                        </th>
-                                        <td>
-                                            <%= otroDelegado.paterno %>
-                                                <%= otroDelegado.materno %>
-                                                    <%= otroDelegado.nombre %>
-                                        </td>
-
-                                        <td>
-                                            <% var celular2 =  otroDelegado.celular.split(' ') %>
-                                                Celular :
-                                                <%= celular2[0] %>
-                                        </td>
-
-                                    </tr>
 
                                 </tbody>
+                            </table>
+                            <h5> Delegado
+                                <%= otroDelegado.idDelegado.tipo%> del Recinto
+                            </h5>
+                            <table class="table table-bordered">
+
+                                <tr>
+
+                                    <td>
+                                        Nombre
+                                    </td>
+                                    <td>
+                                        <%= otroDelegado.paterno %>
+                                            <%= otroDelegado.materno %>
+                                                <%= otroDelegado.nombre %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Celular</td>
+                                    <td>
+                                        <% var celular2 =  otroDelegado.celular.split(' ') %>
+                                            Celular :
+                                            <%= celular2[0] %>
+                                    </td>
+
+                                </tr>
                             </table>
                             <%}else{%>
                                 <h5> Usted no es Delegado</h5>
