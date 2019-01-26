@@ -36,23 +36,30 @@ module.exports = {
                         Zona.findOne(datoRecinto.idZona.id).populate('idDistrito').exec(function(err, datoZona) {
                             if (err) { return res.serverError(err); }
 
-                            return res.view('pages/homepage', {
-                                zonaDelegado: datoZona.nombre,
-                                distritoDelegado: datoZona.idDistrito.nombre,
-                                tipoDelegado: datoMilitante[0].idDelegado.tipo,
-                                militante: datoMilitante,
-                                mensaje: ""
-                            });
+                            Militante.find({ idRecintoDelegado: datoRecinto.id, mesaDelegado: datoMilitante[0].mesaDelegado }).populate('idDelegado').exec(function(err, datoMilitanteOtro) {
+                                if (err) { return res.serverError(err); }
+                                var auxDelegados = datoMilitanteOtro.filter(dato => dato.id != datoMilitante[0].id)
+                                console.log('OTRO DELEGADO', auxDelegados)
+                                return res.view('pages/homepage', {
+                                    zonaDelegado: datoZona.nombre,
+                                    distritoDelegado: datoZona.idDistrito.nombre,
+                                    tipoDelegado: datoMilitante[0].idDelegado.tipo,
+                                    militante: datoMilitante,
+                                    mensaje: "",
+                                    otroDelegado: auxDelegados[0]
+                                });
+                            })
                         })
                     })
                 } else {
-                console.log("++++++++++++++NO ES DELEGADO+++++++++++++")
+                    console.log("++++++++++++++NO ES DELEGADO+++++++++++++")
                     return res.view('pages/homepage', {
                         zonaDelegado: '',
                         distritoDelegado: '',
                         tipoDelegado: '',
                         militante: datoMilitante,
-                        mensaje: ""
+                        mensaje: "",
+                        otroDelegado: {}
                     });
                 }
             } else {
@@ -61,7 +68,8 @@ module.exports = {
                     distritoDelegado: '',
                     tipoDelegado: '',
                     militante: datoMilitante,
-                    mensaje: "No es militante"
+                    mensaje: "No es militante",
+                    otroDelegado: {}
                 });
             }
 

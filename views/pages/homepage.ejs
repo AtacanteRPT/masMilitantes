@@ -146,8 +146,8 @@
 
                                     <th>CELULAR</th>
                                     <td>
-                                            <% var celular =  militante[0].celular.split(' ') %>
-                                        <%= celular[0] %>
+                                        <% var celular =  militante[0].celular.split(' ') %>
+                                            <%= celular[0] %>
                                     </td>
                                 </tr>
                             </tbody>
@@ -187,11 +187,29 @@
                                             <%= militante[0].mesaDelegado %>
                                         </td>
                                     </tr>
+                                    <tr>
+
+                                        <th> Delegado :
+                                            <%= otroDelegado.idDelegado.tipo%>
+                                        </th>
+                                        <td>
+                                            <%= otroDelegado.paterno %>
+                                                <%= otroDelegado.materno %>
+                                                    <%= otroDelegado.nombre %>
+                                        </td>
+
+                                        <td>
+                                            <% var celular2 =  otroDelegado.celular.split(' ') %>
+                                                Celular :
+                                                <%= celular2[0] %>
+                                        </td>
+
+                                    </tr>
 
                                 </tbody>
                             </table>
                             <%}else{%>
-                                <h5>    Usted no es Delegado</h5>
+                                <h5> Usted no es Delegado</h5>
                                 <%}%>
                     </div>
                 </div>
