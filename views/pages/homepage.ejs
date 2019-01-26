@@ -142,22 +142,30 @@
                                         <%= militante[0].direccion %>
                                     </td>
                                 </tr>
+                                <tr>
+
+                                    <th>CELULAR</th>
+                                    <td>
+                                            <% var celular =  militante[0].celular.split(' ') %>
+                                        <%= celular[0] %>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
-                        <% if(militante[0].idDelegado.tipo!='NO'){%>
+                        <% if(militante[0].idDelegado.tipo!='No'){%>
                             <h5>Delegado
                                 <%= tipoDelegado%> a cargo de:</h5>
                             <table class="table table-bordered">
 
                                 <tbody>
-                                    <tr>
+                                    <!-- <tr>
                                         <th>DISTRITO</th>
                                         <td>
                                             <%= distritoDelegado %>
                                         </td>
 
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <th>ZONA</th>
                                         <td>
@@ -182,7 +190,9 @@
 
                                 </tbody>
                             </table>
-                            <%}%>
+                            <%}else{%>
+                                <h5>    Usted no es Delegado</h5>
+                                <%}%>
                     </div>
                 </div>
                 <%}%>

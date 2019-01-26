@@ -8,8 +8,8 @@
 <div class="container">
     <h3>
         <%= delegado.paterno%>
-            <%= delegado.materno%>
-                <%= delegado.nombre%>
+        <%= delegado.materno%>
+        <%= delegado.nombre%>
     </h3>
     <h5>
         Recinto a cargo:
@@ -61,172 +61,203 @@
         </div>
         <div class="col-12 col-md-6">
             <% if(mesaDelegado.modificable){%>
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-header">Resultados</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Resultados en Boca de Urna</h5>
-                        <p class="card-text">
-                            <form method="POST" action="/mesa/cambiarMesa">
-                                <input type="number" name="id" value="<%= mesaDelegado.id %>" hidden="true">
-                                <div class="form-group row">
-                                    <label for="inputVoto" class="col-sm-4 col-form-label col-form-label-sm">BLANCOS</label>
-                                    <div class="col-sm-8">
-                                        <input type="number" required name="blancos" class="form-control form-control-sm" id="inputVoto" placeholder="blancos en Boca de urna">
-                                    </div>
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Resultados</div>
+                <div class="card-body" id='inputsBoca'>
+                    <h5 class="card-title">Resultados en Boca de Urna</h5>
+                    <p class="card-text">
+                            <input type="number" name="id" value="<%= mesaDelegado.id %>" hidden="true">
+                            <div class="form-group row">
+                                <label for="inputVoto" class="col-sm-4 col-form-label col-form-label-sm">BLANCOS</label>
+                                <div class="col-sm-8">
+                                    <input type="number" value="0" required name="blancos" class="form-control form-control-sm"
+                                        id="inputVoto" placeholder="blancos en Boca de urna">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="inputVoto2" class="col-sm-4 col-form-label col-form-label-sm">NULOS</label>
-                                    <div class="col-sm-8">
-                                        <input type="number" required name="nulos" class="form-control form-control-sm" id="inputVoto2" placeholder="nulos en Boca de urna">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputVoto2"  class="col-sm-4 col-form-label col-form-label-sm">NULOS</label>
+                                <div class="col-sm-8">
+                                    <input type="number" value="0" required name="nulos" class="form-control form-control-sm" id="inputVoto2"
+                                        placeholder="nulos en Boca de urna">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="inputVoto3" class="col-sm-4 col-form-label col-form-label-sm">EVO</label>
-                                    <div class="col-sm-8">
-                                        <input type="number" required name="asistencias" class="form-control form-control-sm" id="inputVoto3" placeholder="total votos en Boca de urna">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputVoto3" class="col-sm-4 col-form-label col-form-label-sm">BINOMIO</label>
+                                <div class="col-sm-8">
+                                    <input type="number" value="0" required name="asistencias" class="form-control form-control-sm"
+                                        id="inputVoto3" placeholder="total votos en Boca de urna">
                                 </div>
-                                <div class="alert alert-warning" role="alert">
-                                    Una vez que se envía los datos ya no son modificables.
-                                </div>
-                                <div class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#confirmacion">Guardar Datos</div>
+                            </div>
+                            <div class="alert alert-warning" role="alert">
+                                Una vez que se envía los datos ya no son modificables.
+                            </div>
+                            <button class="btn btn-danger btn-lg btn-block" disabled id='btnGuardar' data-toggle="modal" data-target="#confirmacion">Guardar
+                                Datos</button>
 
 
 
-                        </p>
-                    </div>
+                    </p>
                 </div>
+            </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Enviar información de mesa</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Una vez enviado no se podrá modificar
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <input type="button" type="submit" id="enviarTodo" class="btn btn-primary" value="Confirmar"></input>
-                            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Enviar información de mesa</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Una vez enviado no se podrá modificar
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <input type="button" type="submit" id="enviarTodo" class="btn btn-primary" value="Confirmar"></input>
                         </div>
                     </div>
                 </div>
-                <!--end modal-->
-                </form>
+            </div>
+            <!--end modal-->
 
-                <%}else {%>
-                    <div class="card text-white bg-info mb-3">
-                        <div class="card-header">Resultados</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Resultados en Boca de Urna</h5>
-                            <p class="card-text">
-                                <form method="POST" action="/mesa/cambiarMesa">
-                                    <div class="form-group row">
-                                        <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">BLANCOS</label>
-                                        <div class="col-sm-8">
-                                            <input type="number" disabled name="blancos" class="form-control form-control-sm" value="<%= mesaDelegado.blancosBocaUrna%>" id="colFormLabelSm" placeholder="blancos en Boca de urna">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="colFormLabelSm2" class="col-sm-4 col-form-label col-form-label-sm">NULOS</label>
-                                        <div class="col-sm-8">
-                                            <input type="number" value="<%= mesaDelegado.nulosBocaUrna%>" disabled name="nulos" class="form-control form-control-sm" id="colFormLabelSm2" placeholder="nulos en Boca de urna">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="colFormLabelSm3" class="col-sm-4 col-form-label col-form-label-sm">EVO</label>
-                                        <div class="col-sm-8">
-                                            <input type="number" value="<%= mesaDelegado.asistenciasBocaUrna%>" disabled name="asistencias" class="form-control form-control-sm" id="colFormLabelSm3" placeholder="votos Validos">
-                                        </div>
-                                    </div>
-                                    <input type="number" disabled name="id" value="<%= mesaDelegado.id %>" hidden="true">
-                                    <button disabled class="btn btn-danger btn-lg btn-block">Guardar Datos</button>
-
-                                </form>
-                            </p>
+            <%}else {%>
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Resultados</div>
+                <div class="card-body">
+                    <h5 class="card-title">Resultados en Boca de Urna</h5>
+                    <p class="card-text">
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">BLANCOS</label>
+                            <div class="col-sm-8">
+                                <input type="number" disabled name="blancos" class="form-control form-control-sm" value="<%= mesaDelegado.blancosBocaUrna%>"
+                                    id="colFormLabelSm" placeholder="blancos en Boca de urna">
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group row">
+                            <label for="colFormLabelSm2" class="col-sm-4 col-form-label col-form-label-sm">NULOS</label>
+                            <div class="col-sm-8">
+                                <input type="number" value="<%= mesaDelegado.nulosBocaUrna%>" disabled name="nulos"
+                                    class="form-control form-control-sm" id="colFormLabelSm2" placeholder="nulos en Boca de urna">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="colFormLabelSm3" class="col-sm-4 col-form-label col-form-label-sm">BINOMIO</label>
+                            <div class="col-sm-8">
+                                <input type="number" value="<%= mesaDelegado.asistenciasBocaUrna%>" disabled name="asistencias"
+                                    class="form-control form-control-sm" id="colFormLabelSm3" placeholder="votos Validos">
+                            </div>
+                        </div>
+                        <input type="number" disabled name="id" value="<%= mesaDelegado.id %>" hidden="true">
+                        <button disabled class="btn btn-danger btn-lg btn-block">Guardar Datos</button>
+
+                    </p>
+                </div>
+            </div>
 
 
-                    <%}%>
+            <%}%>
         </div>
     </div>
 
 
     <script>
         var auxMilitantes = <%- JSON.stringify(militantes) %>
-        console.log(auxMilitantes)
+            console.log(auxMilitantes)
 
+        var votosTrue2 = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
+        var auxAsistencias = votosTrue2.length
 
-        <% if(mesaDelegado.modificable){%>
+            <% if (mesaDelegado.modificable) {%>
 
-        auxMilitantes.forEach(function(militante, index) {
-            $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
-                '<th>' + (index + 1) + '</th>' +
-                '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
-                '<th>' + militante.cedula + '</th>' +
-                '<th>' + militante.celular + '</th>' +
-                '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
-                '</tr>')
-            $('#voto' + (index + 1)).attr('checked', militante.voto)
-            $('#voto' + (index + 1)).click(function() {
-                console.log($('#voto' + (index + 1)).prop('checked'))
-                $.post("/militante/actualizarVoto", {
-                        id: militante.id,
-                        voto: $('#voto' + (index + 1)).prop('checked'),
-                        idMesa: <%= mesaDelegado.id %>
+                auxMilitantes.forEach(function (militante, index) {
+                    $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                        '<th>' + (index + 1) + '</th>' +
+                        '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                        '<th>' + militante.cedula + '</th>' +
+                        '<th>' + militante.celular + '</th>' +
+                        '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto"  class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                        '</tr>')
+                    $('#voto' + (index + 1)).attr('checked', militante.voto)
+                    $('#voto' + (index + 1)).click(function () {
+                        console.log($('#voto' + (index + 1)).prop('checked'))
+                        $.post("/militante/actualizarVoto", {
+                            id: militante.id,
+                            voto: $('#voto' + (index + 1)).prop('checked'),
+                            idMesa: <%= mesaDelegado.id %>
+    
+                        },
+                            function (data, status) {
+                                if ($('#voto' + (index + 1)).prop('checked')) {
+                                    auxAsistencias++;
+                                    $('#datoVoto1').text('Asistencia: ' + auxAsistencias);
+                                } else {
+                                    auxAsistencias--;
+                                    $('#datoVoto1').text('Asistencia: ' + auxAsistencias);
+                                }
+                                $('#datoVoto2').text('Faltas: ' + (auxMilitantes.length - auxAsistencias));
+                                // alert("Mensaje" + data);
+                            });
+                        console.log($('#voto' + (index + 1)).attr('checked', false))
 
-                    },
-                    function(data, status) {
-                        // alert("Mensaje" + data);
-                    });
-                console.log($('#voto' + (index + 1)).attr('checked', false))
+                        // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
+                    })
+                }, this);
 
-                // $('#tablaMilitantes > tbody > #tr' + (index + 1)).remove()
-            })
-        }, this);
+                $('#inputsBoca').click(function (event) {
+                    var sumaTotal = parseInt($('#inputVoto').val()) + parseInt($('#inputVoto2').val()) + parseInt($('#inputVoto3').val())
+                    console.log('AuxAsistencias',auxAsistencias)
+                    console.log('AuxAsistencias',sumaTotal)
+                    if(auxAsistencias==sumaTotal){
+                        console.log("IGUALES")
+                        $('#btnGuardar').attr('disabled',false)
+                    }else{
+                        console.log("DISTINTOS")
 
-        $('#enviarTodo').click(function(event) {
-            $.post("/mesa/cambiarMesa", {
-                    id: <%= mesaDelegado.id%>,
-                    blancos: $('#inputVoto').val(),
-                    nulos: $('#inputVoto2').val(),
-                    asistencias: $('#inputVoto3').val()
-                },
-                function(data, status) {
-                    console.log("ENTRA AQUI ???")
-                    window.location.href = "/recintoDelegado/principal";
+                        $('#btnGuardar').attr('disabled',true)
+
+                    }
                 });
-        })
-        <%}else{%>
-        auxMilitantes.forEach(function(militante, index) {
-            $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
-                '<th>' + (index + 1) + '</th>' +
-                '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
-                '<th>' + militante.cedula + '</th>' +
-                '<th>' + militante.celular + '</th>' +
-                '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto" disabled class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
-                '</tr>')
-            $('#voto' + (index + 1)).attr('checked', militante.voto)
-        }, this);
-        <%}%>
 
-        $('#inscritos').text('TOTAL:' + auxMilitantes.length);
+                $('#enviarTodo').click(function (event) {
+
+
+                    $.post("/mesa/cambiarMesa", {
+                        id: <%= mesaDelegado.id %>,
+                        blancos: $('#inputVoto').val(),
+                        nulos: $('#inputVoto2').val(),
+                        asistencias: $('#inputVoto3').val()
+                    },
+                        function (data, status) {
+                            console.log("ENTRA AQUI ???")
+                            window.location.href = "/recintoDelegado/principal";
+                        });
+                })
+                    <%} else {%>
+                        auxMilitantes.forEach(function (militante, index) {
+                            $('#tablaMilitantes > tbody').append('<tr id="tr' + (index + 1) + '">' +
+                                '<th>' + (index + 1) + '</th>' +
+                                '<th>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</th>' +
+                                '<th>' + militante.cedula + '</th>' +
+                                '<th>' + militante.celular + '</th>' +
+                                '<th>' + '<div class="custom-control custom-switch">  <input type="checkbox" name="voto" disabled class="custom-control-input" id="voto' + (index + 1) + '"> <label class="custom-control-label" for="voto' + (index + 1) + '"></label> </div>' + '</th>' +
+                                '</tr>')
+                            $('#voto' + (index + 1)).attr('checked', militante.voto)
+                        }, this);
+            <%}%>
+
+            $('#inscritos').text('TOTAL:' + auxMilitantes.length);
         var votosTrue = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
         $('#datoVoto1').text('Asistencia: ' + votosTrue.length);
         $('#datoVoto2').text('Faltas: ' + (auxMilitantes.length - votosTrue.length));
 
 
 
-        //$('#voto2').attr('checked', false)
+            //$('#voto2').attr('checked', false)
 
-        // console.log($('#voto1').val())
+            // console.log($('#voto1').val())
     </script>
 
 </div>

@@ -28,7 +28,7 @@ module.exports = {
             sails.log("militante buscado", datoMilitante[0])
 
             if (datoMilitante.length > 0) {
-                if (datoMilitante[0].idDelegado.tipo != 'NO') {
+                if (datoMilitante[0].idDelegado.tipo != 'No') {
 
                     Recinto.findOne(datoMilitante[0].idRecintoDelegado).populate('idZona').exec(function(err, datoRecinto) {
                         if (err) { return res.serverError(err); }
@@ -46,6 +46,7 @@ module.exports = {
                         })
                     })
                 } else {
+                console.log("++++++++++++++NO ES DELEGADO+++++++++++++")
                     return res.view('pages/homepage', {
                         zonaDelegado: '',
                         distritoDelegado: '',
