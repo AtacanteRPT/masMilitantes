@@ -125,8 +125,8 @@ module.exports = {
                 .exec(function(err, nuevoDistrito, wasCreated) {
                     if (err) { return res.serverError(err); }
 
+                    res.send('MILITANTE ACTUALIZADO ZONA')
                 })
-            res.send('MILITANTE ACTUALIZADO ZONA')
         });
     }
 
