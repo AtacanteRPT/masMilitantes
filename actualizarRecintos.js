@@ -17,7 +17,8 @@ var files = [];
 // files.push('./clubLeones.csv')
 // files.push('./tecnicoAyacucho.csv')
 // files.push('./amerinst.csv')
-files.push('./escuelaJapon.csv')
+// files.push('./escuelaJapon.csv')
+files.push('./escuelaPedro.csv')
 async.eachSeries(files, function(file, callback) {
 
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
