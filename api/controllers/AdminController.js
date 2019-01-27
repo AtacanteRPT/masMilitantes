@@ -114,7 +114,8 @@ module.exports = {
         //185 Instituo AMericano (Bello Horizonte)
         //186 Escuela Japon (tembladerani 19)
         //187 Escuela Pedro Poveda (IV Centenario)
-        var auxIdRecinto = 187;
+        //188 Colegio Ave Maria(villa la merced)
+        var auxIdRecinto = 188;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
