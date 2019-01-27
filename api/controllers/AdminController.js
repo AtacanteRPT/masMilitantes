@@ -112,7 +112,8 @@ module.exports = {
         //183 Esc Club Leones (El Tejar)
         //184 Tecnico Ayacucho (San Juan)
         //185 Instituo AMericano (Bello Horizonte)
-        var auxIdRecinto = 185;
+        //186 Escuela Japon (tembladerani 19)
+        var auxIdRecinto = 186;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
