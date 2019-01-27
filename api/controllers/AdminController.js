@@ -111,7 +111,8 @@ module.exports = {
         //182 U.E Fabril 18 de mayo(Pura Pura)
         //183 Esc Club Leones (El Tejar)
         //184 Tecnico Ayacucho (San Juan)
-        var auxIdRecinto = 184;
+        //185 Instituo AMericano (Bello Horizonte)
+        var auxIdRecinto = 185;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
