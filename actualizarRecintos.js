@@ -42,6 +42,7 @@ async.eachSeries(files, function(file, callback) {
             personaMilitante.celular = militante.CONTACTO
             personaMilitante.circunscripcion = militante.CIRCUNSCRIPCION
             personaMilitante.zona = militante.ZONA
+            personaMilitante.mesa = militante.MESA
             personaMilitante.circunscripcion = militante['CIRCUNSCRIPCION']
             personaMilitante.distrito = militante['DISTRITO ELECTORAL'];
 
