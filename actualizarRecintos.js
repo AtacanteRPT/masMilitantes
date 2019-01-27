@@ -12,7 +12,8 @@ var files = [];
 // files.push('./colHolanda.csv');
 // files.push('./colItalia.csv');
 // files.push('./colMaxToledo.csv');
-files.push('./colVillarroel.csv')
+// files.push('./colVillarroel.csv')
+files.push('colFabril18.csv')
 async.eachSeries(files, function(file, callback) {
 
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
