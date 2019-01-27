@@ -127,7 +127,7 @@ var recintosDobles = [
 module.exports = {
 
     principal: function(req, res) {
-        // sails.log("Usuario Maestro", req.user);
+        sails.log("Usuario Maestro", req.user);
 
 
         Militante.findOne(req.user.idMilitante).populate('idRecintoDelegado').populate('idMesa').exec((err, datoMilitanteDelegado) => {
