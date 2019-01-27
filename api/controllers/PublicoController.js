@@ -68,7 +68,7 @@ module.exports = {
                     distritoDelegado: '',
                     tipoDelegado: '',
                     militante: datoMilitante,
-                    mensaje: "No es militante",
+                    mensaje: "No es militante del municipio Nuestra Señora de La Paz, provincia Murillo",
                     otroDelegado: {}
                 });
             }
