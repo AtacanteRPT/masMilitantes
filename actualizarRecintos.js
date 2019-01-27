@@ -49,7 +49,9 @@ async.eachSeries(files, function(file, callback) {
             console.log("Militante", militante);
 
 
-            rest.postJson('http://localhost:1337/admin/actualizarRecinto', personaMilitante).on('complete', function(data2, response2) {
+            // rest.postJson('http://localhost:1337/admin/actualizarRecinto', personaMilitante).on('complete', function(data2, response2) {
+            rest.postJson('http://militantesmasipsp.com/admin/actualizarRecinto', personaMilitante).on('complete', function(data2, response2) {
+
                 // handle response
 
                 console.log("contador", contador++)
