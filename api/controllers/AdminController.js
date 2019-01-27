@@ -110,7 +110,8 @@ module.exports = {
         //181 Col Villarroel (Rosario)
         //182 U.E Fabril 18 de mayo(Pura Pura)
         //183 Esc Club Leones (El Tejar)
-        var auxIdRecinto = 183;
+        //184 Tecnico Ayacucho (San Juan)
+        var auxIdRecinto = 184;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
