@@ -1,0 +1,38 @@
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+
+        </div>
+        <div class="col-12 col-sm-6">
+            <h4 class="text-center">
+
+                ACTUALIZAR ZONA
+            </h4>
+            <form method="POST" action="/recintoDelegado/actualizarZona">
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Zonas Disponibles </label>
+                    <select class="form-control" name="seleccionRecinto" id="exampleFormControlSelect1">
+      <option value="<%= recinto1.id%>"><%= zona1.nombre%></option>
+      <option value="<%= recinto2.id%>"><%= zona2.nombre%></option>
+
+    </select>
+                </div>
+                <div class="form-group">
+
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="CONFIRMAR">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-12 col-sm-3">
+
+        </div>
+    </div>
+
+
+</div>
