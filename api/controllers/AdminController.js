@@ -105,17 +105,18 @@ module.exports = {
     actualizarRecinto: function(req, res) {
 
         //178 Col Holanda (Tejar)
-
+        //179 Col Italia (Bajo Mariscal)
+        var auxIdRecinto = 179;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
-            idRecinto: 178
+            idRecinto: auxIdRecinto
         }).exec(function(err, datoMilitante) {
 
 
-            Mesa.findOrCreate({ nombre: req.param('mesa'), idRecinto: 178 }, {
+            Mesa.findOrCreate({ nombre: req.param('mesa'), idRecinto: auxIdRecinto }, {
                     nombre: req.param('mesa'),
-                    idRecinto: 178,
+                    idRecinto: auxIdRecinto,
                     nulosBocaUrna: 0,
                     blancosBocaUrna: 0,
                     asistenciasBocaUrna: 0,

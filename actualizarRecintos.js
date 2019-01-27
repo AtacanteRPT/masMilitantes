@@ -9,8 +9,8 @@ var async = require('async')
 var files = [];
 
 
-files.push('./colHolanda.csv');
-
+// files.push('./colHolanda.csv');
+files.push('./colItalia.csv')
 async.eachSeries(files, function(file, callback) {
 
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
