@@ -103,6 +103,7 @@ module.exports = {
     },
 
     actualizarRecinto: function(req, res) {
+        //177 cancha deportiva  san antonio alto
 
         //178 Col Holanda (Tejar)
         //179 Col Italia (Bajo Mariscal)
@@ -115,7 +116,7 @@ module.exports = {
         //186 Escuela Japon (tembladerani 19)
         //187 Escuela Pedro Poveda (IV Centenario)
         //188 Colegio Ave Maria(villa la merced)
-        var auxIdRecinto = 188;
+        var auxIdRecinto = 177;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {

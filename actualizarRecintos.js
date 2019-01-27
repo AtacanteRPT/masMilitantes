@@ -8,18 +8,18 @@ var async = require('async')
 
 var files = [];
 
-
-// files.push('./colHolanda.csv');
-// files.push('./colItalia.csv');
-// files.push('./colMaxToledo.csv');
-// files.push('./colVillarroel.csv')
-// files.push('./colFabril18.csv')
-// files.push('./clubLeones.csv')
-// files.push('./tecnicoAyacucho.csv')
-// files.push('./amerinst.csv')
-// // files.push('./escuelaJapon.csv')
-// files.push('./escuelaPedro.csv')
-files.push('./colAveMaria.csv')
+files.push('./san_antonioFiltro.csv')
+    // files.push('./colHolanda.csv');
+    // files.push('./colItalia.csv');
+    // files.push('./colMaxToledo.csv');
+    // files.push('./colVillarroel.csv')
+    // files.push('./colFabril18.csv')
+    // files.push('./clubLeones.csv')
+    // files.push('./tecnicoAyacucho.csv')
+    // files.push('./amerinst.csv')
+    // // files.push('./escuelaJapon.csv')
+    // files.push('./escuelaPedro.csv')
+    // files.push('./colAveMaria.csv')
 async.eachSeries(files, function(file, callback) {
 
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
