@@ -10,7 +10,8 @@ var files = [];
 
 
 // files.push('./colHolanda.csv');
-files.push('./colItalia.csv')
+// files.push('./colItalia.csv')
+files.push('./colMaxToledo.csv')
 async.eachSeries(files, function(file, callback) {
 
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
