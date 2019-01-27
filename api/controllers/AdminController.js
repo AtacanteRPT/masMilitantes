@@ -107,8 +107,9 @@ module.exports = {
         //178 Col Holanda (Tejar)
         //179 Col Italia (Bajo Mariscal)
         //180 Col Max Toledo (Bajo Mariscal)
+        //181 Col Villarroel (Rosario)
 
-        var auxIdRecinto = 180;
+        var auxIdRecinto = 181;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
