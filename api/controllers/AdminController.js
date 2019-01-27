@@ -104,11 +104,28 @@ module.exports = {
 
     actualizarRecinto: function(req, res) {
 
+        //178 Col Holanda (Tejar)
+
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
             idRecinto: 178
         }).exec(function(err, datoMilitante) {
+
+
+            Mesa.findOrCreate({ nombre: req.param('mesa'), idRecinto: 178 }, {
+                    nombre: req.param('mesa'),
+                    idRecinto: 178,
+                    nulosBocaUrna: 0,
+                    blancosBocaUrna: 0,
+                    asistenciasBocaUrna: 0,
+                    modificable: true
+
+                })
+                .exec(function(err, nuevoDistrito, wasCreated) {
+                    if (err) { return res.serverError(err); }
+
+                })
             res.send('MILITANTE ACTUALIZADO ZONA')
         });
     }
