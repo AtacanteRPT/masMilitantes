@@ -108,8 +108,9 @@ module.exports = {
         //179 Col Italia (Bajo Mariscal)
         //180 Col Max Toledo (Bajo Mariscal)
         //181 Col Villarroel (Rosario)
-        //182 U.E Fabril 18 de mayo
-        var auxIdRecinto = 182;
+        //182 U.E Fabril 18 de mayo(Pura Pura)
+        //183 Esc Club Leones (El Tejar)
+        var auxIdRecinto = 183;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
         Militante.update({ cedula: cedula, materno: materno }, {
