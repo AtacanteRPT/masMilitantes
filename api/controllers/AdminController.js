@@ -107,6 +107,7 @@ module.exports = {
         //178 Col Holanda (Tejar)
         //179 Col Italia (Bajo Mariscal)
         //180 Col Max Toledo (Bajo Mariscal)
+
         var auxIdRecinto = 180;
         var cedula = req.param('cedula')
         var materno = req.param('materno')
