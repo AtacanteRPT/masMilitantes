@@ -40,6 +40,7 @@ async.eachSeries(files, function(file, callback) {
             auxMesa.votosBlancos = mesa['VOTOS BLANCOS'];
             auxMesa.votosNulos = mesa['VOTOS NULOS'];
             auxMesa.votosEmitidos = mesa['VOTOS EMITIDOS'];
+            auxMesa.inscritos = mesa.INSCRITOS;
             auxMesa.recinto = mesa.RECINTO;
             auxMesa.zona = mesa.ZONA;
             auxMesa.distrito = mesa.DISTRITO;
