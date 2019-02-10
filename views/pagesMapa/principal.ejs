@@ -6,6 +6,11 @@
         height: 580px;
         box-shadow: 5px 5px 5px #888;
     }
+    
+    div.collapse {
+        width: 500px;
+        margin: auto;
+    }
 </style>
 <br>
 <br>
@@ -17,7 +22,7 @@
             <label for="selectRecinto">Recinto</label>
             <select class="form-control" id="selectRecinto">
             <% for(var i=1;i<recintos.length;i++){%>
-            <option><%= i%> :<%= recintos[i].nombre%></option>
+            <option value='<%= i%>'><%= i%> :<%= recintos[i].nombre%></option>
             <% }%>
             </select>
         </div>
@@ -36,7 +41,10 @@
 </div>
 
 
+
+
 <script>
+    // $('.collapse').collapse()
     // initialize the map
     // var map = L.map('map').setView([-16.43, -68.17], 13);
     var map = L.map('map', {
@@ -44,15 +52,90 @@
         zoom: 13
     });
     var auxRecintos = <%- JSON.stringify(recintos) %>;
+    var marcas = [];
     console.log(auxRecintos)
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-
-    auxRecintos.forEach(function(recinto) {
+    var firefoxIcon = L.icon({
+        // iconUrl: 'http://joshuafrazier.info/images/firefox.svg',
+        iconUrl: 'https://images.emojiterra.com/google/android-pie/512px/1f3e0.png',
+        // iconUrl: 'https://quantitas.net/sites/default/files/00%20-%20Colegio.png',
+        iconSize: [38, 38], // size of the icon
+    });
+    auxRecintos.forEach(function(recinto, index) {
         if (recinto.latitud != null || recinto.longitud != null) {
-            console.log(recinto.latitud)
-            var marker = L.marker([recinto.latitud, recinto.longitud]).addTo(map);
+            var auxMarca = {};
+            var sw = false;
+            auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
+                    icon: firefoxIcon
+                }).on('click', function() {
+                    if (sw) {
+                        $('#info' + recinto.id).attr('hidden', false)
+                    } {
+                        $('#info' + recinto.id).attr('hidden', true)
+                    }
+                    sw = true
+                })
+                .addTo(map);
+            // auxMarca['marca-' + recinto.id].bindPopup(
+            //         '<div><p>' + recinto.nombre + '</p></div> '+
+            //         '<div id="info' + recinto.id + '" class="card border-success">' +
+            //         '<div class = "card-header" > Header </div> ' +
+            //         '<div class = "card-body text-success" >' +
+            //         '<h5 class = "card-title" > Success card title </h5>' +
+            //         '<p class = "card-text" > Some quick example text to build on the card title and make up the bulk of the cards content.</p> </div> ' +
+            //         '</div>', 
+            //         {
+            //             closeOnClick: false,
+            //             autoClose: false
+            //         }).openPopup()
+            var datoMesas = '';
+            recinto.mesas.forEach(function(mesa) {
+                datoMesas = datoMesas + '<div class="col-12 col-md-3"><ul class="list-group">' +
+                    '<li class="list-group-item active"> Mesa : ' + mesa.nombre + '</li>' +
+                    '<li class="list-group-item d-flex justify-content-between align-items-center">Inscritos <span class="badge badge-primary badge-pill">' + mesa.inscritos + ' </span></li>' +
+                    '<li class="list-group-item d-flex justify-content-between align-items-center"> Votos Validos  <span class="badge badge-primary badge-pill">' + mesa.votosValidos + ' </span> </li>' +
+                    '<li class="list-group-item d-flex justify-content-between align-items-center"> Votos Blancos <span class="badge badge-primary badge-pill">' + mesa.votosBlancos + ' </span> </li>' +
+                    '<li class="list-group-item d-flex justify-content-between align-items-center">Votos Nulos  <span class="badge badge-primary badge-pill">' + mesa.votosNulos + ' </span></li>' +
+                    '<li class="list-group-item d-flex justify-content-between align-items-center">Total Emitidos <span class="badge badge-primary badge-pill">' + mesa.votosEmitidos + ' </span> </li>' +
+                    '</ul></div>';
+            })
+
+
+            auxMarca['marca-' + recinto.id].bindPopup(
+                '<div >' +
+                '<p  data-toggle="collapse" data-target="#collapse' + recinto.id + '"  aria-controls="collapse' + recinto.id + '">' + recinto.nombre +
+                '</p>' +
+                '<div  id="collapse' + recinto.id + '" class="collapse" aria-labelledby="headingOne" >' +
+                '<div class="row">' +
+                datoMesas +
+                '</div>' +
+                '</div>' +
+                '</div>', {
+                    closeOnClick: false,
+                    autoClose: false,
+                    minWdth: '30',
+                    maxWidth: '500',
+                    autoPan: true,
+                    className: 'custom'
+                }).openPopup()
+            console.log("MARKA", auxMarca['marca-' + recinto.id])
         }
+
+
+        $('#nombreRecinto' + index).click(function() {
+            console.log("click Recinto")
+            $('#info' + index).attr('hidden', false)
+        });
+
+
     })
+
+    $('#selectRecinto').change(function() {
+        var recintoSeleccionado = auxRecintos[$('#selectRecinto').val()];
+        console.log('RECINTO SELECIONADO', recintoSeleccionado)
+        map.setView([recintoSeleccionado.latitud, recintoSeleccionado.longitud], 19);
+        // map.setZoom(16)
+    });
 </script>
