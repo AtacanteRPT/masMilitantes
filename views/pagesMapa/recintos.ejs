@@ -1,0 +1,47 @@
+<br>
+<br>
+<br>
+
+<div class="container">
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Zona</th>
+                <th scope="col">latitud</th>
+                <th scope="col">longitud</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=1;i<recintos.length;i++){%>
+                <tr>
+                    <th>
+                        <%= i%>
+                    </th>
+                    <td>
+                        <%= recintos[i].nombre%>
+                    </td>
+                    <td>
+                        <%= recintos[i].idZona.nombre%>
+                    </td>
+                    <td>
+                        <%= recintos[i].latitud%>
+                    </td>
+                    <td>
+                        <%= recintos[i].longitud%>
+                    </td>
+                    <td>
+                        <a href="/mapa/editar/<%= recintos[i].id%>" class="btn btn-outline-primary">Editar</a>
+
+                    </td>
+
+                </tr>
+                <% }%>
+
+
+        </tbody>
+    </table>
+</div>

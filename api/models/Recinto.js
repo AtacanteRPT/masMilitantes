@@ -13,6 +13,16 @@ module.exports = {
             required: false,
             allowNull: true
         },
+        latitud: {
+            type: 'string',
+            required: false,
+            allowNull: true
+        },
+        longitud: {
+            type: 'string',
+            required: false,
+            allowNull: true
+        },
         mesa: {
             type: 'string',
             required: false,
@@ -25,6 +35,10 @@ module.exports = {
         },
         idZona: {
             model: 'Zona'
+        },
+        mesas: {
+            collection: 'mesarecinto',
+            via: 'idRecinto'
         }
         //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
         //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗

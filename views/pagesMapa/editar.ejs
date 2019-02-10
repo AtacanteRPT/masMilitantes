@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+<style>
+    #map {
+        width: 100%;
+        height: 300px;
+        box-shadow: 5px 5px 5px #888;
+    }
+</style>
+<br>
+<div class="container">
+
+    <form action="/mapa/guardar/<%= recinto.id %>" method="POST">
+        <div class="form-group">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="inputNombre" aria-describedby="emailHelp" value="<%= recinto.nombre %>">
+        </div>
+        <div class="form-group">
+            <label for="inputNombre">Latitud</label>
+            <input type="text" class="form-control" name="latitud" id="inputLatitud" value="<%= recinto.latitud %>">
+        </div>
+        <div class="form-group">
+            <label for="inputNombre">Longitud</label>
+            <input type="text" class="form-control" name="longitud" id="inputLongitud" value="<%= recinto.longitud %>">
+        </div>
+        <div class="form-group">
+            <div class="card border-primary">
+                <h5 class="card-header">Mapa de Recintos</h5>
+                <div class="card-body">
+
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" value="Guardar" class="btn btn-primary">
+    </form>
+    <a href="/mapa/recintos" class="btn btn-info">Atras</a>
+</div>
+
+<script>
+    // initialize the map
+    // var map = L.map('map').setView([-16.43, -68.17], 13);
+
+    <% if(recinto.latitud ==null || recinto.longitud==null){ %>
+
+    var map = L.map('map', {
+        center: [-16.504414, -68.125644],
+        zoom: 14
+
+    });
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var marker = L.marker([-16.504414, -68.125644], {
+        draggable: true
+    }).on('move', function(event) {
+        console.log('EVENTO:', event.latlng.lat)
+        $('#inputLatitud').val(event.latlng.lat)
+        $('#inputLongitud').val(event.latlng.lng)
+    }).addTo(map);
+
+    <% }else{%>
+    var map = L.map('map', {
+        center: [<%= recinto.latitud%>, <%= recinto.longitud%>],
+        zoom: 14
+    });
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var marker = L.marker([<%= recinto.latitud%>, <%= recinto.longitud%>], {
+        draggable: true
+    }).on('move', function(event) {
+        console.log('EVENTO:', event.latlng.lat)
+        $('#inputLatitud').val(event.latlng.lat)
+        $('#inputLongitud').val(event.latlng.lng)
+    }).addTo(map);
+    <% }%>
+</script>

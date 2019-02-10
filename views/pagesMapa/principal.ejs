@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+<style>
+    #map {
+        width: 100%;
+        height: 580px;
+        box-shadow: 5px 5px 5px #888;
+    }
+</style>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="form-group col-6 col-md-4">
+            <label for="selectRecinto">Recinto</label>
+            <select class="form-control" id="selectRecinto">
+            <% for(var i=1;i<recintos.length;i++){%>
+            <option><%= i%> :<%= recintos[i].nombre%></option>
+            <% }%>
+            </select>
+        </div>
+        <div class="form-group col-6 col-md-8">
+            <label for="inputBuscar">Recinto</label>
+            <input class="form-control" type="text" id="inputBuscar" placeholder="BUSCAR RECINTO">
+        </div>
+    </div>
+    <div class="card border-primary">
+        <h5 class="card-header">Mapa de Recintos</h5>
+        <div class="card-body">
+
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // initialize the map
+    // var map = L.map('map').setView([-16.43, -68.17], 13);
+    var map = L.map('map', {
+        center: [-16.504414, -68.125644],
+        zoom: 13
+    });
+    var auxRecintos = <%- JSON.stringify(recintos) %>;
+    console.log(auxRecintos)
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    auxRecintos.forEach(function(recinto) {
+        if (recinto.latitud != null || recinto.longitud != null) {
+            console.log(recinto.latitud)
+            var marker = L.marker([recinto.latitud, recinto.longitud]).addTo(map);
+        }
+    })
+</script>

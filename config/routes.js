@@ -30,6 +30,11 @@ module.exports.routes = {
     'get /distrito/militantesPorZonas/:id': 'DistritoController.militantesPorZonas',
     'get /distrito/militantesPorRecintos/:id': 'DistritoController.militantesPorRecintos',
 
+
+
+    'get /mapa/editar/:id': 'MapaController.editar',
+    'POST /mapa/guardar/:id': 'MapaController.guardar',
+
     // view: 'pages/homepage'
 
     /***************************************************************************
