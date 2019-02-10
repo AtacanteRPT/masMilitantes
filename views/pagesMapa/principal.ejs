@@ -31,6 +31,8 @@
             <input class="form-control" type="text" id="inputBuscar" placeholder="BUSCAR RECINTO">
         </div>
     </div>
+
+
     <div class="card border-primary">
         <h5 class="card-header">Mapa de Recintos</h5>
         <div class="card-body">
@@ -38,6 +40,19 @@
             <div id="map"></div>
         </div>
     </div>
+    <table id="tablaRecinto" class="table">
+        <thead>
+            <th>MESA</th>
+            <th>Votos Inscritos</th>
+            <th>Votos Validos</th>
+            <th>Votos Blancos</th>
+            <th>Votos Nulos</th>
+            <th>Votos Emitidos</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
 </div>
 
 
@@ -133,9 +148,22 @@
     })
 
     $('#selectRecinto').change(function() {
+        $('#tablaRecinto > tbody').empty();
         var recintoSeleccionado = auxRecintos[$('#selectRecinto').val()];
         console.log('RECINTO SELECIONADO', recintoSeleccionado)
         map.setView([recintoSeleccionado.latitud, recintoSeleccionado.longitud], 19);
+
+        recintoSeleccionado.mesas.forEach(function(mesa, index) {
+            $('#tablaRecinto > tbody').append('<tr>' +
+                '<th>' + mesa.nombre + '</th>' +
+                '<th>' + mesa.inscritos + '</th>' +
+                '<th>' + mesa.votosValidos + '</th>' +
+                '<th>' + mesa.votosBlancos + '</th>' +
+                '<th>' + mesa.votosNulos + '</th>' +
+                '<th>' + mesa.votosEmitidos + '</th>' +
+                '</tr>')
+
+        }, this);
         // map.setZoom(16)
     });
 </script>
