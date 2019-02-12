@@ -112,9 +112,32 @@ module.exports = {
 
         });
     },
+
+    actualizarDistritos: function(req, res) {
+
+        var auxMesa = req.body;
+
+        Distrito.find({ nombre: auxMesa.distrito }).exec(function(err, datoDistrito) {
+            if (err) { return res.serverError(err); }
+            console.log('dato recinto :', datoDistrito)
+            console.log('BODY', req.body)
+
+            Circunscripcion.find({ nombre: auxMesa.circunscripcion }).exec(function(err, datoCircunscripcion) {
+                if (err) { return res.serverError(err); }
+
+                Distrito.update(datoDistrito[0].id, { idCircunscripcion: datoCircunscripcion[0].id }).exec(function(err, datoDsitrito) {
+                    if (err) { return res.serverError(err); }
+
+                    res.send('todo ACTUALIZADO')
+                });
+            });
+
+        });
+    },
+
+
     otro: function(req, res) {
         console.log('OTRO DESDE MAPA')
         res.send('YA DESDE MAPA')
     }
-
 };

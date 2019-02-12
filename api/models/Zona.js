@@ -20,6 +20,10 @@ module.exports = {
         },
         idDistrito: {
             model: 'Distrito'
+        },
+        recintos: {
+            collection: 'recinto',
+            via: 'idZona'
         }
         //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
         //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗

@@ -38,6 +38,15 @@ module.exports = {
         idRecinto: {
             model: 'recinto',
         },
+        idZona: {
+            model: 'zona',
+        },
+        idDistrito: {
+            model: 'distrito',
+        },
+        idCircunscripcion: {
+            model: 'circunscripcion',
+        },
     },
 
 };

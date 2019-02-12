@@ -15,6 +15,10 @@ module.exports = {
         },
         idCircunscripcion: {
             model: 'circunscripcion'
+        },
+        zonas: {
+            collection: 'zona',
+            via: 'idDistrito'
         }
 
         //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
