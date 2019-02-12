@@ -2,11 +2,29 @@ module.exports = {
 
     principal: function(req, res) {
 
-        Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
 
-            res.view('pagesMapa/principal', { recintos: datoRecintos })
+        Circunscripcion.find().exec(function(err, datoCircunscripcion) {
+            console.log('dato Circunscripcion :', datoCircunscripcion)
+            if (err) { return res.serverError(err); }
+            Distrito.find().exec(function(err, datoDistrito) {
+                console.log('dato distrito :', datoDistrito)
+                if (err) { return res.serverError(err); }
+                Zona.find().exec(function(err, datoZona) {
+                    console.log('dato zona :', datoZona)
+
+                    Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
+
+                        res.view('pagesMapa/principal', {
+                            recintos: datoRecintos,
+                            zonas: datoZona,
+                            distritos: datoDistrito,
+                            circunscripciones: datoCircunscripcion
+                        })
+                    });
+
+                });
+            });
         });
-
 
     },
     recintos: function(req, res) {

@@ -1,5 +1,10 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+<!--<script src="/img/jquery.autocomplete.js">
+</script>-->
+
+<script src="/js/jqueryautocomplete.js">
+</script>
 <style>
     #map {
         width: 100%;
@@ -19,14 +24,38 @@
 <br>
 <br>
 <br>
-<br>
 <div class="container">
     <div class="row">
-        <div class="form-group col-6 col-md-4">
+        <div class="form-group col-6 col-md-3">
+            <label for="selectC">Circunscripción</label>
+            <select class="form-control" id="selectC">
+                
+            <% for(var i=0;i<circunscripciones.length;i++){%>
+            <option value='<%= i%>'><%= circunscripciones[i].nombre%></option>
+            <% }%>
+            </select>
+        </div>
+        <div class="form-group col-6 col-md-3">
+            <label for="selectDistrito">Distrito</label>
+            <select class="form-control" id="selectDistrito">
+            <% for(var i=0;i<distritos.length;i++){%>
+            <!--<option value='<%= i%>'><%= i%> :<%= distritos[i].nombre%></option>-->
+            <% }%>
+            </select>
+        </div>
+        <div class="form-group col-6 col-md-3">
+            <label for="selectZona">Zona</label>
+            <select class="form-control" id="selectZona">
+            <% for(var i=0;i<zonas.length;i++){%>
+            <!--<option value='<%= i%>'><%= i%> :<%= zonas[i].nombre%></option>-->
+            <% }%>
+            </select>
+        </div>
+        <div class="form-group col-6 col-md-3">
             <label for="selectRecinto">Recinto</label>
             <select class="form-control" id="selectRecinto">
-            <% for(var i=1;i<recintos.length;i++){%>
-            <option value='<%= i%>'><%= i%> :<%= recintos[i].nombre%></option>
+            <% for(var i=0;i<recintos.length;i++){%>
+            <option value='<%= recintos[i].id%>'><%= i%> :<%= recintos[i].nombre%></option>
             <% }%>
             </select>
         </div>
@@ -35,15 +64,25 @@
             <input class="form-control" type="text" id="inputBuscar" placeholder="BUSCAR RECINTO">
         </div>-->
     </div>
-
-
-    <div class="card border-primary">
-        <h5 class="card-header">Mapa de Recintos</h5>
-        <div class="card-body">
-
-            <div id="map"></div>
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <label for="Documento de Identidad">Buscar Recinto</label>
+            <input type="text" class="form-control" id="autocomplete" placeholder="Nombre del recinto">
         </div>
     </div>
+    <br>
+
+</div>
+
+<div class="card border-primary">
+    <h5 class="card-header">Mapa de Recintos</h5>
+    <div class="card-body">
+
+        <div id="map"></div>
+    </div>
+</div>
+
+<div class="container">
     <table id="tablaRecinto" class="table">
         <thead>
             <th>MESA</th>
@@ -52,6 +91,11 @@
             <th>Votos Blancos</th>
             <th>Votos Nulos</th>
             <th>Votos Emitidos</th>
+
+            <th> % Validos</th>
+            <th> % Blancos</th>
+            <th> % Nulos</th>
+            <th> % Emitidos</th>
 
         </thead>
         <tbody>
@@ -72,6 +116,9 @@
         zoom: 13
     });
     var auxRecintos = <%- JSON.stringify(recintos) %>;
+    var auxZonas = <%- JSON.stringify(zonas) %>;
+    var auxDistritos = <%- JSON.stringify(distritos) %>;
+    var auxCircunscripciones = <%- JSON.stringify(circunscripciones) %>;
     var marcas = [];
     console.log(auxRecintos)
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -168,13 +215,26 @@
                 '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
 
                 '</tr>';
-            console.log('DATO MESAS', datoMesas)
+            // console.log('DATO MESAS', datoMesas)
 
-            var collapse = '<p  data-toggle="collapse" data-target="#collapse' + recinto.id + '"  aria-controls="collapse' + recinto.id + '">' + recinto.nombre +
+
+            var zona = auxZonas.filter(data => {
+                    return data.id == recinto.idZona
+                })
+                // console.log('ZONA AAA', zona)
+            var distrito = auxDistritos.filter(data => {
+                return data.id == zona[0].idDistrito
+            })
+            var circunscripcion = auxCircunscripciones.filter(data => {
+                return data.id == distrito[0].idCircunscripcion
+            })
+
+            var collapse = '<p  data-toggle="collapse" data-target="#collapse' + recinto.id + '"  aria-controls="collapse' + recinto.id + '">Recinto :' + recinto.nombre +
 
                 '<div class="card">' +
                 '<div id="collapse' + recinto.id + '" class="collapse" aria-labelledby="headingOne">' +
                 ' <div class="card-body">' +
+                'Circunscripcion: ' + circunscripcion[0].nombre + ' - ' + distrito[0].nombre + ' - Zona:' + zona[0].nombre +
                 '<table class="table">' +
                 '<thead>' +
                 '<th>MESA</th>' +
@@ -198,36 +258,36 @@
                 '</div>' +
                 '</div>' +
                 '</div>';
-            console.log('COLLAPSE', collapse)
+            // console.log('COLLAPSE', collapse)
             auxMarca['marca-' + recinto.id].bindPopup(
-                // '<div class=col-12 col-md-6>' +
-                // '<p  data-toggle="collapse" data-target="#collapse' + recinto.id + '"  aria-controls="collapse' + recinto.id + '">' + recinto.nombre +
-                // '</p>' +
-                // '<div  id="collapse' + recinto.id + '" class="collapse" aria-labelledby="headingOne" >' +
-                // '<table class="table">' +
-                // '<thead>' +
-                // '<th>MESA</th>' +
-                // '<th>Votos Inscritos</th>' +
-                // '<th>Votos Validos</th>' +
-                // '<th>Votos Blancos</th>' +
-                // '<th>Votos Nulos</th>' +
-                // '<th>Votos Emitidos</th>' +
-                // '</thead>' +
-                // '<tbody>' +
-                // datoMesas +
-                // '</tbody>' +
-                // ' </table>' +
-                // '</div>' +
-                // '</div>', 
-                collapse, {
-                    closeOnClick: false,
-                    autoClose: false,
-                    // minWdth: '1000',
-                    // maxWidth: '1000',
-                    // autoPan: true,
-                    // className: 'custom'
-                }).openPopup()
-            console.log("MARKA", auxMarca['marca-' + recinto.id])
+                    // '<div class=col-12 col-md-6>' +
+                    // '<p  data-toggle="collapse" data-target="#collapse' + recinto.id + '"  aria-controls="collapse' + recinto.id + '">' + recinto.nombre +
+                    // '</p>' +
+                    // '<div  id="collapse' + recinto.id + '" class="collapse" aria-labelledby="headingOne" >' +
+                    // '<table class="table">' +
+                    // '<thead>' +
+                    // '<th>MESA</th>' +
+                    // '<th>Votos Inscritos</th>' +
+                    // '<th>Votos Validos</th>' +
+                    // '<th>Votos Blancos</th>' +
+                    // '<th>Votos Nulos</th>' +
+                    // '<th>Votos Emitidos</th>' +
+                    // '</thead>' +
+                    // '<tbody>' +
+                    // datoMesas +
+                    // '</tbody>' +
+                    // ' </table>' +
+                    // '</div>' +
+                    // '</div>', 
+                    collapse, {
+                        closeOnClick: false,
+                        autoClose: false,
+                        // minWdth: '1000',
+                        // maxWidth: '1000',
+                        // autoPan: true,
+                        // className: 'custom'
+                    }).openPopup()
+                // console.log("MARKA", auxMarca['marca-' + recinto.id])
         }
 
 
@@ -239,13 +299,68 @@
 
     })
 
-    $('#selectRecinto').change(function() {
+    var options = {
+        data: auxRecintos,
+        getValue: "nombre",
+        list: {
+            match: {
+                enabled: true
+            },
+            onClickEvent: function() {
+                var value = $("#autocomplete").getSelectedItemData().id;
+
+                console.log("VALUE", value)
+                $('#tablaRecinto > tbody').empty();
+                var auxRecinto = auxRecintos.filter(data => {
+                    return data.id == value
+                })
+                var recintoSeleccionado = auxRecinto[0]
+                map.setView([recintoSeleccionado.latitud, recintoSeleccionado.longitud], 19);
+
+                recintoSeleccionado.mesas.forEach(function(mesa, index) {
+                    $('#tablaRecinto > tbody').append('<tr>' +
+                        '<th>' + mesa.nombre + '</th>' +
+                        '<th>' + mesa.inscritos + '</th>' +
+                        '<th>' + mesa.votosValidos + '</th>' +
+                        '<th>' + mesa.votosBlancos + '</th>' +
+                        '<th>' + mesa.votosNulos + '</th>' +
+                        '<th>' + mesa.votosEmitidos + '</th>' +
+                        '</tr>')
+
+                }, this);
+            }
+        },
+        template: {
+            type: "description",
+            fields: {
+                description: "id"
+            }
+        }
+    };
+
+    $("#autocomplete").easyAutocomplete(options);
+
+
+    $('#selectRecinto').click(function() {
         $('#tablaRecinto > tbody').empty();
-        var recintoSeleccionado = auxRecintos[$('#selectRecinto').val()];
+        var auxRecinto = auxRecintos.filter(data => {
+            return data.id == $('#selectRecinto').val()
+        })
+        console.log('AUX RECINTO', auxRecinto)
+        var recintoSeleccionado = auxRecinto[0]
         console.log('RECINTO SELECIONADO', recintoSeleccionado)
         map.setView([recintoSeleccionado.latitud, recintoSeleccionado.longitud], 19);
-
+        var totalInscritos = 0;
+        var totalValidos = 0;
+        var totalBlancos = 0;
+        var totalNulos = 0;
+        var totalEmitidos = 0;
         recintoSeleccionado.mesas.forEach(function(mesa, index) {
+            totalInscritos = totalInscritos + parseInt(mesa.inscritos);
+            totalValidos = totalValidos + parseInt(mesa.votosValidos);
+            totalBlancos = totalBlancos + parseInt(mesa.votosBlancos);
+            totalNulos = totalNulos + parseInt(mesa.votosNulos);
+            totalEmitidos = totalEmitidos + parseInt(mesa.votosEmitidos);
             $('#tablaRecinto > tbody').append('<tr>' +
                 '<th>' + mesa.nombre + '</th>' +
                 '<th>' + mesa.inscritos + '</th>' +
@@ -253,9 +368,73 @@
                 '<th>' + mesa.votosBlancos + '</th>' +
                 '<th>' + mesa.votosNulos + '</th>' +
                 '<th>' + mesa.votosEmitidos + '</th>' +
+                '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
                 '</tr>')
 
         }, this);
-        // map.setZoom(16)
+        $('#tablaRecinto > tbody').append(
+                '<tr  class="table-primary">' +
+                '<th>TOTAL </th>' +
+                '<th>' + totalInscritos + '</th>' +
+                '<th>' + totalValidos + '</th>' +
+                '<th>' + totalBlancos + '</th>' +
+                '<th>' + totalNulos + '</th>' +
+                '<th>' + totalEmitidos + '</th>' +
+                '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
+
+                '</tr>'
+            )
+            // map.setZoom(16)
+    });
+    $('#selectC').change(function() {
+        console.log('SelectVal', $('#selectC').val())
+        var distritos = auxDistritos.filter(data => {
+            return data.idCircunscripcion == auxCircunscripciones[$('#selectC').val()].id
+        });
+        $('#selectDistrito').empty();
+        console.log('DISTRITOS', distritos)
+        distritos.forEach(function(distrito) {
+            $('#selectDistrito').append(
+                '<option value="' + distrito.id + '"> ' + distrito.nombre + '</option>'
+            )
+
+        }, this);
+
+    });
+    $('#selectDistrito').change(function() {
+        console.log('SelectVal', $('#selectDistrito').val())
+        var zonas = auxZonas.filter(data => {
+            return data.idDistrito == $('#selectDistrito').val()
+        });
+        $('#selectZona').empty();
+        console.log('ZONAS', zonas)
+        zonas.forEach(function(zona) {
+            $('#selectZona').append(
+                '<option value="' + zona.id + '"> ' + zona.nombre + '</option>'
+            )
+
+        }, this);
+
+    });
+    $('#selectZona').change(function() {
+        console.log('SelectVal', $('#selectZona').val())
+        var recintos = auxRecintos.filter(data => {
+            return data.idZona == $('#selectZona').val()
+        });
+        $('#selectRecinto').empty();
+        console.log('recintos', recintos)
+        recintos.forEach(function(recinto) {
+            $('#selectRecinto').append(
+                '<option value="' + recinto.id + '"> ' + recinto.nombre + '</option>'
+            )
+
+        }, this);
+
     });
 </script>
