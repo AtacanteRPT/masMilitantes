@@ -48,8 +48,8 @@ async.eachSeries(files, function(file, callback) {
 
             console.log("Militante", mesa);
 
-            // rest.postJson('http://localhost:1337/mapa/cargarMesas', auxMesa).on('complete', function(data2, response2) {
-            rest.postJson('http://localhost:1337/mapa/actualizarDistritos', auxMesa).on('complete', function(data2, response2) {
+             rest.postJson('http://localhost:1337/mapa/cargarMesas', auxMesa).on('complete', function(data2, response2) {
+          //  rest.postJson('http://localhost:1337/mapa/actualizarDistritos', auxMesa).on('complete', function(data2, response2) {
 
                 // handle response
 
