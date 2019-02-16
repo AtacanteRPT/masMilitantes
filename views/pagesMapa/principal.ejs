@@ -217,6 +217,27 @@
 
                 </div>
             </div>-->
+
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="form-group col-6 col-md-3">
+                        <label for="selectC3">Incidencia por Circunscripción</label>
+                        <select class="form-control" id="selectC3">
+                        <option>Selecionar</option>
+
+                        <% for(var i=0;i<circunscripciones.length;i++){%>
+                            <option value='<%= i%>'>
+                                <%= circunscripciones[i].nombre%>
+                            </option>
+                            <% }%>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12">
+                    <canvas id="chart2" height="600"></canvas>
+
+                </div>
+            </div>
         </div>
 
     </div>
@@ -619,7 +640,6 @@
 
                     formatter: function(value, context) {
 
-                        console.log('DATA LABES ', value)
                         if (value.y > 9) {
 
                             return value.y + "% \n #" + value.cantidad
@@ -819,9 +839,9 @@
 
     });
 
-    function topRecintos(tipo) {
+    function topRecintos(tipo, vector) {
 
-        var ordenado = auxRecintos.sort(function(a, b) {
+        var ordenado = vector.sort(function(a, b) {
             var suma1 = 0;
             a.mesas.forEach(item => {
                 suma1 = (suma1 + parseFloat(item[tipo]));
@@ -835,7 +855,7 @@
         })
 
         console.log('abaco')
-        return ordenado;
+        return ordenado.reverse();
     };
 
     $('#btnEmitidos').click(function() {
@@ -887,4 +907,169 @@
         console.log('CLICK EN OSO', idRecinto)
         cambiarRecinto(idRecinto)
     }
+</script>
+
+<script>
+    $('#selectC3').change(function() {
+        var zonas = [];
+        var recintos = [];
+        var distritos = auxDistritos.filter(data => {
+            return data.idCircunscripcion == auxCircunscripciones[$('#selectC3').val()].id
+        });
+        distritos.forEach(function(distrito) {
+            zonas = zonas.concat(auxZonas.filter(data => {
+                return data.idDistrito == distrito.id;
+            }));
+        }, this);
+        zonas.forEach(function(zona) {
+            recintos = recintos.concat(auxRecintos.filter(data => {
+                return data.idZona == zona.id;
+            }));
+        }, this);
+
+        recintos = topRecintos('inscritos', recintos);
+
+
+        chart2.data.labels = recintos.map(dato => {
+
+            var suma = 0;
+            dato.mesas.forEach(function(item) {
+                suma = suma + parseInt(item.inscritos);
+            }, this);
+
+            return dato['nombre'] + ' Total (' + suma + ')'
+        });
+        chart2.data.datasets = getDataPorRecintos(recintos);
+
+        chart2.options.title = {
+            display: true,
+            text: 'Circunscripción :' + auxCircunscripciones[$('#selectC3').val()].nombre
+        }
+        chart2.update();
+
+
+
+
+
+    });
+
+
+    function getDataPorRecintos(recintos) {
+        var dataSets = [{
+            label: 'Válidos',
+            data: recintos.map(dato => {
+                var suma = 0;
+                dato.mesas.forEach(function(item) {
+                    suma = suma + parseInt(item.votosValidos);
+                }, this);
+                return {
+                    x: suma,
+                    cantidad: dato.votosValidos
+                }
+            }),
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }, {
+
+            label: 'Blancos',
+            data: recintos.map(dato => {
+                var suma = 0;
+                dato.mesas.forEach(function(item) {
+                    suma = suma + parseInt(item.votosBlancos);
+                }, this);
+                return {
+                    x: suma,
+                    cantidad: dato.votosValidos
+                }
+            }),
+            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            borderColor: 'rgba(255, 206, 86, 1)',
+            borderWidth: 1
+        }, {
+
+            label: 'Nulos',
+            data: recintos.map(dato => {
+                var suma = 0;
+                dato.mesas.forEach(function(item) {
+                    suma = suma + parseInt(item.votosNulos);
+                }, this);
+                return {
+                    x: suma,
+                    cantidad: dato.votosValidos
+                }
+            }),
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 1
+        }, {
+
+            label: 'FALTAS',
+            data: recintos.map(dato => {
+                var suma = 0;
+                dato.mesas.forEach(function(item) {
+                    suma = suma + (parseInt(item.inscritos) - parseInt(item.votosEmitidos));
+                }, this);
+                return {
+                    x: suma,
+                    cantidad: dato.votosValidos
+                }
+            }),
+            backgroundColor: 'rgb(255,255,255)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }, ];
+
+        return dataSets;
+
+    }
+
+
+    var ctx2 = $('#chart2')
+    var chart2 = new Chart(ctx2, {
+        type: 'horizontalBar',
+        data: {
+            labels: [],
+            datasets: []
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    color: 'black',
+                    align: 'center',
+                    font: {
+                        weight: 'bold',
+                        defaultFontSize: 10
+                    },
+                    formatter: function(value, context) {
+
+                        // console.log('DATA LABES ', value)
+
+                        return value.x
+                    }
+
+                }
+
+
+
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "nro de Votos"
+                    },
+                    stacked: true
+                }],
+                yAxes: [{
+
+
+                    stacked: true
+                }],
+            }
+        }
+    });
 </script>
