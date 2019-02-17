@@ -54,7 +54,7 @@ module.exports = {
             case 'admin':
                 sails.log("ADMIN ::", req.user)
 
-                res.redirect("/admin/principal");
+                res.redirect("/mapa/principal");
 
                 break;
             default:
