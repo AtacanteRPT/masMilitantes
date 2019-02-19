@@ -456,7 +456,7 @@
       color: function (context) {
         var index = context.dataIndex;
         var value = context.dataset.data[index];
-        console.log('VALUE para COLOR',value)
+        console.log('VALUE para COLOR', value)
         return value < 30 ? 'red' :  // draw negative values in red
           value >= 60 ? 'green' :    // else, alternate values in blue and green
             'blue';
@@ -486,12 +486,22 @@
         cantidad: suma
       };
 
+     
+              var color = "blue";
+
+              if (sumaEmitidos.y< 33) {
+                color = 'red';
+              } else if (sumaEmitidos.y> 66) {
+                color = 'green';
+              }
+
+
       ctxRecinto[recinto.id] = $('#chartRecinto' + recinto.id)
       chartRecinto[recinto.id] = new Chart(ctxRecinto[recinto.id], {
         plugins: [ChartDataLabels],
         type: 'bar',
         data: {
-          labels: ["Porcentaje Recinto - " +'Inscritos : '+sumaInscritos.y],
+          labels: ["Porcentaje Recinto - " + 'Inscritos : ' + sumaInscritos.y],
           // labels: estRecinto.mesas.map(item => {
           //     return 'Mesa - ' + item['nombre'] + ' Inscritos' + item['inscritos']
           // }),
@@ -501,36 +511,38 @@
 
             borderWidth: 1,
 
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
+            backgroundColor:color ,
 
-            ],
-            borderColor: [
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
+            borderColor: 'rgba(54, 162, 235, 1)',
 
-            ],
           }]
         },
 
       });
-      var estado ="MEDIO";
+      var estado = "MEDIO";
 
-      if( (suma * 100 / sumaInscritos.y).toFixed(2)<33){
-estado='BAJO';
-      }else if( (suma * 100 / sumaInscritos.y).toFixed(2)>66){
-estado='ALTO';
+      if ((suma * 100 / sumaInscritos.y).toFixed(2) < 33) {
+        estado = 'BAJO';
+      } else if ((suma * 100 / sumaInscritos.y).toFixed(2) > 66) {
+        estado = 'ALTO';
       }
 
       chartRecinto[recinto.id].options = opc;
+      chartRecinto[recinto.id].options.defaultColor = 'green';
+      console.log('DATASET',chartRecinto[recinto.id])
+      //chartRecinto[recinto.id].datasets.backgroundColor = function (value) {
+        //var auxColor = "blue";
+
+       // if (value.y < 33) {
+       //   estado = 'red';
+       // } else if (value.y > 66) {
+      //    estado = 'green';
+        //}
+        //return auxColor
+      //}
       chartRecinto[recinto.id].options.title = {
         display: true,
-        text: 'Recinto :' + recinto.nombre+' '+estado
+        text: 'Recinto :' + recinto.nombre + ' ' + estado
       }
       chartRecinto[recinto.id].update();
     }, this)
