@@ -24,7 +24,9 @@ module.exports.routes = {
      *                                                                          *
      ***************************************************************************/
 
-    'get /': 'PublicoController.principal',
+    // 'get /': 'PublicoController.principal',
+    'get /': 'DatosController.principal',
+
     'get /publico/buscarCedula': 'PublicoController.principal',
     'get /distrito/militantesPorDistritos/:id': 'DistritoController.militantesPorDistritos',
     'get /distrito/militantesPorZonas/:id': 'DistritoController.militantesPorZonas',
@@ -34,6 +36,10 @@ module.exports.routes = {
 
     'get /mapa/editar/:id': 'MapaController.editar',
     'POST /mapa/guardar/:id': 'MapaController.guardar',
+
+
+
+    // 'POST /mapa/guardar/:id': 'MapaController.guardar',
 
     // view: 'pages/homepage'
 

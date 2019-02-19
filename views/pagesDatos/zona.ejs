@@ -519,11 +519,18 @@
         },
 
       });
+      var estado ="MEDIO";
+
+      if( (suma * 100 / sumaInscritos.y).toFixed(2)<33){
+estado='BAJO';
+      }else if( (suma * 100 / sumaInscritos.y).toFixed(2)>66){
+estado='ALTO';
+      }
 
       chartRecinto[recinto.id].options = opc;
       chartRecinto[recinto.id].options.title = {
         display: true,
-        text: 'Recinto :' + recinto.nombre
+        text: 'Recinto :' + recinto.nombre+' '+estado
       }
       chartRecinto[recinto.id].update();
     }, this)
