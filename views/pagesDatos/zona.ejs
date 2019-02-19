@@ -24,7 +24,7 @@
 <br>
 <br>
 <div class="container">
-
+  <h4 class="center" id="tituloZona">Escoger Zona  ==></h4>
   <div class="row">
     <div class="col-12 col-md-9">
 
@@ -544,11 +544,16 @@
 
       console.log('TAG P',$('#p'+recinto.id).text())
       $('#p'+recinto.id).html('<strong>Inscritos:<mark> '+auxSumaInscritos + '</mark><br> Validos : <mark>'+auxSumaValidos+'</mark><br> Nulos :<mark>'+auxSumaNulos+'</mark><br> Blancos : <mark>'+auxSumaBlancos+'</mark></strong>')
+      
+     
+    
     }, this)
 
+    var tituloZona = auxZonas.filter(dato=>{
+      return dato.id ==recintos[0].idZona
+    })
 
-
-
+    $('#tituloZona').html('ZONA '+tituloZona[0].nombre);
   }
   $('#selectZona2').change(function () {
     console.log('SelectVal', $('#selectZona2').val())
