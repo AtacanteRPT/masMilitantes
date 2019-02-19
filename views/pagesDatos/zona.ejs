@@ -24,7 +24,7 @@
 <br>
 <br>
 <div class="container">
-  <h4 class="center" id="tituloZona">Escoger Zona  ==></h4>
+  <h4 class="center" id="tituloZona">Escoger Zona  ==></h4> 
   <div class="row">
     <div class="col-12 col-md-9">
 
@@ -415,7 +415,7 @@
     var opc = {
       plugins: {
         datalabels: {
-          color: 'white',
+          color: 'black',
           align: 'center',
           font: {
             weight: 'bold',
@@ -574,7 +574,7 @@
       return dato.id ==recintos[0].idZona
     })
 
-    $('#tituloZona').html('ZONA '+tituloZona[0].nombre);
+    $('#tituloZona').html('ZONA : '+tituloZona[0].nombre);
   }
   $('#selectZona2').change(function () {
     console.log('SelectVal', $('#selectZona2').val())
