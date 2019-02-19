@@ -99,10 +99,10 @@
 
         cambiarRecinto(value);
 
+        
+
         $("#autocomplete2").val('');
-        //        $('#selectDistrito2').empty();
-        //      $('#selectZona2').empty();
-        //    $('#selectRecinto2').empty();
+
 
       }
     },
@@ -320,15 +320,16 @@
     var auxRecinto = auxRecintos.filter(data => {
       return data.id == idRecinto;
     })
-    var recintoSeleccionado = auxRecinto[0]
+    var recintoSeleccionado = auxRecinto[0];
 
+    var recintos = auxRecintos.filter(dato=>{
+      return dato.idZona == recintoSeleccionado.idZona;
+    });
 
-    myChart3.data.datasets = getDataPorRecinto2(recintoSeleccionado);
-    myChart3.options.title = {
-      display: true,
-      text: 'Recinto :' + recintoSeleccionado.nombre
-    }
-    myChart3.update();
+    mostrarChartsRecintos(recintos);
+
+    
+
   }
   $('#selectRecinto2').click(function () {
 
@@ -368,12 +369,9 @@
     }, this);
 
   });
-  $('#selectZona2').change(function () {
-    console.log('SelectVal', $('#selectZona2').val())
-    var recintos = auxRecintos.filter(data => {
-      return data.idZona == $('#selectZona2').val()
-    });
-    $('#selectRecinto2').empty();
+
+  function mostrarChartsRecintos(recintos){
+
     console.log('recintos', recintos)
     $('#divCanvas').empty()
 
@@ -550,6 +548,17 @@
 
 
 
+
+  }
+  $('#selectZona2').change(function () {
+    console.log('SelectVal', $('#selectZona2').val())
+    var recintos = auxRecintos.filter(data => {
+      return data.idZona == $('#selectZona2').val()
+    });
+    $('#selectRecinto2').empty();
+
+    mostrarChartsRecintos(recintos);
+    
   });
   function topRecintos(tipo, vector) {
 
