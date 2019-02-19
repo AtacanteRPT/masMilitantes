@@ -1,0 +1,717 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.5.0"></script>
+<script src="/js/jqueryautocomplete.js">
+</script>
+<style>
+  div.collapse {
+    width: 100%;
+    margin: auto;
+  }
+
+  .leaflet-popup-content {
+    width: auto !important;
+  }
+
+  .easy-autocomplete {
+    width: 100% !important
+  }
+
+  .easy-autocomplete input {
+    width: 100%;
+  }
+</style>
+<br>
+<br>
+<br>
+<div class="container">
+
+  <div class="row">
+    <div class="col-12 col-md-9">
+
+      <div id="divCanvas" class="row">
+        <!-- <canvas id="chart3"></canvas> -->
+      </div>
+
+
+    </div>
+    <div class="col-12 col-md-3">
+      <br>
+
+      <label for="autocomplete2">Buscar Recinto</label>
+      <input type="text" class="form-control" id="autocomplete2" placeholder="Nombre del recinto">
+
+      <label for="selectC2">Circunscripción</label>
+      <select class="form-control" id="selectC2">
+        <option>Selecionar</option>
+
+        <% for(var i=0;i<circunscripciones.length;i++){%>
+          <option value='<%= i%>'>
+            <%= circunscripciones[i].nombre%>
+          </option>
+          <% }%>
+      </select>
+      <label for="selectDistrito2">Distrito</label>
+
+      <select class="form-control" id="selectDistrito2">
+        <option>Selecionar</option>
+
+      </select>
+      <label for="selectZona2">Zona</label>
+      <select class="form-control" id="selectZona2">
+        <option>Selecionar</option>
+
+      </select>
+      <label for="selectRecinto2">Recinto</label>
+      <select class="form-control" id="selectRecinto2">
+
+        <% for(var i=0;i<recintos.length;i++){%>
+          <option value='<%= recintos[i].id%>'>
+            <%= i+1%>-
+              <%= recintos[i].nombre%>
+          </option>
+          <% }%>
+      </select>
+
+    </div>
+
+  </div>
+  <br>
+
+</div>
+
+
+
+<script>
+  var auxRecintos = <%- JSON.stringify(recintos) %>;
+  var auxZonas = <%- JSON.stringify(zonas) %>;
+  var auxDistritos = <%- JSON.stringify(distritos) %>;
+  var auxCircunscripciones = <%- JSON.stringify(circunscripciones) %>;
+  var marcas = [];
+  var estRecinto = auxRecintos[0];
+  var options2 = {
+    data: auxRecintos,
+    getValue: "nombre",
+    list: {
+      match: {
+        enabled: true
+      },
+      onClickEvent: function () {
+        var value = $("#autocomplete2").getSelectedItemData().id;
+
+        cambiarRecinto(value);
+
+        $("#autocomplete2").val('');
+        //        $('#selectDistrito2').empty();
+        //      $('#selectZona2').empty();
+        //    $('#selectRecinto2').empty();
+
+      }
+    },
+    template: {
+      type: "description",
+      fields: {
+        description: "id"
+      }
+    }
+  };
+  $("#autocomplete2").easyAutocomplete(options2);
+
+
+  var ctx3 = $('#chart3')
+  var myChart3 = new Chart(ctx3, {
+    plugins: [ChartDataLabels],
+    type: 'bar',
+    data: {
+      labels: ["Inscritos", "Validos", "Nulos", "Blancos"],
+      // labels: estRecinto.mesas.map(item => {
+      //     return 'Mesa - ' + item['nombre'] + ' Inscritos' + item['inscritos']
+      // }),
+      datasets: getDataPorRecinto2(estRecinto)
+    },
+    options: {
+      plugins: {
+        datalabels: {
+          color: 'black',
+          align: 'center',
+          font: {
+            weight: 'bold',
+            defaultFontSize: 10
+          },
+
+          formatter: function (value, context) {
+
+            return value.y + ' - ' + value.cantidad + '%'
+          }
+        }
+
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Inscritos Totales"
+          },
+
+        }],
+        xAxes: [{
+          ticks: {
+            mirror: false
+          },
+
+        }],
+      },
+
+      title: {
+        display: true,
+        text: 'Recinto'
+      }
+    }
+  });
+  function getDataPorRecinto(recinto) {
+    var dataSets = [
+      //     {
+
+      //     label: 'Emitidos',
+      //     data: recinto.mesas.map(dato => {
+      //         return (dato.votosEmitidos * 100 / dato.inscritos).toFixed(2)
+      //     }),
+      //     backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      //     borderColor: 'rgba(255,99,132,1)',
+      //     borderWidth: 1
+      // },
+      {
+
+        label: 'Válidos',
+        data: recinto.mesas.map(dato => {
+          return {
+            y: (dato.votosValidos * 100 / dato.inscritos).toFixed(2),
+            cantidad: dato.votosValidos
+          }
+        }),
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }, {
+
+        label: 'Blancos',
+        data: recinto.mesas.map(dato => {
+          return {
+            y: (dato.votosBlancos * 100 / dato.inscritos).toFixed(2),
+            cantidad: dato.votosBlancos
+          }
+        }),
+        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        borderColor: 'rgba(255, 206, 86, 1)',
+        borderWidth: 1
+      }, {
+
+        label: 'Nulos',
+        data: recinto.mesas.map(dato => {
+          return {
+            y: (dato.votosNulos * 100 / dato.inscritos).toFixed(2),
+            cantidad: dato.votosNulos
+          }
+        }),
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255,99,132,1)',
+        borderWidth: 1
+      }, {
+
+        label: 'FALTAS',
+        data: recinto.mesas.map(dato => {
+          return {
+            y: ((dato.inscritos - dato.votosEmitidos) * 100 / dato.inscritos).toFixed(2),
+            cantidad: (dato.inscritos - dato.votosEmitidos)
+          }
+        }),
+        backgroundColor: 'rgb(255,255,255)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      },
+    ];
+
+    return dataSets;
+
+  }
+
+  function getDataPorRecinto2(recinto) {
+    var suma = 0;
+    recinto.mesas.forEach(function (item) {
+      suma = suma + parseInt(item.inscritos);
+
+    }, this);
+    var sumaInscritos = {
+      y: suma,
+      cantidad: '100'
+    };
+
+
+    suma = 0;
+    recinto.mesas.forEach(function (item) {
+      suma = suma + parseInt(item.votosValidos);
+
+    }, this);
+    var sumaValidos = {
+      y: suma,
+      cantidad: (suma * 100 / sumaInscritos.y).toFixed(2)
+    };
+
+
+    suma = 0;
+    recinto.mesas.forEach(function (item) {
+      suma = suma + parseInt(item.votosBlancos);
+
+    }, this);
+    var sumaBlancos = {
+      y: suma,
+      cantidad: (suma * 100 / sumaInscritos.y).toFixed(2)
+    };
+
+    suma = 0;
+    recinto.mesas.forEach(function (item) {
+      suma = suma + parseInt(item.votosNulos);
+
+    }, this);
+    var sumaNulos = {
+      y: suma,
+      cantidad: (suma * 100 / sumaInscritos.y).toFixed(2)
+    };
+
+
+
+
+    var dataSets = [{
+      label: 'Válidos',
+      data: [sumaInscritos, sumaValidos, sumaNulos, sumaBlancos],
+
+      borderWidth: 1,
+
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+
+      ],
+    }];
+
+    return dataSets;
+
+  }
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  function cambiarRecinto(idRecinto) {
+
+    var auxRecinto = auxRecintos.filter(data => {
+      return data.id == idRecinto;
+    })
+    var recintoSeleccionado = auxRecinto[0]
+
+
+    myChart3.data.datasets = getDataPorRecinto2(recintoSeleccionado);
+    myChart3.options.title = {
+      display: true,
+      text: 'Recinto :' + recintoSeleccionado.nombre
+    }
+    myChart3.update();
+  }
+  $('#selectRecinto2').click(function () {
+
+    cambiarRecinto($('#selectRecinto2').val());
+
+  });
+  $('#selectC2').change(function () {
+    console.log('SelectVal', $('#selectC2').val())
+    var distritos = auxDistritos.filter(data => {
+      return data.idCircunscripcion == auxCircunscripciones[$('#selectC2').val()].id
+    });
+    $('#selectDistrito2').empty();
+    console.log('DISTRITOS', distritos)
+    $('#selectDistrito2').append('<option>Selecionar</option>')
+    distritos.forEach(function (distrito) {
+      $('#selectDistrito2').append(
+        '<option value="' + distrito.id + '"> ' + distrito.nombre + '</option>'
+      )
+
+    }, this);
+
+  });
+  $('#selectDistrito2').change(function () {
+    console.log('SelectVal', $('#selectDistrito2').val())
+    var zonas = auxZonas.filter(data => {
+      return data.idDistrito == $('#selectDistrito2').val()
+    });
+    $('#selectZona2').empty();
+    console.log('ZONAS', zonas)
+    $('#selectZona2').append('<option>selecionar</option>')
+
+    zonas.forEach(function (zona) {
+      $('#selectZona2').append(
+        '<option value="' + zona.id + '"> ' + zona.nombre + '</option>'
+      )
+
+    }, this);
+
+  });
+  $('#selectZona2').change(function () {
+    console.log('SelectVal', $('#selectZona2').val())
+    var recintos = auxRecintos.filter(data => {
+      return data.idZona == $('#selectZona2').val()
+    });
+    $('#selectRecinto2').empty();
+    console.log('recintos', recintos)
+    $('#divCanvas').empty()
+
+
+
+
+    var sumaInscritos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaEmitidos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaValidos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaNulos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaBlancos = {
+      y: 0,
+      cantidad: '100'
+    };
+    recintos.forEach(function (recinto) {
+      $('#selectRecinto2').append(
+        '<option value="' + recinto.id + '"> ' + recinto.nombre + '</option>'
+      )
+
+      $('#divCanvas').append(
+        '<div class="col-12 col-md-6"><canvas id="chartRecinto' + recinto.id + '"></canvas></div>'
+      )
+
+    }, this);
+    var opc = {
+      plugins: {
+        datalabels: {
+          color: 'black',
+          align: 'center',
+          font: {
+            weight: 'bold',
+            defaultFontSize: 10
+          },
+
+          formatter: function (value, context) {
+
+            if (value.y > 9) {
+
+              return value.y + "% \n #" + value.cantidad
+            }
+            return value.y + "% #" + value.cantidad
+          }
+        }
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 100,
+            callback: function (value) {
+              return value + "%"
+            }
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Porcentaje de asistencia"
+          },
+          stacked: true
+        }],
+        xAxes: [{
+          ticks: {
+            mirror: false
+          },
+          stacked: true
+        }],
+      },
+      color: function (context) {
+        var index = context.dataIndex;
+        var value = context.dataset.data[index];
+        console.log('VALUE para COLOR',value)
+        return value < 30 ? 'red' :  // draw negative values in red
+          value >= 60 ? 'green' :    // else, alternate values in blue and green
+            'blue';
+      },
+      title: {
+        display: true,
+        text: 'Recinto'
+      }
+    }
+    var ctxRecinto = {}
+    var chartRecinto = {}
+    recintos.forEach(function (recinto) {
+
+      var suma = 0;
+      var auxSumaInscritos = 0;
+      recinto.mesas.forEach(function (item) {
+        suma = suma + parseInt(item.votosEmitidos);
+        auxSumaInscritos = auxSumaInscritos + parseInt(item.inscritos)
+
+      }, this);
+      sumaInscritos = {
+        y: auxSumaInscritos,
+        cantidad: '100'
+      };
+      sumaEmitidos = {
+        y: (suma * 100 / sumaInscritos.y).toFixed(2),
+        cantidad: suma
+      };
+
+      ctxRecinto[recinto.id] = $('#chartRecinto' + recinto.id)
+      chartRecinto[recinto.id] = new Chart(ctxRecinto[recinto.id], {
+        plugins: [ChartDataLabels],
+        type: 'bar',
+        data: {
+          labels: ["Porcentaje Recinto - " +'Inscritos : '+sumaInscritos.y],
+          // labels: estRecinto.mesas.map(item => {
+          //     return 'Mesa - ' + item['nombre'] + ' Inscritos' + item['inscritos']
+          // }),
+          datasets: [{
+            label: 'Emitidos',
+            data: [sumaEmitidos],
+
+            borderWidth: 1,
+
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+
+            ],
+          }]
+        },
+
+      });
+
+      chartRecinto[recinto.id].options = opc;
+      chartRecinto[recinto.id].options.title = {
+        display: true,
+        text: 'Recinto :' + recinto.nombre
+      }
+      chartRecinto[recinto.id].update();
+    }, this)
+
+
+
+
+  });
+  function topRecintos(tipo, vector) {
+
+    var ordenado = vector.sort(function (a, b) {
+      var suma1 = 0;
+      a.mesas.forEach(item => {
+        suma1 = (suma1 + parseFloat(item[tipo]));
+      });
+      var suma2 = 0;
+      b.mesas.forEach(item => {
+        suma2 = (suma2 + parseFloat(item[tipo]));
+      });
+      return suma1 - suma2;
+
+    })
+
+    console.log('abaco')
+    return ordenado.reverse();
+  };
+  function verRecinto(idRecinto) {
+    console.log('CLICK EN OSO', idRecinto)
+    cambiarRecinto(idRecinto)
+  }
+</script>
+
+<script>
+  $('#selectC3').change(function () {
+    var zonas = [];
+    var recintos = [];
+    var distritos = auxDistritos.filter(data => {
+      return data.idCircunscripcion == auxCircunscripciones[$('#selectC3').val()].id
+    });
+    distritos.forEach(function (distrito) {
+      zonas = zonas.concat(auxZonas.filter(data => {
+        return data.idDistrito == distrito.id;
+      }));
+    }, this);
+    zonas.forEach(function (zona) {
+      recintos = recintos.concat(auxRecintos.filter(data => {
+        return data.idZona == zona.id;
+      }));
+    }, this);
+
+    recintos = topRecintos('inscritos', recintos);
+
+
+    chart2.data.labels = recintos.map(dato => {
+
+      var suma = 0;
+      dato.mesas.forEach(function (item) {
+        suma = suma + parseInt(item.inscritos);
+      }, this);
+
+      return dato['nombre'] + ' Total (' + suma + ')'
+    });
+    chart2.data.datasets = getDataPorRecintos(recintos);
+
+    chart2.options.title = {
+      display: true,
+      text: 'Circunscripción :' + auxCircunscripciones[$('#selectC3').val()].nombre
+    }
+    chart2.update();
+  });
+
+
+  function getDataPorRecintos(recintos) {
+    var dataSets = [{
+      label: 'Válidos',
+      data: recintos.map(dato => {
+        var suma = 0;
+        dato.mesas.forEach(function (item) {
+          suma = suma + parseInt(item.votosValidos);
+        }, this);
+        return {
+          x: suma,
+          cantidad: dato.votosValidos
+        }
+      }),
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }, {
+
+      label: 'Blancos',
+      data: recintos.map(dato => {
+        var suma = 0;
+        dato.mesas.forEach(function (item) {
+          suma = suma + parseInt(item.votosBlancos);
+        }, this);
+        return {
+          x: suma,
+          cantidad: dato.votosValidos
+        }
+      }),
+      backgroundColor: 'rgba(255, 206, 86, 0.2)',
+      borderColor: 'rgba(255, 206, 86, 1)',
+      borderWidth: 1
+    }, {
+
+      label: 'Nulos',
+      data: recintos.map(dato => {
+        var suma = 0;
+        dato.mesas.forEach(function (item) {
+          suma = suma + parseInt(item.votosNulos);
+        }, this);
+        return {
+          x: suma,
+          cantidad: dato.votosValidos
+        }
+      }),
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 1
+    }, {
+
+      label: 'FALTAS',
+      data: recintos.map(dato => {
+        var suma = 0;
+        dato.mesas.forEach(function (item) {
+          suma = suma + (parseInt(item.inscritos) - parseInt(item.votosEmitidos));
+        }, this);
+        return {
+          x: suma,
+          cantidad: dato.votosValidos
+        }
+      }),
+      backgroundColor: 'rgb(255,255,255)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    },];
+
+    return dataSets;
+
+  }
+
+
+  var ctx2 = $('#chart2')
+  var chart2 = new Chart(ctx2, {
+    type: 'horizontalBar',
+    data: {
+      labels: [],
+      datasets: []
+    },
+    options: {
+      plugins: {
+        datalabels: {
+          color: 'black',
+          align: 'center',
+          font: {
+            weight: 'bold',
+            defaultFontSize: 10
+          },
+          formatter: function (value, context) {
+
+            // console.log('DATA LABES ', value)
+
+            return value.x
+          }
+
+        }
+
+
+
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "nro de Votos"
+          },
+          stacked: true
+        }],
+        yAxes: [{
+
+
+          stacked: true
+        }],
+      }
+    }
+  });
+</script>
