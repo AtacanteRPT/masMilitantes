@@ -445,13 +445,11 @@
             display: true,
             labelString: "Porcentaje de asistencia"
           },
-          stacked: true
         }],
         xAxes: [{
           ticks: {
             mirror: false
           },
-          stacked: true
         }],
       },
       color: function (context) {
@@ -492,6 +490,10 @@
         y: (suma * 100 / sumaInscritos.y).toFixed(2),
         cantidad: suma
       };
+      sumaValidos = {
+        y: (auxSumaValidos * 100 / sumaInscritos.y).toFixed(2),
+        cantidad: auxSumaValidos
+      };
 
 
       var color = "#143a83";
@@ -500,6 +502,14 @@
         color = 'red';
       } else if (sumaEmitidos.y > 66) {
         color = 'green';
+      }
+
+      var color2 = "#a4b8de";
+
+      if (sumaValidos.y < 33) {
+        color2 = '#ef6f6f';
+      } else if (sumaValidos.y > 66) {
+        color2 = '#7fdc7f';
       }
 
 
@@ -519,6 +529,17 @@
             borderWidth: 1,
 
             backgroundColor: color,
+
+            borderColor: 'rgba(54, 162, 235, 1)',
+
+          },
+          {
+            label: 'Válidos',
+            data: [sumaValidos],
+
+            borderWidth: 1,
+
+            backgroundColor: color2,
 
             borderColor: 'rgba(54, 162, 235, 1)',
 
