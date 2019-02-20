@@ -14,7 +14,7 @@
     <!--<link rel="stylesheet" type="" href="css/estilo.css">-->
     <!--<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">-->
 
-    <title>Hello, world!</title>
+    <title>Página Militancia Nuestra señora de La Paz</title>
 
     <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -80,17 +80,17 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="/datos/zona">Ver Zona</a>
-                </li>
-                <% if(req.isAuthenticated()){%>
+                </li> -->
+                <!-- <% if(req.isAuthenticated()){%>
 
                     <%if(req.user.rol=='admin'){%>
                         <li class="nav-item">
                             <a  class="nav-link" href="/mapa/principal">Mapa</a>
                         </li>
-                        <%}%>
-                            <%}%>
+                    <%}%>
+                <%}%> -->
             </ul>
 
             <% if(!req.isAuthenticated()){%>
@@ -105,8 +105,8 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <%=req.user.idMilitante.nombre%>
-                                <%=req.user.idMilitante.paterno%>
-                                    <%=req.user.idMilitante.materno%>
+                            <%=req.user.idMilitante.paterno%>
+                            <%=req.user.idMilitante.materno%>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
@@ -114,14 +114,13 @@
                                 <a class="dropdown-item" href="/admin/principal">Panel</a>
                                 <a class="dropdown-item" href="/mapa/principal">Mapa</a>
                                 <%}else{%>
-                                    <a class="dropdown-item" href="/recintoDelegado/principal">Militantes</a>
-
-                                    <%}%>
-                                        <a class="dropdown-item" href="/auth/salir">Salir</a>
-                                        <!--<a class="dropdown-item" href="#">Something else here</a>-->
+                                <a class="dropdown-item" href="/recintoDelegado/principal">Militantes</a>
+                                <%}%>
+                            <a class="dropdown-item" href="/auth/salir">Salir</a>
+                            <!--<a class="dropdown-item" href="#">Something else here</a>-->
                         </div>
                     </div>
-                    <%}%>
+                <%}%>
         </div>
     </nav>
     <%- body %>
@@ -192,7 +191,7 @@
     -->
 
         <!--TEMPLATES-->
-
+        
         <!--TEMPLATES END-->
 
 

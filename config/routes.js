@@ -25,7 +25,7 @@ module.exports.routes = {
      ***************************************************************************/
 
     // 'get /': 'PublicoController.principal',
-    'get /': 'DatosController.principal',
+    'get /': 'DatosController.zona',
 
     'get /publico/buscarCedula': 'PublicoController.principal',
     'get /distrito/militantesPorDistritos/:id': 'DistritoController.militantesPorDistritos',
