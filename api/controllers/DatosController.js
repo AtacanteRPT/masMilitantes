@@ -86,8 +86,9 @@ module.exports = {
     },
     generarPdfZona: function (req, res) {
         var id = req.param('globalZona');
+        console.log('ID ZONAA GLOBAL',id);
 
-        pdfshift.convert('https://militantesmasipsp.com/datos/zonaPdf/' + id, { "landscape": false, "use_print": false }).then(function (binary_file) {
+        pdfshift.convert('https://militantesmasipsp.com/datos/zonaPdf/'+ id, { "landscape": false, "use_print": false }).then(function (binary_file) {
             fs.writeFile(path.join(__dirname, '../.././assets/reportes/zona.pdf'), binary_file, "binary", function () { })
         }).catch(function ({ message, code, response, errors = null }) { })
         res.redirect('/reportes/zona.pdf')
