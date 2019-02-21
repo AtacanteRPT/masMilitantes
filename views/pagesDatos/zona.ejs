@@ -1,7 +1,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.5.0"></script>
 <script src="/js/jqueryautocomplete.js">
+  
 </script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
 <style>
   div.collapse {
     width: 100%;
@@ -80,6 +85,7 @@
     <td> &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="rojo"></p><p id="rojo2"></p><h6>BAJO</h6></td>
     <td>   &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="azul"></p><p id="azul2"></p><h6>MEDIO</h6></td>
     <td>&ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="verde"></p><p id="verde2"></p><h6>ALTO</h6></td>
+    <td> <button class="btn btn-dark" type="button" id="btnImprimir"><i class="fas fa-print"></i></button></td>
   </tr>
 </table>
           
@@ -144,8 +150,10 @@
   var auxCircunscripciones = <%- JSON.stringify(circunscripciones) %>;
   var marcas = [];
   var estRecinto = auxRecintos[0];
+  var globalZona = 0;
   var ultimoRecurso=[]
   ultimoRecurso.push(estRecinto)
+  ultimoRecurso.push(auxRecintos[79]);
   mostrarChartsRecintos(ultimoRecurso);
   var options2 = {
     data: auxRecintos,
@@ -486,12 +494,14 @@
       var auxSumaValidos = 0;
       var auxSumaNulos = 0;
       var auxSumaBlancos = 0;
+      var auxSumaEmitidos = 0;
       recinto.mesas.forEach(function (item) {
         suma = suma + parseInt(item.votosEmitidos);
         auxSumaInscritos = auxSumaInscritos + parseInt(item.inscritos)
         auxSumaValidos = auxSumaValidos + parseInt(item.votosValidos)
         auxSumaNulos = auxSumaNulos + parseInt(item.votosNulos)
         auxSumaBlancos = auxSumaBlancos + parseInt(item.votosBlancos)
+        auxSumaEmitidos = auxSumaEmitidos + parseInt(item.votosEmitidos);
 
       }, this);
       sumaInscritos = {
@@ -620,24 +630,17 @@
         },
 
       });
-      var estado = "MEDIO";
-
-      if ((suma * 100 / sumaInscritos.y).toFixed(2) < 33) {
-        estado = 'BAJO';
-      } else if ((suma * 100 / sumaInscritos.y).toFixed(2) > 66) {
-        estado = 'ALTO';
-      }
 
       chartRecinto[recinto.id].options = opc;
       chartRecinto[recinto.id].options.defaultColor = 'green';
       chartRecinto[recinto.id].options.title = {
         display: true,
-        text: 'Recinto :' + recinto.nombre + ' ' + estado
+        text: 'Recinto :' + recinto.nombre
       }
       chartRecinto[recinto.id].update();
 
       console.log('TAG P', $('#p' + recinto.id).text())
-      $('#p' + recinto.id).html('<strong>Inscritos:<mark> ' + auxSumaInscritos + '</mark><br> Validos : <mark>' + auxSumaValidos + '</mark><br> Nulos :<mark>' + auxSumaNulos + '</mark><br> Blancos : <mark>' + auxSumaBlancos + '</mark></strong>')
+      $('#p' + recinto.id).html('<strong>Inscritos:<mark> ' + auxSumaInscritos + '</mark><br>Emitidos:<mark> ' + auxSumaEmitidos + '</mark><br> Validos : <mark>' + auxSumaValidos + '</mark><br> Nulos :<mark>' + auxSumaNulos + '</mark><br> Blancos : <mark>' + auxSumaBlancos + '</mark></strong>')
 
 
 
@@ -648,6 +651,7 @@
     })
 
     $('#tituloZona').html('ZONA : ' + tituloZona[0].nombre+'&ensp;&ensp;&ensp; &ensp;&ensp;&ensp;');
+    globalZona = tituloZona[0].id;
   }
   $('#selectZona2').change(function () {
     console.log('SelectVal', $('#selectZona2').val())
@@ -684,6 +688,11 @@
 </script>
 
 <script>
+$('#btnImprimir').click(function(){
+  console.log('prueba')
+  window.open("/datos/generarPdfZona/"+globalZona,"_blank")
+});
+
   $('#selectC3').change(function () {
     var zonas = [];
     var recintos = [];

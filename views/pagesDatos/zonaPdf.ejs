@@ -1,0 +1,344 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+  crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.5.0"></script>
+<script src="/js/jqueryautocomplete.js">
+
+</script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+  crossorigin="anonymous">
+
+
+<style>
+  div.collapse {
+    width: 100%;
+    margin: auto;
+  }
+
+  .leaflet-popup-content {
+    width: auto !important;
+  }
+
+  .easy-autocomplete {
+    width: 100% !important
+  }
+
+  .easy-autocomplete input {
+    width: 100%;
+  }
+
+  #rojo {
+    width: 32px;
+    padding: 0px;
+    border: 5px solid red;
+    margin: 0;
+  }
+
+  #rojo2 {
+    width: 32px;
+    padding: 0px;
+    border: 5px solid #ef6f6f;
+    margin: 0;
+  }
+
+  #azul {
+    width: 32px;
+    padding: 0px;
+    border: 5px solid #143a83;
+    margin: 0;
+  }
+
+  #azul2 {
+    width: 32px;
+    padding: 0px;
+    border: 5px solid #a4b8de;
+    margin: 0;
+  }
+
+  #verde {
+    width: 32px;
+    padding: 0px;
+    border: 5px solid green;
+    margin: 0;
+  }
+
+  #verde2 {
+    width: 32px;
+    padding: 0px;
+    border: 5px solid #7fdc7f;
+    margin: 0;
+  }
+</style>
+<br>
+<br>
+<br>
+<div class="container">
+
+
+  <div class="row">
+    <div class="col-12 col-md-12">
+
+
+      <table>
+        <tr>
+          <td>
+            <h4 class="center" id="tituloZona">Escoger Zona &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;</h4>
+          </td>
+          <td> &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;
+            <p id="rojo"></p>
+            <p id="rojo2"></p>
+            <h6>BAJO</h6>
+          </td>
+          <td> &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;
+            <p id="azul"></p>
+            <p id="azul2"></p>
+            <h6>MEDIO</h6>
+          </td>
+          <td>&ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;
+            <p id="verde"></p>
+            <p id="verde2"></p>
+            <h6>ALTO</h6>
+          </td>
+ 
+        </tr>
+      </table>
+
+
+
+      <div id="divCanvas" class="row">
+        <!-- <canvas id="chart3"></canvas> -->
+      </div>
+    </div>
+
+  </div>
+  <br>
+
+</div>
+
+
+
+<script>
+  var auxRecintos = <%- JSON.stringify(recintos) %>;
+  var auxZonas = <%- JSON.stringify(zonas) %>;
+  var marcas = [];
+  var estRecinto = auxRecintos[0];
+  var ultimoRecurso = []
+  ultimoRecurso.push(estRecinto)
+  mostrarChartsRecintos(auxRecintos);
+
+
+  function mostrarChartsRecintos(recintos) {
+
+    console.log('recintos', recintos)
+    $('#divCanvas').empty()
+
+    var sumaInscritos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaEmitidos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaValidos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaNulos = {
+      y: 0,
+      cantidad: '100'
+    };
+    var sumaBlancos = {
+      y: 0,
+      cantidad: '100'
+    };
+    $('#selectRecinto2').empty();
+    recintos.forEach(function (recinto) {
+
+      $('#selectRecinto2').append(
+        '<option value="' + recinto.id + '"> ' + recinto.nombre + '</option>'
+      )
+
+      $('#divCanvas').append(
+        '<div class="col-12 col-md-6"><canvas id="chartRecinto' + recinto.id + '"></canvas>' +
+        '<div class="card">' +
+        '<div class="card-body">' +
+        '<p type="text" id=p' + recinto.id + ' disabled value="oso"</p>' +
+        '</div>' +
+        '</div>' +
+        '</div>'
+      )
+
+    }, this);
+
+
+
+
+    var ctxRecinto = {}
+    var chartRecinto = {}
+    recintos.forEach(function (recinto) {
+
+      var suma = 0;
+      var auxSumaInscritos = 0;
+      var auxSumaValidos = 0;
+      var auxSumaNulos = 0;
+      var auxSumaBlancos = 0;
+      var auxSumaEmitidos = 0;
+      recinto.mesas.forEach(function (item) {
+        suma = suma + parseInt(item.votosEmitidos);
+        auxSumaInscritos = auxSumaInscritos + parseInt(item.inscritos)
+        auxSumaValidos = auxSumaValidos + parseInt(item.votosValidos)
+        auxSumaNulos = auxSumaNulos + parseInt(item.votosNulos)
+        auxSumaBlancos = auxSumaBlancos + parseInt(item.votosBlancos)
+        auxSumaEmitidos = auxSumaEmitidos + parseInt(item.votosEmitidos);
+
+      }, this);
+      sumaInscritos = {
+        y: auxSumaInscritos,
+        cantidad: '100'
+      };
+      sumaEmitidos = {
+        y: (suma * 100 / sumaInscritos.y).toFixed(2),
+        cantidad: suma
+      };
+      sumaValidos = {
+        y: (auxSumaValidos * 100 / sumaInscritos.y).toFixed(2),
+        cantidad: auxSumaValidos
+      };
+
+      var colorLetra = "white";
+      if (sumaEmitidos.y < 10 || sumaValidos.y < 10) {
+        colorLetra = "black";
+      }
+
+
+      var opc = {
+        plugins: {
+          datalabels: {
+            color: colorLetra,
+            align: 'center',
+            font: {
+              weight: 'bold',
+              defaultFontSize: 15
+            },
+
+            formatter: function (value, context) {
+
+              if (value.y > 9) {
+
+                return value.y + "% \n #" + value.cantidad
+              }
+              return value.y + "% #" + value.cantidad
+            }
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: 100,
+              callback: function (value) {
+                return value + "%"
+              }
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "Porcentaje de asistencia"
+            },
+          }],
+          xAxes: [{
+            ticks: {
+              mirror: false
+            },
+          }],
+        },
+        color: function (context) {
+          var index = context.dataIndex;
+          var value = context.dataset.data[index];
+          console.log('VALUE para COLOR', value)
+          return value < 30 ? 'red' :  // draw negative values in red
+            value >= 60 ? 'green' :    // else, alternate values in blue and green
+              'blue';
+        },
+        title: {
+          display: true,
+          text: 'Recinto'
+        }
+      }
+
+
+
+      var color = "#143a83";
+
+      if (sumaEmitidos.y < 33) {
+        color = 'red';
+      } else if (sumaEmitidos.y > 66) {
+        color = 'green';
+      }
+
+      var color2 = "#a4b8de";
+
+      if (sumaValidos.y < 33) {
+        color2 = '#ef6f6f';
+      } else if (sumaValidos.y > 66) {
+        color2 = '#7fdc7f';
+      }
+
+
+      ctxRecinto[recinto.id] = $('#chartRecinto' + recinto.id)
+      chartRecinto[recinto.id] = new Chart(ctxRecinto[recinto.id], {
+        plugins: [ChartDataLabels],
+        type: 'bar',
+        data: {
+          labels: ["Porcentaje Recinto - " + 'Inscritos : ' + sumaInscritos.y],
+          // labels: estRecinto.mesas.map(item => {
+          //     return 'Mesa - ' + item['nombre'] + ' Inscritos' + item['inscritos']
+          // }),
+          datasets: [{
+            label: 'Emitidos',
+            data: [sumaEmitidos],
+
+            borderWidth: 1,
+
+            backgroundColor: color,
+
+            borderColor: 'rgba(54, 162, 235, 1)',
+
+          },
+          {
+            label: 'Válidos',
+            data: [sumaValidos],
+
+            borderWidth: 1,
+
+            backgroundColor: color2,
+
+            borderColor: 'rgba(54, 162, 235, 1)',
+
+          }]
+        },
+
+      });
+
+      chartRecinto[recinto.id].options = opc;
+      chartRecinto[recinto.id].options.defaultColor = 'green';
+      chartRecinto[recinto.id].options.title = {
+        display: true,
+        text: 'Recinto :' + recinto.nombre
+      }
+      chartRecinto[recinto.id].update();
+
+      console.log('TAG P', $('#p' + recinto.id).text())
+      $('#p' + recinto.id).html('<strong>Inscritos:<mark> ' + auxSumaInscritos + '</mark><br>Emitidos:<mark> ' + auxSumaEmitidos + '</mark><br> Validos : <mark>' + auxSumaValidos + '</mark><br> Nulos :<mark>' + auxSumaNulos + '</mark><br> Blancos : <mark>' + auxSumaBlancos + '</mark></strong>')
+
+
+
+    }, this)
+
+    $('#tituloZona').html('ZONA : ' + auxZonas.nombre + '&ensp;&ensp;&ensp; &ensp;&ensp;&ensp;');
+  }
+
+</script>

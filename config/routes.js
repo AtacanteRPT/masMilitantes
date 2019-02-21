@@ -31,6 +31,8 @@ module.exports.routes = {
     'get /distrito/militantesPorDistritos/:id': 'DistritoController.militantesPorDistritos',
     'get /distrito/militantesPorZonas/:id': 'DistritoController.militantesPorZonas',
     'get /distrito/militantesPorRecintos/:id': 'DistritoController.militantesPorRecintos',
+    'get /datos/zonaPdf/:id': 'DatosController.zonaPdf',
+    'get /datos/generarPdfZona/:id': 'DatosController.generarPdfZona',
 
 
 
