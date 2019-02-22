@@ -90,14 +90,14 @@ module.exports = {
         pdfshift.convert('https://militantesmasipsp.com/datos/zonaPdf/'+ id, { "landscape": false, "use_print": false }).then(function (binary_file) {
             fs.writeFile(path.join(__dirname, '../.././assets/reportes/zona'+id+'.pdf'), binary_file, "binary", function () {
               
-                //res.redirect('/reportes/zona'+id+'.pdf')
+            res.redirect('/reportes/zona'+id+'.pdf')
              })
         }).catch(function ({ message, code, response, errors = null }) { 
 
             
         })
 
-        res.send('oso'+id);
+        //res.send('oso'+id);
     },
 
 };
