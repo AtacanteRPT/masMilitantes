@@ -690,7 +690,8 @@
 <script>
 $('#btnImprimir').click(function(){
   console.log('prueba')
-  window.open("/datos/generarPdfZona/"+globalZona,"_blank")
+  // window.open("/datos/generarPdfZona/"+globalZona,"_blank")
+  window.open("/reportes/zona"+globalZona+".pdf","_blank")
 });
 
   $('#selectC3').change(function () {
