@@ -1,8 +1,12 @@
 <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 <link rel="stylesheet" type="" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/css/dvf.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin="" />
 <link rel="stylesheet" type="" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css">
-<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/leaflet-dvf.min.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/leaflet-dvf.markers.min.js"></script>
@@ -44,6 +48,8 @@
     #map2 {
         width: 90%;
         height: 800px;
+        box-shadow: 5px 5px 5px #888;
+
     }
 
     .legend i {
@@ -60,10 +66,10 @@
     }
 </style>
 
-<div class="container">
+<!-- <div class="container">
     <h1>Mapa de estadisticas</h1>
     <div id='map'></div>
-</div>
+</div> -->
 
 
 <div id="map2"></div>
@@ -211,6 +217,9 @@
             [-68.13193482759603, -16.50062031007921],
             [-68.13691027818591, -16.499468164131176],
             [-68.14085632520549, -16.495682493414858],
+
+
+
             [-68.1434298341313, -16.494036526520404],
             [-68.14943468829154, -16.49156754992707]
         ]
@@ -291,17 +300,17 @@
     // control that shows state info on hover
     var info = L.control();
 
-    info.onAdd = function(map) {
+    info.onAdd = function (map) {
         this._div = L.DomUtil.create('div', 'info');
         this.update();
         return this._div;
     };
 
-    info.update = function(props) {
+    info.update = function (props) {
         if (props) {
             var distritos = auxDistritos.filter(dato => dato.idCircunscripcion == props.id);
             var textDistritos = '';
-            distritos.forEach(function(element) {
+            distritos.forEach(function (element) {
 
                 textDistritos += '<p>' + element.nombre + '</p>'
             }, this);
@@ -322,12 +331,12 @@
     function getColor(d) {
         return d > 1000 ? '#800026' :
             d > 500 ? '#BD0026' :
-            d > 200 ? '#E31A1C' :
-            d > 100 ? '#29088A' :
-            d > 50 ? '#FD8D3C' :
-            d > 20 ? '#FEB24C' :
-            d > 10 ? '#FED976' :
-            '#FFEDA0';
+                d > 200 ? '#E31A1C' :
+                    d > 100 ? '#29088A' :
+                        d > 50 ? '#FD8D3C' :
+                            d > 20 ? '#FEB24C' :
+                                d > 10 ? '#FED976' :
+                                    '#FFEDA0';
     }
 
     function style(feature) {
@@ -389,7 +398,7 @@
         position: 'bottomright'
     });
 
-    legend.onAdd = function(map) {
+    legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend'),
             grades = [0, 10, 20, 50, 100, 300, 500, 1000],
@@ -444,13 +453,13 @@
     });
 
 
-    auxRecintos.forEach(function(recinto) {
+    auxRecintos.forEach(function (recinto) {
         var auxMarca = {};
         var sw = false;
         var sumaEmitidos = 0;
         var sumaValidos = 0;
         var sumaInscritos = 0;
-        recinto.mesas.forEach(function(mesa) {
+        recinto.mesas.forEach(function (mesa) {
             sumaEmitidos += parseInt(mesa.votosEmitidos);
             sumaValidos += parseInt(mesa.votosValidos);
             sumaInscritos += parseInt(mesa.inscritos)
@@ -476,12 +485,12 @@
             var auxMarca = {};
             var sw = false;
             auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
-                    icon: auxIcon
-                })
+                icon: auxIcon
+            })
                 .addTo(map);
 
 
-            var sortMesas = recinto.mesas.sort(function(a, b) {
+            var sortMesas = recinto.mesas.sort(function (a, b) {
                 // a must be equal to b
                 return a.nombre - b.nombre;
             });
@@ -492,7 +501,7 @@
             var totalBlancos = 0;
             var totalNulos = 0;
             var totalEmitidos = 0;
-            sortMesas.forEach(function(mesa) {
+            sortMesas.forEach(function (mesa) {
 
                 totalInscritos = totalInscritos + parseInt(mesa.inscritos);
                 totalValidos = totalValidos + parseInt(mesa.votosValidos);
@@ -531,9 +540,9 @@
 
 
             var zona = auxZonas.filter(data => {
-                    return data.id == recinto.idZona
-                })
-                // console.log('ZONA AAA', zona)
+                return data.id == recinto.idZona
+            })
+            // console.log('ZONA AAA', zona)
             var distrito = auxDistritos.filter(data => {
                 return data.id == zona[0].idDistrito
             })
@@ -571,15 +580,15 @@
                 '</div>';
             // console.log('COLLAPSE', collapse)
             auxMarca['marca-' + recinto.id].bindPopup(
-                    collapse, {
-                        // closeOnClick: false,
-                        // autoClose: false,
-                        // minWdth: '1000',
-                        maxWidth: 'auto',
-                        // autoPan: true,
-                        // className: 'custom'
-                    })
-                // console.log("MARKA", auxMarca['marca-' + recinto.id])
+                collapse, {
+                    // closeOnClick: false,
+                    // autoClose: false,
+                    // minWdth: '1000',
+                    maxWidth: 'auto',
+                    // autoPan: true,
+                    // className: 'custom'
+                })
+            // console.log("MARKA", auxMarca['marca-' + recinto.id])
         }
 
 
@@ -672,7 +681,7 @@
     var editableLayers = new L.FeatureGroup();
     map2.addLayer(editableLayers);
 
-    map2.on('draw:created', function(e) {
+    map2.on('draw:created', function (e) {
         console.log("EVENTo", e.layer)
         var type = e.layerType,
             layer = e.layer;
@@ -682,7 +691,7 @@
         }
         var auxDistrito = [];
         e.layer._latlngs[0].forEach(element => {
-            auxDistrito.push([element.lng,element.lat]);
+            auxDistrito.push([element.lng, element.lat]);
         });
 
         console.log(JSON.stringify([auxDistrito]));
