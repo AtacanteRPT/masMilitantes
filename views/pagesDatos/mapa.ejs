@@ -66,13 +66,13 @@
     }
 </style>
 
-<!-- <div class="container">
+<div class="container">
     <h1>Mapa de estadisticas</h1>
     <div id='map'></div>
-</div> -->
+</div>
 
 
-<div id="map2"></div>
+<!-- <div id="map2"></div> -->
 <script>
     var circunscripcion7 = [
         [
@@ -646,7 +646,46 @@
     }).addTo(map2);
 
     // add a marker in the given location
-    L.marker(center).addTo(map2);
+    var lilaIcon = new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var auxMarca = {};
+    auxRecintos.forEach(function (recinto) {
+ 
+
+        ///////////////////////////////// INICIO ///////////////////////////////////
+
+        if (recinto.latitud != null || recinto.longitud != null) {
+            var sw = false;
+            auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
+                icon: lilaIcon
+            }).addTo(map2);
+
+            // console.log('COLLAPSE', collapse)
+            auxMarca['marca-' + recinto.id].bindPopup(
+                '<p>'+recinto.nombre+'</p>', {
+                    closeOnClick: false,
+                    autoClose: false,
+                    // minWdth: '1000',
+                    maxWidth: 'auto',
+                    // autoPan: true,
+                    // className: 'custom'
+                }).openPopup()
+        }
+
+
+        ///////////////////////////////////FIN /////////////////////////////////
+
+
+    }, this);
+
+
+
 
     // Initialise the FeatureGroup to store editable layers
     var editableLayers = new L.FeatureGroup();
