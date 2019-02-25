@@ -1,4 +1,3 @@
-
 var fs = require('fs');
 var path = require('path')
 
@@ -7,7 +6,7 @@ const pdfshift = require('pdfshift')('5b92826913fe4316b72dfaff2fe1c536');
 
 module.exports = {
 
-    principal: function (req, res) {
+    principal: function(req, res) {
 
         res.redirect('/');
         //   Circunscripcion.find().exec(function(err, datoCircunscripcion) {
@@ -34,21 +33,19 @@ module.exports = {
         //   });
 
     },
+    zona: function(req, res) {
 
 
-    zona: function (req, res) {
-
-
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
+        Circunscripcion.find().exec(function(err, datoCircunscripcion) {
             console.log('dato Circunscripcion :', datoCircunscripcion)
             if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
+            Distrito.find().exec(function(err, datoDistrito) {
                 console.log('dato distrito :', datoDistrito)
                 if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
+                Zona.find().exec(function(err, datoZona) {
                     console.log('dato zona :', datoZona)
 
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
+                    Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
 
                         res.view('pagesDatos/zona', {
                             recintos: datoRecintos,
@@ -63,17 +60,44 @@ module.exports = {
         });
 
     },
-    zonaPdf: function (req, res) {
+    mapa: function(req, res) {
 
 
-        Zona.findOne(req.param('id')).exec(function (err, datoZona) {
+        Circunscripcion.find().exec(function(err, datoCircunscripcion) {
+            console.log('dato Circunscripcion :', datoCircunscripcion)
+            if (err) { return res.serverError(err); }
+            Distrito.find().exec(function(err, datoDistrito) {
+                console.log('dato distrito :', datoDistrito)
+                if (err) { return res.serverError(err); }
+                Zona.find().exec(function(err, datoZona) {
+                    console.log('dato zona :', datoZona)
+
+                    Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
+
+                        res.view('pagesDatos/mapa', {
+                            recintos: datoRecintos,
+                            zonas: datoZona,
+                            distritos: datoDistrito,
+                            circunscripciones: datoCircunscripcion
+                        })
+                    });
+
+                });
+            });
+        });
+
+    },
+    zonaPdf: function(req, res) {
+
+
+        Zona.findOne(req.param('id')).exec(function(err, datoZona) {
             if (err) { return res.serverError(err); }
 
             console.log('dato zona :', datoZona)
 
-            Recinto.find({idZona:datoZona.id}).populate('mesas').exec(function (err, datoRecintos) {
+            Recinto.find({ idZona: datoZona.id }).populate('mesas').exec(function(err, datoRecintos) {
                 if (err) { return res.serverError(err); }
-                console.log('DATOS RECINTOS',datoRecintos)
+                console.log('DATOS RECINTOS', datoRecintos)
                 res.view('pagesDatos/zonaPdf', {
                     layout: 'layouts/layoutPdf',
                     recintos: datoRecintos,
@@ -84,17 +108,17 @@ module.exports = {
         });
 
     },
-    generarPdfZona: function (req, res) {
+    generarPdfZona: function(req, res) {
         var id = req.param('globalZona');
-        console.log('ID ZONAA GLOBAL',id);
-        pdfshift.convert('https://militantesmasipsp.com/datos/zonaPdf/'+ id, { "landscape": false, "use_print": false }).then(function (binary_file) {
-            fs.writeFile(path.join(__dirname, '../.././assets/reportes/zona'+id+'.pdf'), binary_file, "binary", function () {
-              
-            res.redirect('/reportes/zona'+id+'.pdf')
-             })
-        }).catch(function ({ message, code, response, errors = null }) { 
+        console.log('ID ZONAA GLOBAL', id);
+        pdfshift.convert('https://militantesmasipsp.com/datos/zonaPdf/' + id, { "landscape": false, "use_print": false }).then(function(binary_file) {
+            fs.writeFile(path.join(__dirname, '../.././assets/reportes/zona' + id + '.pdf'), binary_file, "binary", function() {
 
-            
+                res.redirect('/reportes/zona' + id + '.pdf')
+            })
+        }).catch(function({ message, code, response, errors = null }) {
+
+
         })
 
         //res.send('oso'+id);
