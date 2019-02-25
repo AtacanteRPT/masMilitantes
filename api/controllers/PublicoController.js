@@ -29,7 +29,7 @@ module.exports = {
 
             if (datoMilitante.length > 0) {
                 if (datoMilitante[0].idDelegado.tipo != 'No') {
-
+  
                     Recinto.findOne(datoMilitante[0].idRecintoDelegado).populate('idZona').exec(function(err, datoRecinto) {
                         if (err) { return res.serverError(err); }
 
