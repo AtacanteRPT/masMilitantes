@@ -226,7 +226,7 @@
     ];
 </script>
 
-<script src="/js/geoJsonDistritos.js"></script>
+<script src="/js/geoJosnDistritos2.js"></script>
 <!-- <script src="/js/geoJsonZonas.js"></script> -->
 <script>
 
@@ -382,13 +382,13 @@
 
     function onEachFeature(feature, layer) {
         layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
+            //mouseover: highlightFeature,
+           // mouseout: resetHighlight,
             // click: zoomToFeature
         });
     }
 
-    geojson = L.geoJson(geoDistritos, {
+    geojson = L.geoJson(geoDistritos2, {
         style: style,
         onEachFeature: onEachFeature
     }).addTo(map);
