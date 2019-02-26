@@ -66,10 +66,10 @@
     }
 </style>
 
-<!-- <div class="container">
+<div class="container">
     <h1>Mapa de estadisticas</h1>
     <div id='map'></div>
-</div> -->
+</div> 
 
 
 <div id="map2"></div>
@@ -225,7 +225,10 @@
         ]
     ];
 </script>
+
+<script src="/js/geoJsonDistritos.js"></script>
 <script>
+
     var auxRecintos = <%- JSON.stringify(recintos) %>;
     var auxZonas = <%- JSON.stringify(zonas) %>;
     var auxDistritos = <%- JSON.stringify(distritos) %>;
@@ -386,7 +389,7 @@
         });
     }
 
-    geojson = L.geoJson(statesData, {
+    geojson = L.geoJson(geoDistritos, {
         style: style,
         onEachFeature: onEachFeature
     }).addTo(map);
@@ -451,182 +454,94 @@
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
     });
-
-
+var auxMarca = {};
     auxRecintos.forEach(function (recinto) {
-        var auxMarca = {};
-        var sw = false;
-        var sumaEmitidos = 0;
-        var sumaValidos = 0;
-        var sumaInscritos = 0;
-        recinto.mesas.forEach(function (mesa) {
-            sumaEmitidos += parseInt(mesa.votosEmitidos);
-            sumaValidos += parseInt(mesa.votosValidos);
-            sumaInscritos += parseInt(mesa.inscritos)
-
-        }, this);
-
-        var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
-        var auxIcon = azulIcon;
-        // console.log(recinto.nombre, porcentajeEmitidos)
-        // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
-        // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-        if (porcentajeEmitidos < 33) {
-            auxIcon = rojoIcon;
-        } else if (porcentajeEmitidos > 65) {
-            auxIcon = verdeIcon;
-        }
-
+ 
 
         ///////////////////////////////// INICIO ///////////////////////////////////
 
-
         if (recinto.latitud != null || recinto.longitud != null) {
-            var auxMarca = {};
             var sw = false;
             auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
-                icon: auxIcon
-            })
-                .addTo(map);
+                icon: rojoIcon
+            }).addTo(map);
 
-
-            var sortMesas = recinto.mesas.sort(function (a, b) {
-                // a must be equal to b
-                return a.nombre - b.nombre;
-            });
-
-            var datoMesas = '';
-            var totalInscritos = 0;
-            var totalValidos = 0;
-            var totalBlancos = 0;
-            var totalNulos = 0;
-            var totalEmitidos = 0;
-            sortMesas.forEach(function (mesa) {
-
-                totalInscritos = totalInscritos + parseInt(mesa.inscritos);
-                totalValidos = totalValidos + parseInt(mesa.votosValidos);
-                totalBlancos = totalBlancos + parseInt(mesa.votosBlancos);
-                totalNulos = totalNulos + parseInt(mesa.votosNulos);
-                totalEmitidos = totalEmitidos + parseInt(mesa.votosEmitidos);
-                datoMesas = datoMesas + '<tr>' +
-                    '<th>' + mesa.nombre + '</th>' +
-                    '<th>' + mesa.inscritos + '</th>' +
-                    '<th>' + mesa.votosValidos + '</th>' +
-                    '<th>' + mesa.votosBlancos + '</th>' +
-                    '<th>' + mesa.votosNulos + '</th>' +
-                    '<th>' + mesa.votosEmitidos + '</th>' +
-                    '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
-
-                    '</tr>'
-
-            })
-            datoMesas = datoMesas + '<tr  class="table-primary">' +
-                '<th>TOTAL </th>' +
-                '<th>' + totalInscritos + '</th>' +
-                '<th>' + totalValidos + '</th>' +
-                '<th>' + totalBlancos + '</th>' +
-                '<th>' + totalNulos + '</th>' +
-                '<th>' + totalEmitidos + '</th>' +
-                '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
-                '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
-                '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
-                '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
-
-                '</tr>';
-            // console.log('DATO MESAS', datoMesas)
-
-
-            var zona = auxZonas.filter(data => {
-                return data.id == recinto.idZona
-            })
-            // console.log('ZONA AAA', zona)
-            var distrito = auxDistritos.filter(data => {
-                return data.id == zona[0].idDistrito
-            })
-            var circunscripcion = auxCircunscripciones.filter(data => {
-                return data.id == distrito[0].idCircunscripcion
-            })
-
-            var collapse =
-                '<div class="card">' +
-
-                ' <div class="card-body">' +
-                ' <h6>' + recinto.nombre + '</h6><br>' +
-                'Circunscripcion: ' + circunscripcion[0].nombre + ' - ' + distrito[0].nombre + ' - Zona:' + zona[0].nombre +
-                '<table class="table">' +
-                '<thead>' +
-                '<th>MESA</th>' +
-                '<th>Inscritos</th>' +
-                '<th>Votos Validos</th>' +
-                '<th>Votos Blancos</th>' +
-                '<th>Votos Nulos</th>' +
-                '<th>Votos Emitidos</th>' +
-
-                '<th> % Validos</th>' +
-                '<th> % Blancos</th>' +
-                '<th> % Nulos</th>' +
-                '<th> % Emitidos</th>' +
-
-                '</thead>' +
-                '<tbody>' +
-                datoMesas +
-                '</tbody>' +
-                ' </table>' +
-
-                '</div>' +
-                '</div>';
             // console.log('COLLAPSE', collapse)
             auxMarca['marca-' + recinto.id].bindPopup(
-                collapse, {
-                    // closeOnClick: false,
-                    // autoClose: false,
+                '<p>'+recinto.nombre+'</p>', {
+                    closeOnClick: false,
+                    autoClose: false,
                     // minWdth: '1000',
                     maxWidth: 'auto',
                     // autoPan: true,
                     // className: 'custom'
-                })
-            // console.log("MARKA", auxMarca['marca-' + recinto.id])
+                }).openPopup()
         }
 
 
         ///////////////////////////////////FIN /////////////////////////////////
 
 
-
-
-
-
-
-
-
-
-        // auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
-        //         icon: auxIcon
-        //     })
-        //     .addTo(map);
-
-        // auxMarca['marca-' + recinto.id].bindPopup(
-        //     '<p>' + recinto.nombre + '</p>', {
-        //         // closeOnClick: false,
-        //         // autoClose: false,
-        //         // minWdth: '1000',
-        //         // maxWidth: 'auto',
-        //         // autoPan: true,
-        //         // className: 'custom'
-        //     })
     }, this);
-    // L.marker([-16.51773269488567, -68.11798095703126], {
-    //     icon: greenIcon
-    // }).addTo(map);
-    // MARKAS
 
 
 
-    // var barChartMarker = new L.PieChartMarker(new L.LatLng(-16.51773269488567, -68.11798095703126), options);
-    // map.addLayer(barChartMarker);
+
+    // Initialise the FeatureGroup to store editable layers
+    var editableLayers = new L.FeatureGroup();
+    map.addLayer(editableLayers);
+
+    var drawPluginOptions = {
+        position: 'topright',
+        draw: {
+            polygon: {
+                allowIntersection: false, // Restricts shapes to simple polygons
+                drawError: {
+                    color: '#e1e100', // Color the shape will turn when intersects
+                    message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
+                },
+                shapeOptions: {
+                    color: '#97009c'
+                }
+            },
+            // disable toolbar item by setting it to false
+            polyline: false,
+            circle: false, // Turns off this drawing tool
+            rectangle: false,
+            marker: false,
+        },
+        edit: {
+            featureGroup: editableLayers, //REQUIRED!!
+            remove: false
+        }
+    };
+
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    var drawControl = new L.Control.Draw(drawPluginOptions);
+    map.addControl(drawControl);
+
+    var editableLayers = new L.FeatureGroup();
+    map.addLayer(editableLayers);
+
+    map.on('draw:created', function (e) {
+        console.log("EVENTo", e.layer)
+        var type = e.layerType,
+            layer = e.layer;
+        // console.log("ARRAY", JSON.stringify(e.layer._latlngs));
+        if (type === 'marker') {
+            layer.bindPopup('A popup!');
+        }
+        var auxDistrito = [];
+        e.layer._latlngs[0].forEach(element => {
+            auxDistrito.push([element.lng, element.lat]);
+        });
+
+        console.log(JSON.stringify([auxDistrito]));
+        editableLayers.addLayer(layer);
+    });
+
+
+
 </script>
 
 <script>
