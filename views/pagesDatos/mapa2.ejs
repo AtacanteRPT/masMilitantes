@@ -226,8 +226,8 @@
     ];
 </script>
 
-<!-- <script src="/js/geoJsonDistritos.js"></script> -->
-<script src="/js/geoJsonZonas.js"></script>
+<script src="/js/geoJosnDistritos2.js"></script>
+<!-- <script src="/js/geoJsonZonas.js"></script> -->
 <script>
 
     var auxRecintos = <%- JSON.stringify(recintos) %>;
@@ -311,21 +311,19 @@
     };
 
     info.update = function (props) {
-        if (props) {
-            var distritos = auxDistritos.filter(dato => dato.idCircunscripcion == props.id);
-            var textDistritos = '';
-            distritos.forEach(function (element) {
+       // if (props) {
+         //   var distritos = auxDistritos.filter(dato => dato.idCircunscripcion == props.id);
+        //    var textDistritos = '';
+       //     distritos.forEach(function (element) {
 
-                textDistritos += '<p>' + element.nombre + '</p>'
-            }, this);
+       //         textDistritos += '<p>' + element.nombre + '</p>'
+//}, this);
 
-        }
+      //  }
 
 
         this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
-            '<b>' + props.name + '</b><br />' + ' Distritos' +
-            textDistritos :
-            'circunscripciones');
+            '<b>Distrito ' + props.distritoca + '</b><br />' + ' Zonas':'NADA');
     };
 
     info.addTo(map);
@@ -390,7 +388,7 @@
         });
     }
 
-    geojson = L.geoJson(geoZonas, {
+    geojson = L.geoJson(geoDistritos2, {
         style: style,
         onEachFeature: onEachFeature
     }).addTo(map);
