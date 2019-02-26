@@ -226,7 +226,7 @@
     ];
 </script>
 
-<script src="/js/geoJosnDistritos2.js"></script>
+<script src="/js/geoJsonnDistritos.js"></script>
 <!-- <script src="/js/geoJsonZonas.js"></script> -->
 <script>
 
@@ -388,7 +388,7 @@
         });
     }
 
-    geojson = L.geoJson(geoDistritos2, {
+    geojson = L.geoJson(geoDistritos, {
         style: style,
         onEachFeature: onEachFeature
     }).addTo(map);
