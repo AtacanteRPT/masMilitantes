@@ -226,7 +226,8 @@
     ];
 </script>
 
-<script src="/js/geoJsonDistritos.js"></script>
+<!-- <script src="/js/geoJsonDistritos.js"></script> -->
+<script src="/js/geoJsonZonas.js"></script>
 <script>
 
     var auxRecintos = <%- JSON.stringify(recintos) %>;
@@ -389,7 +390,7 @@
         });
     }
 
-    geojson = L.geoJson(geoDistritos, {
+    geojson = L.geoJson(geoZonas, {
         style: style,
         onEachFeature: onEachFeature
     }).addTo(map);
