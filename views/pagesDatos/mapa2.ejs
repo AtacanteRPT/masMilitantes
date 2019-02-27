@@ -468,34 +468,170 @@
     });
     var auxMarca = {};
     auxRecintos.forEach(function(recinto) {
+        var auxMarca = {};
+        var sw = false;
+        var sumaEmitidos = 0;
+        var sumaValidos = 0;
+        var sumaInscritos = 0;
+        recinto.mesas.forEach(function(mesa) {
+            sumaEmitidos += parseInt(mesa.votosEmitidos);
+            sumaValidos += parseInt(mesa.votosValidos);
+            sumaInscritos += parseInt(mesa.inscritos)
+
+        }, this);
+
+        var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
+        var auxIcon = azulIcon;
+        // console.log(recinto.nombre, porcentajeEmitidos)
+        // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
+        // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+        if (porcentajeEmitidos < 33) {
+            auxIcon = rojoIcon;
+        } else if (porcentajeEmitidos > 65) {
+            auxIcon = verdeIcon;
+        }
 
 
         ///////////////////////////////// INICIO ///////////////////////////////////
 
+
         if (recinto.latitud != null || recinto.longitud != null) {
+            var auxMarca = {};
             var sw = false;
             auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
-                icon: rojoIcon
-            }).addTo(map);
+                    icon: auxIcon
+                })
+                .addTo(map);
 
+
+            var sortMesas = recinto.mesas.sort(function(a, b) {
+                // a must be equal to b
+                return a.nombre - b.nombre;
+            });
+
+            var datoMesas = '';
+            var totalInscritos = 0;
+            var totalValidos = 0;
+            var totalBlancos = 0;
+            var totalNulos = 0;
+            var totalEmitidos = 0;
+            sortMesas.forEach(function(mesa) {
+
+                totalInscritos = totalInscritos + parseInt(mesa.inscritos);
+                totalValidos = totalValidos + parseInt(mesa.votosValidos);
+                totalBlancos = totalBlancos + parseInt(mesa.votosBlancos);
+                totalNulos = totalNulos + parseInt(mesa.votosNulos);
+                totalEmitidos = totalEmitidos + parseInt(mesa.votosEmitidos);
+                datoMesas = datoMesas + '<tr>' +
+                    '<th>' + mesa.nombre + '</th>' +
+                    '<th>' + mesa.inscritos + '</th>' +
+                    '<th>' + mesa.votosValidos + '</th>' +
+                    '<th>' + mesa.votosBlancos + '</th>' +
+                    '<th>' + mesa.votosNulos + '</th>' +
+                    '<th>' + mesa.votosEmitidos + '</th>' +
+                    '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+
+                    '</tr>'
+
+            })
+            datoMesas = datoMesas + '<tr  class="table-primary">' +
+                '<th>TOTAL </th>' +
+                '<th>' + totalInscritos + '</th>' +
+                '<th>' + totalValidos + '</th>' +
+                '<th>' + totalBlancos + '</th>' +
+                '<th>' + totalNulos + '</th>' +
+                '<th>' + totalEmitidos + '</th>' +
+                '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
+                '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
+
+                '</tr>';
+            // console.log('DATO MESAS', datoMesas)
+
+
+            var zona = auxZonas.filter(data => {
+                    return data.id == recinto.idZona
+                })
+                // console.log('ZONA AAA', zona)
+            var distrito = auxDistritos.filter(data => {
+                return data.id == zona[0].idDistrito
+            })
+            var circunscripcion = auxCircunscripciones.filter(data => {
+                return data.id == distrito[0].idCircunscripcion
+            })
+
+            var collapse =
+                '<div class="card">' +
+
+                ' <div class="card-body">' +
+                ' <h6>' + recinto.nombre + '</h6><br>' +
+                'Circunscripcion: ' + circunscripcion[0].nombre + ' - ' + distrito[0].nombre + ' - Zona:' + zona[0].nombre +
+                '<table class="table">' +
+                '<thead>' +
+                '<th>MESA</th>' +
+                '<th>Inscritos</th>' +
+                '<th>Votos Validos</th>' +
+                '<th>Votos Blancos</th>' +
+                '<th>Votos Nulos</th>' +
+                '<th>Votos Emitidos</th>' +
+
+                '<th> % Validos</th>' +
+                '<th> % Blancos</th>' +
+                '<th> % Nulos</th>' +
+                '<th> % Emitidos</th>' +
+
+                '</thead>' +
+                '<tbody>' +
+                datoMesas +
+                '</tbody>' +
+                ' </table>' +
+
+                '</div>' +
+                '</div>';
             // console.log('COLLAPSE', collapse)
             auxMarca['marca-' + recinto.id].bindPopup(
-                '<p>' + recinto.nombre + '</p>', {
-                    closeOnClick: false,
-                    autoClose: false,
-                    // minWdth: '1000',
-                    maxWidth: 'auto',
-                    // autoPan: true,
-                    // className: 'custom'
-                })
+                    collapse, {
+                        // closeOnClick: false,
+                        // autoClose: false,
+                        // minWdth: '1000',
+                        maxWidth: 'auto',
+                        // autoPan: true,
+                        // className: 'custom'
+                    })
+                // console.log("MARKA", auxMarca['marca-' + recinto.id])
         }
 
 
         ///////////////////////////////////FIN /////////////////////////////////
 
 
-    }, this);
 
+
+
+
+
+
+
+
+        // auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
+        //         icon: auxIcon
+        //     })
+        //     .addTo(map);
+
+        // auxMarca['marca-' + recinto.id].bindPopup(
+        //     '<p>' + recinto.nombre + '</p>', {
+        //         // closeOnClick: false,
+        //         // autoClose: false,
+        //         // minWdth: '1000',
+        //         // maxWidth: 'auto',
+        //         // autoPan: true,
+        //         // className: 'custom'
+        //     })
+    }, this);
 
 
 
