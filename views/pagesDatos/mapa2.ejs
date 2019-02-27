@@ -337,6 +337,15 @@
             '#FFEDA0';
     }
 
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
     function style(feature) {
         return {
             weight: 2,
@@ -344,7 +353,8 @@
             color: 'black',
             dashArray: '5',
             fillOpacity: 0.2,
-            fillColor: getColor(feature.properties.density)
+            // fillColor: getColor(feature.properties.density)
+            fillColor: getRandomColor()
         };
     }
 
@@ -470,7 +480,7 @@
                     maxWidth: 'auto',
                     // autoPan: true,
                     // className: 'custom'
-                }).openPopup()
+                })
         }
 
 
