@@ -1942,7 +1942,7 @@ var circuscripcion7 = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "zona_CENTRAL" },
+            "properties": { "zona": "ZONA_CENTRAL" },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2110,7 +2110,7 @@ var circuscripcion7 = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "CHALLAPAMPA" },
+            "properties": { "zona": "CALLAMPAYA" },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3013,7 +3013,7 @@ var circuscripcion7 = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "SAN_JUAN_DE_LAZA" },
+            "properties": { "zona": "SAN_JUAN_DE_LAZARETO" },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
