@@ -311,6 +311,7 @@
     info.update = function(props) {
         var textRecintos = '';
         if (props) {
+            console.log('ZONA DESDE GEOJSON :',props.zona)
 
             var zona = auxZonas.filter(dato => dato.nombre == props.zona);
 
