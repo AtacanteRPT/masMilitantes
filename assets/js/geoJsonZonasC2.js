@@ -2154,7 +2154,7 @@ var circuscripcion7 = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "CHAMOCO_CHICO" },
+            "properties": { "zona": "CALLAMPAYA" },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
