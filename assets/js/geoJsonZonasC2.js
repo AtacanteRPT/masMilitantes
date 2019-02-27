@@ -1,4 +1,4 @@
-var circuscripcion7 = {
+var geoZonasCompleto = {
     "type": "FeatureCollection",
     "features": [
         {
