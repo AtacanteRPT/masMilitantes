@@ -224,6 +224,7 @@
 
 <!--<script src="/js/geoJsonZonasC.js"></script>-->
 <script src="/js/geoJsonZonasC2.js"></script>
+<!--<script src="/js/geoJsonZonasC3.js"></script>-->
 <!--<script src="/js/geoJosnDistritos2.js"></script>-->
 <!-- <script src="/js/geoJsonZonas.js"></script> -->
 <script>
@@ -356,6 +357,16 @@
         return color;
     }
 
+    function getOpacidad(zona) {
+        console.log('ZONA:', zona);
+        var color = 0.0;
+        if (zona) {
+            color = 0.5
+        }
+
+        return color;
+    }
+
     function style(feature) {
         console.log('FEATURE', feature)
         return {
@@ -363,7 +374,7 @@
             opacity: 1,
             color: 'black',
             dashArray: '5',
-            fillOpacity: 0.5,
+            fillOpacity: getOpacidad(feature.properties.zona),
             // fillColor: getColor(feature.properties.density)
             fillColor: getRandomColor(feature.properties.zona)
         };
@@ -376,7 +387,7 @@
             weight: 5,
             color: '#666',
             dashArray: '',
-            fillOpacity: 0.7
+            fillOpacity: 0.9
         });
 
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -599,8 +610,8 @@
             // console.log('COLLAPSE', collapse)
             auxMarca['marca-' + recinto.id].bindPopup(
                     collapse, {
-                        // closeOnClick: false,
-                        // autoClose: false,
+                        closeOnClick: false,
+                        autoClose: false,
                         // minWdth: '1000',
                         maxWidth: 'auto',
                         // autoPan: true,
