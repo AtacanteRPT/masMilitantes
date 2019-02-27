@@ -337,24 +337,31 @@
             '#FFEDA0';
     }
 
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+    function getRandomColor(zona) {
+        console.log('ZONA:', zona);
+        var color = '';
+        if (zona) {
+
+            var letters = '0123456789ABCDEF';
+            color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
         }
+
         return color;
     }
 
     function style(feature) {
+        console.log('FEATURE', feature)
         return {
             weight: 2,
             opacity: 1,
             color: 'black',
             dashArray: '5',
-            fillOpacity: 0.2,
+            fillOpacity: 0.5,
             // fillColor: getColor(feature.properties.density)
-            fillColor: getRandomColor()
+            fillColor: getRandomColor(feature.properties.zona)
         };
     }
 
@@ -388,9 +395,9 @@
 
     function onEachFeature(feature, layer) {
         layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            click: zoomToFeature
+            // mouseover: highlightFeature,
+            // mouseout: resetHighlight,
+            // click: zoomToFeature
         });
     }
 
