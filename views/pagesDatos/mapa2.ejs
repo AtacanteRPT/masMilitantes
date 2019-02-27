@@ -222,7 +222,8 @@
 </script>
 
 
-<script src="/js/geoJsonZonasC.js"></script>
+<!--<script src="/js/geoJsonZonasC.js"></script>-->
+<script src="/js/geoJsonZonasC2.js"></script>
 <script src="/js/geoJosnDistritos2.js"></script>
 <!-- <script src="/js/geoJsonZonas.js"></script> -->
 <script>
@@ -307,24 +308,27 @@
     };
 
     info.update = function(props) {
-        // if (props) {
-        //     var recintos = auxRecintos.filter(dato => dato.idZona == props.id);
-        //     var textrecintos = '';
-        //     recintos.forEach(function(element) {
+        var textRecintos = '';
+        if (props) {
 
-        //         textDistritos += '<p>' + element.nombre + '</p>'
-        //     }, this);
+            var zona = auxZonas.filter(dato => dato.nombre == props.zona);
 
-        // }
+            var distrito = auxDistritos.filter(dato => dato.id == zona[0].idDistrito);
+            var circunscripcion = auxCircunscripciones.filter(dato => dato.id == distrito[0].idCircunscripcion)
 
+            var recintos = auxRecintos.filter(dato => dato.idZona == zona[0].id);
 
+            recintos.forEach(function(element) {
+
+                textRecintos += '<p>' + element.nombre + '</p>'
+            }, this);
+
+        }
         this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
-            '<b>Zona :  ' + props.zona + '</b><br /> Recintos ' : 'NADA');
+            '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
     };
 
     info.addTo(map);
-
-
     // get color depending on population density value
     function getColor(d) {
         return d > 1000 ? '#800026' :
@@ -395,9 +399,9 @@
 
     function onEachFeature(feature, layer) {
         layer.on({
-            // mouseover: highlightFeature,
-            // mouseout: resetHighlight,
-            // click: zoomToFeature
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature
         });
     }
 
