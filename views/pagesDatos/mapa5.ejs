@@ -154,7 +154,7 @@
     // this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
     //     '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
     this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
-      '<b>DISTRITO :  ' + props.zona + '</b><br />' : '');
+      '<b>Nombre :  ' + props.zona + '</b><br />' : '');
   };
 
   info.addTo(map);
@@ -228,6 +228,8 @@
   var geojsonC;
   var geojsonD;
   var geojsonZ;
+  var auxMarca = {};
+
 
 
 
@@ -250,13 +252,13 @@
   }
   map.on('zoomend', function () {
     console.log('ZOOM:', map.getZoom())
-    if (map.getZoom() < 11) {
+    if (map.getZoom() < 12) {
       if (map.hasLayer(geojsonC)) {
         map.removeLayer(geojsonC);
       } else {
         console.log("no point layer active");
       }
-    } else if (map.getZoom() >= 11 && map.getZoom() <= 12) {
+    } else if (map.getZoom() >= 12 && map.getZoom() < 12.5) {
       if (map.hasLayer(geojsonC)) {
         console.log("entre 11 y 12");
       } else {
@@ -266,7 +268,7 @@
         }
         map.addLayer(geojsonC);
       }
-    } else if (map.getZoom() >= 13 && map.getZoom() <= 14) {
+    } else if (map.getZoom() >= 12.5 && map.getZoom() <= 14) {
       if (map.hasLayer(geojsonD)) {
         console.log("entre 13 y 14");
       } else {
@@ -277,7 +279,7 @@
         }
         map.addLayer(geojsonD);
       }
-    } else {
+    } else if(map.getZoom() >=14.1){
       if (map.hasLayer(geojsonZ)) {
         console.log("entre 15 para arriva");
       } else {
@@ -379,7 +381,6 @@
   });
 
   function removerMarcas() {
-    var auxMarca = {};
     auxRecintos.forEach(function (recinto) {
       map.removeLayer(auxMarca['marca-' + recinto.id])
     }, this);
@@ -387,9 +388,7 @@
   }
 
   function generarMarcas() {
-    var auxMarca = {};
     auxRecintos.forEach(function (recinto) {
-      var auxMarca = {};
       var sw = false;
       var sumaEmitidos = 0;
       var sumaValidos = 0;
@@ -417,7 +416,6 @@
 
 
       if (recinto.latitud != null || recinto.longitud != null) {
-        var auxMarca = {};
         var sw = false;
         auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
           icon: auxIcon
