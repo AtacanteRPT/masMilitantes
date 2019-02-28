@@ -275,7 +275,7 @@
         map.removeLayer(geojsonC)
         if (map.hasLayer(geojsonZ)) {
           map.removeLayer(geojsonZ)
-          removerMarcas()
+          //removerMarcas()
         }
         map.addLayer(geojsonD);
       }
@@ -285,7 +285,7 @@
       } else {
         map.removeLayer(geojsonD)
         map.addLayer(geojsonZ);
-        generarMarcas();
+       // generarMarcas();
       }
     }
   });
@@ -530,6 +530,8 @@
     }, this);
 
   }
+
+  generarMarcas();
 </script>
 
 <script>
