@@ -66,7 +66,7 @@
     .zonaLabel {
         background: rgba(255, 255, 255, 0); 
         border: 0;
-        color:whitesmoke;
+        
         border-radius: 0px;
         font-family: Arial, Helvetica, sans-serif;
         box-shadow: 0 0px 0px;
@@ -101,7 +101,7 @@
    // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '',
-        id: 'mapbox.dark'
+        id: 'mapbox.light'
     }).addTo(map);
 
 
@@ -351,7 +351,7 @@
         // console.log('ZONA:', zona);
         var color = 0.0;
         if (zona) {
-            color = 0.4
+            color = 0.5
         }
 
         return color;
@@ -362,7 +362,7 @@
         return {
             weight: 2,
             opacity: 1,
-            color: 'white',
+            color: 'black',
             dashArray: '5',
             fillOpacity: getOpacidad(feature.properties.zona),
             // fillColor: getColor(feature.properties.density)
@@ -375,9 +375,9 @@
 
         layer.setStyle({
             weight: 5,
-            color: 'white',
+            color: '#666',
             dashArray: '',
-            fillOpacity: 0.7
+            fillOpacity: 0.8
         });
 
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
