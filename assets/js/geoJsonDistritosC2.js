@@ -1,4 +1,4 @@
-var datoGeoJson = {
+var datoGeoJsonD = {
     "type": "FeatureCollection",
     "features": [{
         "type": "Feature",
