@@ -74,9 +74,11 @@
 </style>
 
 <div class="container">
+  <br>
+  <br>
   <h1>Mapa de Nuestra señora de La Paz</h1>
-  <div id='map'></div>
 </div>
+<div id='map'></div>
 
 
 
@@ -334,9 +336,9 @@
       from, to;
     labels.push('Concentración ');
 
-    labels.push('<i style="background:green"></i> ' +
-      '&ndash; Alta');
     labels.push('<i style="background:blue"></i> ' +
+      '&ndash; Alta');
+    labels.push('<i style="background:green"></i> ' +
       '&ndash; Media');
     labels.push('<i style="background:red"></i> ' +
       '&ndash; Baja');
@@ -401,14 +403,16 @@
       }, this);
 
       var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
-      var auxIcon = azulIcon;
+      var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+
+      var auxIcon = verdeIcon;
       // console.log(recinto.nombre, porcentajeEmitidos)
       // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
       // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-      if (porcentajeEmitidos < 33) {
+      if (porcentajeValidos <=33) {
         auxIcon = rojoIcon;
-      } else if (porcentajeEmitidos > 65) {
-        auxIcon = verdeIcon;
+      } else if (porcentajeValidos > 65) {
+        auxIcon = azulIcon;
       }
 
 
