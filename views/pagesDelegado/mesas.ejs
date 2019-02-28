@@ -1,0 +1,52 @@
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Circunscripción</th>
+        <th>Recinto</th>
+        <th>Mesa</th>
+        <th>Asistencia</th>
+        <th>Inscritos</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% var sumaVotos = 0%>
+      <% var sumaInscritos = 0%>
+      <% for(var i = 0;i< mesasRecinto.length;i++){ %>
+        <% sumaVotos = sumaVotos + mesasRecinto[i].votos%>
+        <% sumaInscritos = sumaInscritos + mesasRecinto[i].inscritos%>
+        <tr>
+          <th>  
+            <%=(i+1)%>
+          </th>
+          <td>
+            <%=mesasRecinto[i].circunscripcion %>
+          </td>
+          <td>
+            <%=mesasRecinto[i].recinto %>
+          </td>
+          <td>
+            <%=mesasRecinto[i].mesa %>
+          </td>
+          <td>
+            <%=mesasRecinto[i].votos %>
+          </td>
+          <td>
+              <%=mesasRecinto[i].inscritos %>
+            </td>
+        </tr>
+        <% }%>
+        <tr>
+          <th colspan="4">TOTAL : </th>
+          <th><%= sumaVotos %></th>
+          <th><%= sumaInscritos %></th>
+        </tr>
+    </tbody>
+  </table>
+</div>

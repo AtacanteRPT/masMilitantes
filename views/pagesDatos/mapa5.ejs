@@ -74,8 +74,8 @@
 
 <div class="container">
     <h1>Mapa de Nuestra señora de La Paz</h1>
-    <div id='map'></div>
 </div>
+<div id='map'></div>
 
 
 
@@ -562,14 +562,15 @@
             }, this);
 
             var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
-            var auxIcon = azulIcon;
+            var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+            var auxIcon = verdeIcon;
             // console.log(recinto.nombre, porcentajeEmitidos)
             // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
             // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (porcentajeEmitidos < 33) {
+            if (porcentajeValidos <= 33) {
                 auxIcon = rojoIcon;
-            } else if (porcentajeEmitidos > 65) {
-                auxIcon = verdeIcon;
+            } else if (porcentajeValidos > 65) {
+                auxIcon = azulIcon;
             }
 
 
