@@ -197,6 +197,114 @@ module.exports = {
         });
 
     },
+    mapa_curva: function(req, res) {
+
+
+        Circunscripcion.find().exec(function(err, datoCircunscripcion) {
+            console.log('dato Circunscripcion :', datoCircunscripcion)
+            if (err) { return res.serverError(err); }
+            Distrito.find().exec(function(err, datoDistrito) {
+                console.log('dato distrito :', datoDistrito)
+                if (err) { return res.serverError(err); }
+                Zona.find().exec(function(err, datoZona) {
+                    console.log('dato zona :', datoZona)
+
+                    Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
+
+                        res.view('pagesDatos/mapaCurva', {
+                            recintos: datoRecintos,
+                            zonas: datoZona,
+                            distritos: datoDistrito,
+                            circunscripciones: datoCircunscripcion
+                        })
+                    });
+
+                });
+            });
+        });
+
+    },
+    mapa_zona: function(req, res) {
+
+
+        Circunscripcion.find().exec(function(err, datoCircunscripcion) {
+            console.log('dato Circunscripcion :', datoCircunscripcion)
+            if (err) { return res.serverError(err); }
+            Distrito.find().exec(function(err, datoDistrito) {
+                console.log('dato distrito :', datoDistrito)
+                if (err) { return res.serverError(err); }
+                Zona.find().exec(function(err, datoZona) {
+                    console.log('dato zona :', datoZona)
+
+                    Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
+
+                        res.view('pagesDatos/mapaZona', {
+                            recintos: datoRecintos,
+                            zonas: datoZona,
+                            distritos: datoDistrito,
+                            circunscripciones: datoCircunscripcion
+                        })
+                    });
+
+                });
+            });
+        });
+
+    },
+    mapa_distrito: function(req, res) {
+
+
+        Circunscripcion.find().exec(function(err, datoCircunscripcion) {
+            console.log('dato Circunscripcion :', datoCircunscripcion)
+            if (err) { return res.serverError(err); }
+            Distrito.find().exec(function(err, datoDistrito) {
+                console.log('dato distrito :', datoDistrito)
+                if (err) { return res.serverError(err); }
+                Zona.find().exec(function(err, datoZona) {
+                    console.log('dato zona :', datoZona)
+
+                    Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
+
+                        res.view('pagesDatos/mapaDistrito', {
+                            recintos: datoRecintos,
+                            zonas: datoZona,
+                            distritos: datoDistrito,
+                            circunscripciones: datoCircunscripcion
+                        })
+                    });
+
+                });
+            });
+        });
+
+    },
+    mapa_c: function(req, res) {
+
+
+        Circunscripcion.find().exec(function(err, datoCircunscripcion) {
+            console.log('dato Circunscripcion :', datoCircunscripcion)
+            if (err) { return res.serverError(err); }
+            Distrito.find().exec(function(err, datoDistrito) {
+                console.log('dato distrito :', datoDistrito)
+                if (err) { return res.serverError(err); }
+                Zona.find().exec(function(err, datoZona) {
+                    console.log('dato zona :', datoZona)
+
+                    Recinto.find().populate('mesas').exec(function(err, datoRecintos) {
+
+                        res.view('pagesDatos/mapaC', {
+                            recintos: datoRecintos,
+                            zonas: datoZona,
+                            distritos: datoDistrito,
+                            circunscripciones: datoCircunscripcion
+                        })
+                    });
+
+                });
+            });
+        });
+
+    },
 
 
     generarDistritos: function(req, res) {

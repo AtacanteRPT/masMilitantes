@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous">
@@ -58,9 +61,8 @@
 
 <body>
 
-
     <!--<div class="container">-->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top " style="background-color: #143a83;">
+    <nav class="navbar navbar-expand-md navbar-dark  fixed-top nav-pills " style="background-color: #143a83;">
 
         <a class="navbar-brand navbar-logo" href="/">
             <img src="/img/evo_mini.png" width="50" height="50" alt="">
@@ -72,7 +74,7 @@
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -91,15 +93,55 @@
                         </li>
                     <%}%>
                 <%}%> -->
+
+
+                <!-- <ul class="right hide-on-med-and-down"> -->
+                    <li class="nav-item">
+                            <a class="nav-link" href="/datos/mapa_curva">Mapa General
+                                <span class="sr-only">(current)</span>
+                            </a>
+                    </li>
+     
+          
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mapas</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/datos/mapa_zona">por Zona</a>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item" href="/datos/mapa_distrito">Por Distrito</a>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item" href="/datos/mapa_c">por Circunscripción</a>
+
+                        </div>
+                    </li>
+                  <!-- </ul> -->
             </ul>
-
+            
             <% if(!req.isAuthenticated()){%>
-
+                
                 <form class="form-inline my-2 my-lg-0">
                     <button type="button" class="btn  btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter" type="submit">Loguearse</button>
                 </form>
+              
 
                 <%}else{%>
+
+                    <ul class="navbar-nav justify-content-end">
+                      
+                            <li class="nav-item">
+                                    <a class="nav-link" href="/mapa/principal">Mapa Recintos
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link" href="/admin/principal">Resultados
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                            </li>
+                
+                    </ul>
 
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -241,6 +283,7 @@
             $('#myModal').on('shown.bs.modal', function () {
                 $('#myInput').trigger('focus')
             })
+            $(".dropdown-trigger").dropdown();
         </script>
 </body>
 
