@@ -244,7 +244,35 @@ module.exports = {
                 datoRecintos[i].mesas = auxMesas;
             }
             // res.send(datoRecintos)
-            res.view('pagesDatos/mapa2005', {
+            res.view('pagesDatos/mapaCurva', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
+
+    },
+    mapa_2009: async function (req, res) {
+
+        try {
+
+            var idEleccion = 3;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
+
+
+            for (var i = 0; i < datoRecintos.length; i++) {
+
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapaCurva', {
                 recintos: datoRecintos,
                 zonas: datoZona,
                 distritos: datoDistrito,
@@ -273,6 +301,29 @@ module.exports = {
             }
             // res.send(datoRecintos)
             res.view('pagesDatos/mapaCurva', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
+
+    },
+    mapa_comparativo: async function (req, res) {
+
+        try {
+
+            var idEleccion = 4;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
+
+
+        // res.send(datoRecintos)
+            res.view('pagesDatos/mapaComparativo', {
                 recintos: datoRecintos,
                 zonas: datoZona,
                 distritos: datoDistrito,

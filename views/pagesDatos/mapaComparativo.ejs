@@ -1,0 +1,1346 @@
+<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+<!-- <link rel="stylesheet" type="" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/css/dvf.css"> -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin="" />
+<!-- <link rel="stylesheet" type="" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css"> -->
+
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+<style>
+    .mapContainer {
+        display: inline-block;
+        width: 50%;
+        height: 500px;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 700px;
+    }
+
+    .info {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+    }
+
+    .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
+
+    .legend {
+        text-align: left;
+        line-height: 18px;
+        color: #555;
+    }
+
+    #map2 {
+        width: 90%;
+        height: 800px;
+        box-shadow: 5px 5px 5px #888;
+    }
+
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
+
+    .awesome-marker i {
+        font-size: 18px;
+        margin-top: 8px;
+    }
+
+    .zonaLabel {
+        background: rgba(255, 255, 255, 0);
+        border: 0;
+
+        border-radius: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 0 0px 0px;
+    }
+</style>
+
+<!-- <div class="container">
+    <h1>Mapa de Nuestra señora de La Paz</h1>
+</div> -->
+<!-- <div id='map'></div> -->
+
+
+
+
+<script src="/js/geoJsonC2.js"></script>
+<script src="/js/geoJsonDistritosC2.js"></script>
+<script src="/js/geoJsonZonasC2.js"></script>
+
+
+
+<script>
+    var auxRecintos = <%- JSON.stringify(recintos) %>;
+    var auxZonas = <%- JSON.stringify(zonas) %>;
+    var auxDistritos = <%- JSON.stringify(distritos) %>;
+    var auxCircunscripciones = <%- JSON.stringify(circunscripciones) %>;
+
+    var geojsonC;
+    var geojsonD;
+    var geojsonZ;
+    var auxMarca = {};
+
+
+
+    // var map = L.map('map').setView([-16.51773269488567, -68.11798095703126], 12);
+
+    // // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //     maxZoom: 18,
+    //     attribution: '',
+    //     // id: 'mapbox.light'
+    // }).addTo(map);
+
+    // geojsonC = L.geoJson(datoGeoJsonC, {
+    //     style: style,
+    //     onEachFeature: onEachFeature
+    // }).addTo(map);
+    // geojsonD = L.geoJson(datoGeoJsonD, {
+    //     style: style,
+    //     onEachFeature: onEachFeature
+    // })
+    // geojsonZ = L.geoJson(geoZonasCompleto, {
+    //     style: style,
+    //     onEachFeature: onEachFeature
+    // })
+
+    // // control that shows state info on hover
+    // var info = L.control();
+
+    // info.onAdd = function (map) {
+    //     this._div = L.DomUtil.create('div', 'info');
+    //     this.update();
+    //     return this._div;
+    // };
+
+    // info.update = function (props) {
+    //     var textRecintos = '';
+    //     var totalInscritos = 0;
+    //     var totalValidos = 0;
+    //     var totalBlancos = 0;
+    //     var totalNulos = 0;
+    //     var totalEmitidos = 0;
+    //     if (props) {
+    //         console.log('TIPO:', props.tipo)
+
+    //         if (props.tipo == 'zona') {
+    //             var zona = auxZonas.filter(dato => dato.nombre == props.zona);
+    //             var distrito = auxDistritos.filter(dato => dato.id == zona[0].idDistrito);
+
+    //             var circunscripcion = auxCircunscripciones.filter(dato => dato.id == distrito[0].idCircunscripcion)
+
+    //             var recintos = auxRecintos.filter(dato => dato.idZona == zona[0].id);
+
+    //             recintos.forEach(function (recinto) {
+
+    //                 recinto.mesas.forEach(function (mesa) {
+    //                     totalInscritos += parseInt(mesa.inscritos);
+    //                     totalEmitidos += parseInt(mesa.votosEmitidos);
+    //                     totalValidos += parseInt(mesa.votosValidos);
+    //                     totalBlancos += parseInt(mesa.votosBlancos);
+    //                     totalNulos += parseInt(mesa.votosNulos);
+    //                 }, this);
+
+
+    //             }, this);
+
+    //             textRecintos += '<b>Zona : ' + zona[0].nombre + '</b>' +
+    //                 '<ul class="list-group">' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Inscritos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Emitidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalEmitidos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Válidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalValidos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Blancos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalBlancos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Nulos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalNulos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Emitidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Válidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Blancos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Nulos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '</ul>';
+    //         } else if (props.tipo == 'distrito') {
+    //             console.log('DISTIRTO,', props.zona)
+    //             var distrito = auxDistritos.filter(dato => dato.nombre == props.zona);
+
+    //             var circunscripcion = auxCircunscripciones.filter(dato => dato.id == distrito[0].idCircunscripcion)
+
+    //             var zonas = auxZonas.filter(dato => dato.idDistrito == distrito[0].id);
+
+    //             zonas.forEach(function (zona) {
+    //                 var recintos = auxRecintos.filter(dato => dato.idZona == zona.id)
+    //                 recintos.forEach(function (recinto) {
+
+    //                     recinto.mesas.forEach(function (mesa) {
+    //                         totalInscritos += parseInt(mesa.inscritos);
+    //                         totalEmitidos += parseInt(mesa.votosEmitidos);
+    //                         totalValidos += parseInt(mesa.votosValidos);
+    //                         totalBlancos += parseInt(mesa.votosBlancos);
+    //                         totalNulos += parseInt(mesa.votosNulos);
+    //                     }, this);
+
+
+    //                 }, this);
+
+    //             }, this);
+
+
+    //             textRecintos += '<b>Distrito : ' + distrito[0].nombre + '</b>' +
+    //                 '<ul class="list-group">' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Inscritos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Emitidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalEmitidos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Válidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalValidos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Blancos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalBlancos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Nulos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalNulos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Emitidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Válidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Blancos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Nulos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '</ul>';
+    //         } else {
+    //             console.log('Circunscripcion,', props.zona)
+
+    //             var circunscripcion = auxCircunscripciones.filter(dato => dato.nombre == props.zona)
+
+    //             var distritos = auxDistritos.filter(dato => dato.idCircunscripcion == circunscripcion[0].id);
+
+
+    //             distritos.forEach(function (distrito) {
+    //                 var zonas = auxZonas.filter(dato => dato.idDistrito == distrito.id)
+    //                 zonas.forEach(function (zona) {
+    //                     var recintos = auxRecintos.filter(dato => dato.idZona == zona.id)
+    //                     recintos.forEach(function (recinto) {
+
+    //                         recinto.mesas.forEach(function (mesa) {
+    //                             totalInscritos += parseInt(mesa.inscritos);
+    //                             totalEmitidos += parseInt(mesa.votosEmitidos);
+    //                             totalValidos += parseInt(mesa.votosValidos);
+    //                             totalBlancos += parseInt(mesa.votosBlancos);
+    //                             totalNulos += parseInt(mesa.votosNulos);
+    //                         }, this);
+
+
+    //                     }, this);
+
+    //                 }, this);
+    //             }, this);
+
+
+    //             textRecintos += '<b>Circunscripción : ' + circunscripcion[0].nombre + '</b>' +
+    //                 '<ul class="list-group">' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Inscritos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Emitidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalEmitidos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Válidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalValidos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Blancos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalBlancos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 'Nulos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + totalNulos + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Emitidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Válidos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Blancos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+    //                 '% Nulos' +
+    //                 ' <span class="badge badge-dark badge-pill">' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '</span>' +
+    //                 '</li>' +
+    //                 '</ul>';
+    //         }
+
+
+
+
+
+    //     }
+    //     // this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
+    //     //     '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
+    //     this._div.innerHTML = '<h4>Información</h4>' + (props ?
+    //         textRecintos : '');
+    // };
+
+    // info.addTo(map);
+
+
+    // map.on('zoomend', function () {
+    //     console.log('ZOOM:', map.getZoom())
+    //     if (map.getZoom() < 12) {
+    //         if (map.hasLayer(geojsonC)) {
+    //             map.removeLayer(geojsonC);
+    //         } else {
+    //             console.log("no point layer active");
+    //         }
+    //     } else if (map.getZoom() >= 12 && map.getZoom() < 12.5) {
+    //         if (map.hasLayer(geojsonC)) {
+    //             console.log("entre 11 y 12");
+    //         } else {
+    //             if (map.hasLayer(geojsonD)) {
+
+    //                 map.removeLayer(geojsonD)
+    //             }
+    //             map.addLayer(geojsonC);
+    //         }
+    //     } else if (map.getZoom() >= 12.5 && map.getZoom() <= 14) {
+    //         if (map.hasLayer(geojsonD)) {
+    //             console.log("entre 13 y 14");
+    //         } else {
+    //             map.removeLayer(geojsonC)
+    //             if (map.hasLayer(geojsonZ)) {
+    //                 map.removeLayer(geojsonZ)
+    //                 //removerMarcas()
+    //             }
+    //             map.addLayer(geojsonD);
+    //         }
+    //     } else if (map.getZoom() >= 14.1) {
+    //         if (map.hasLayer(geojsonZ)) {
+    //             console.log("entre 15 para arriva");
+    //         } else {
+    //             map.removeLayer(geojsonD)
+    //             map.addLayer(geojsonZ);
+    //             // generarMarcas();
+    //         }
+    //     }
+    // });
+
+    // var legend = L.control({
+    //     position: 'bottomright'
+    // });
+
+    // legend.onAdd = function (map) {
+
+    //     var div = L.DomUtil.create('div', 'info legend'),
+    //         grades = [0, 10, 20, 50, 100, 300, 500, 1000],
+    //         labels = [],
+    //         from, to;
+    //     labels.push('Concentración');
+
+    //     labels.push('<i style="background:blue"></i> ' +
+    //         '&ndash; Alta 40 - 60');
+    //     labels.push('<i style="background:green"></i> ' +
+    //         '&ndash; Media 20 - 40');
+    //     labels.push('<i style="background:red"></i> ' +
+    //         '&ndash; Baja 0 - 20');
+
+
+    //     div.innerHTML = labels.join('<br>');
+    //     return div;
+    // };
+
+    // legend.addTo(map);
+
+    // var titulo = L.control({
+    //     position: 'bottomleft'
+    // });
+
+    // titulo.onAdd = function (map) {
+
+    //     var div = L.DomUtil.create('div', 'info titulo')
+    //     div.innerHTML = '<h4>Nuestra Señora de La Paz - GENERAL</h4>';
+    //     return div;
+    // };
+    // titulo.addTo(map);
+
+
+    const rojo = '#fd0000'
+    const verde = '#046500'
+    const azul = '#143a83';
+
+    const markerHtmlStylesRojo = `
+        background-color: ${rojo};
+        width: 1.1rem;
+        height: 1.1rem;
+        display: block;
+        left: -1.5rem;
+        top: -1.5rem;
+        border-radius: 3rem 3rem 0;
+        transform: rotate(45deg);
+        border: 1px solid #FFFFFF`
+
+    const puntoRojo = L.divIcon({
+        className: "my-custom-pin",
+        iconAnchor: [0, 24],
+        labelAnchor: [-6, 0],
+        popupAnchor: [0, -36],
+        html: `<span style="${markerHtmlStylesRojo}" />`
+    })
+
+    const markerHtmlStylesVerde = `
+        background-color: ${verde};
+        width: 1.1rem;
+        height: 1.1rem;
+        display: block;
+        left: -1.5rem;
+        top: -1.5rem;
+        border-radius: 3rem 3rem 0;
+        transform: rotate(45deg);
+        border: 1px solid #FFFFFF`
+
+    const puntoVerde = L.divIcon({
+        className: "my-custom-pin",
+        iconAnchor: [0, 14],
+        labelAnchor: [-6, 0],
+        popupAnchor: [0, -36],
+        html: `<span style="${markerHtmlStylesVerde}" />`
+    })
+
+    const markerHtmlStylesAzul = `
+        background-color: ${azul};
+        width: 1.1rem;
+        height: 1.1rem;
+        display: block;
+        left: -1.5rem;
+        top: -1.5rem;
+        border-radius: 3rem 3rem 0;
+        transform: rotate(45deg);
+        border: 1px solid #FFFFFF`
+
+    const puntoAzul = L.divIcon({
+        className: "my-custom-pin",
+        iconAnchor: [0, 24],
+        labelAnchor: [-6, 0],
+        popupAnchor: [0, -36],
+        html: `<span style="${markerHtmlStylesAzul}" />`
+    })
+
+    function getRandomColor(zona) {
+        // console.log('ZONA:', zona);
+        var color = '';
+        if (zona) {
+            var letters = '0123456789ABCDEF';
+            color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+        }
+
+        return color;
+    }
+    function getOpacidad(zona) {
+        // console.log('ZONA:', zona);
+        var color = 0.0;
+        if (zona) {
+            color = 0.5
+        }
+
+        return color;
+    }
+    function style(feature) {
+        // console.log('FEATURE', feature)
+        return {
+            weight: 2,
+            opacity: 1,
+            color: 'black',
+            dashArray: '5',
+            fillOpacity: getOpacidad(feature.properties.zona),
+            // fillColor: getColor(feature.properties.density)
+            fillColor: getRandomColor(feature.properties.zona)
+        };
+    }
+    function highlightFeature(e) {
+        var layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.8
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+        }
+
+        info.update(layer.feature.properties);
+    }
+
+    function resetHighlight(e) {
+        geojsonC.resetStyle(e.target);
+        info.update();
+    }
+    function zoomToFeature(e) {
+
+        map.fitBounds(e.target.getBounds());
+
+    }
+    function onEachFeature(feature, layer) {
+        // console.log('LAYER:',layer)
+
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature
+        });
+        layer.bindTooltip(cambiarNombre(feature.properties), {
+            direction: 'center',
+            className: 'zonaLabel',
+            permanent: true
+        });
+    }
+    function cambiarNombre(dato) {
+        if (dato.tipo == 'circunscripcion') {
+
+            return 'C_' + dato.zona;
+        } else {
+            return dato.zona
+        }
+    }
+    function removerMarcas() {
+        auxRecintos.forEach(function (recinto) {
+            map.removeLayer(auxMarca['marca-' + recinto.id])
+        }, this);
+    }
+    function generarMarcas() {
+        auxRecintos.forEach(function (recinto) {
+            var sw = false;
+            var sumaEmitidos = 0;
+            var sumaValidos = 0;
+            var sumaInscritos = 0;
+            recinto.mesas.forEach(function (mesa) {
+                sumaEmitidos += parseInt(mesa.votosEmitidos);
+                sumaValidos += parseInt(mesa.votosValidos);
+                sumaInscritos += parseInt(mesa.inscritos)
+
+            }, this);
+
+            var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
+            var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+            var auxIcon = puntoVerde;
+            // console.log(recinto.nombre, porcentajeEmitidos)
+            // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
+            // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+            if (porcentajeValidos < 20) {
+                auxIcon = puntoRojo;
+            } else if (porcentajeValidos > 40) {
+                auxIcon = puntoAzul;
+            }
+
+
+            ///////////////////////////////// INICIO ///////////////////////////////////
+
+
+            if (recinto.latitud != null || recinto.longitud != null) {
+                var sw = false;
+                auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
+                    icon: auxIcon
+                }).addTo(map);
+
+
+                var sortMesas = recinto.mesas.sort(function (a, b) {
+                    // a must be equal to b
+                    return a.nombre - b.nombre;
+                });
+
+                var datoMesas = '';
+                var totalInscritos = 0;
+                var totalValidos = 0;
+                var totalBlancos = 0;
+                var totalNulos = 0;
+                var totalEmitidos = 0;
+                sortMesas.forEach(function (mesa) {
+
+                    totalInscritos = totalInscritos + parseInt(mesa.inscritos);
+                    totalValidos = totalValidos + parseInt(mesa.votosValidos);
+                    totalBlancos = totalBlancos + parseInt(mesa.votosBlancos);
+                    totalNulos = totalNulos + parseInt(mesa.votosNulos);
+                    totalEmitidos = totalEmitidos + parseInt(mesa.votosEmitidos);
+                    datoMesas = datoMesas + '<tr>' +
+                        '<th>' + mesa.nombre + '</th>' +
+                        '<th>' + mesa.inscritos + '</th>' +
+                        '<th>' + mesa.votosValidos + '</th>' +
+                        '<th>' + mesa.votosBlancos + '</th>' +
+                        '<th>' + mesa.votosNulos + '</th>' +
+                        '<th>' + mesa.votosEmitidos + '</th>' +
+                        '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+
+                        '</tr>'
+
+                })
+                datoMesas = datoMesas + '<tr  class="table-primary">' +
+                    '<th>TOTAL </th>' +
+                    '<th>' + totalInscritos + '</th>' +
+                    '<th>' + totalValidos + '</th>' +
+                    '<th>' + totalBlancos + '</th>' +
+                    '<th>' + totalNulos + '</th>' +
+                    '<th>' + totalEmitidos + '</th>' +
+                    '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
+
+                    '</tr>';
+                // console.log('DATO MESAS', datoMesas)
+
+
+                var zona = auxZonas.filter(data => {
+                    return data.id == recinto.idZona
+                })
+                // console.log('ZONA AAA', zona)
+                var distrito = auxDistritos.filter(data => {
+                    return data.id == zona[0].idDistrito
+                })
+                var circunscripcion = auxCircunscripciones.filter(data => {
+                    return data.id == distrito[0].idCircunscripcion
+                })
+
+                var collapse =
+                    '<div class="card">' +
+                    ' <div class="card-body">' +
+                    ' <h6>' + recinto.nombre + '</h6><br>' +
+                    'Circunscripcion: ' + circunscripcion[0].nombre + ' - ' + distrito[0].nombre + ' - Zona:' + zona[0].nombre +
+                    '<table class="table">' +
+                    '<thead>' +
+                    '<th>MESA</th>' +
+                    '<th>Inscritos</th>' +
+                    '<th>Votos Validos</th>' +
+                    '<th>Votos Blancos</th>' +
+                    '<th>Votos Nulos</th>' +
+                    '<th>Votos Emitidos</th>' +
+                    '<th> % Validos</th>' +
+                    '<th> % Blancos</th>' +
+                    '<th> % Nulos</th>' +
+                    '<th> % Emitidos</th>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    datoMesas +
+                    '</tbody>' +
+                    ' </table>' +
+
+                    '</div>' +
+                    '</div>';
+                // console.log('COLLAPSE', collapse)
+                auxMarca['marca-' + recinto.id].bindPopup(
+                    collapse, {
+                        closeOnClick: false,
+                        autoClose: false,
+                        // minWdth: '1000',
+                        maxWidth: 'auto',
+                        // autoPan: true,
+                        // className: 'custom'
+                    })
+                // console.log("MARKA", auxMarca['marca-' + recinto.id])
+            }
+
+
+            ///////////////////////////////////FIN /////////////////////////////////
+
+        }, this);
+
+    }
+
+
+
+
+
+
+    function generarMarcasMapa(auxMap,d) {
+
+        auxRecintos.forEach(function (recinto) {
+            var sw = false;
+            var sumaEmitidos = 0;
+            var sumaValidos = 0;
+            var sumaInscritos = 0;
+            recinto.mesas.forEach(function (mesa) {
+                if(mesa.idEleccion ==(d+1)){
+
+                    sumaEmitidos += parseInt(mesa.votosEmitidos);
+                    sumaValidos += parseInt(mesa.votosValidos);
+                    sumaInscritos += parseInt(mesa.inscritos)
+                }
+
+            }, this);
+
+            var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
+            var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+            var auxIcon = puntoVerde;
+            // console.log(recinto.nombre, porcentajeEmitidos)
+            // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
+            // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+            if (porcentajeValidos < 20) {
+                auxIcon = puntoRojo;
+            } else if (porcentajeValidos > 40) {
+                auxIcon = puntoAzul;
+            }
+
+
+            ///////////////////////////////// INICIO ///////////////////////////////////
+
+
+            if (recinto.latitud != null || recinto.longitud != null) {
+                var sw = false;
+                auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
+                    icon: auxIcon
+                }).addTo(auxMap);
+
+
+                var sortMesas = recinto.mesas.sort(function (a, b) {
+                    // a must be equal to b
+                    return a.nombre - b.nombre;
+                });
+
+                var datoMesas = '';
+                var totalInscritos = 0;
+                var totalValidos = 0;
+                var totalBlancos = 0;
+                var totalNulos = 0;
+                var totalEmitidos = 0;
+                sortMesas.forEach(function (mesa) {
+
+                    if(mesa.idEleccion == (d+1)){
+
+                    }
+                    totalInscritos = totalInscritos + parseInt(mesa.inscritos);
+                    totalValidos = totalValidos + parseInt(mesa.votosValidos);
+                    totalBlancos = totalBlancos + parseInt(mesa.votosBlancos);
+                    totalNulos = totalNulos + parseInt(mesa.votosNulos);
+                    totalEmitidos = totalEmitidos + parseInt(mesa.votosEmitidos);
+                    datoMesas = datoMesas + '<tr>' +
+                        '<th>' + mesa.nombre + '</th>' +
+                        '<th>' + mesa.inscritos + '</th>' +
+                        '<th>' + mesa.votosValidos + '</th>' +
+                        '<th>' + mesa.votosBlancos + '</th>' +
+                        '<th>' + mesa.votosNulos + '</th>' +
+                        '<th>' + mesa.votosEmitidos + '</th>' +
+                        '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+
+                        '</tr>'
+
+                })
+                datoMesas = datoMesas + '<tr  class="table-primary">' +
+                    '<th>TOTAL </th>' +
+                    '<th>' + totalInscritos + '</th>' +
+                    '<th>' + totalValidos + '</th>' +
+                    '<th>' + totalBlancos + '</th>' +
+                    '<th>' + totalNulos + '</th>' +
+                    '<th>' + totalEmitidos + '</th>' +
+                    '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
+
+                    '</tr>';
+                // console.log('DATO MESAS', datoMesas)
+
+
+                var zona = auxZonas.filter(data => {
+                    return data.id == recinto.idZona
+                })
+                // console.log('ZONA AAA', zona)
+                var distrito = auxDistritos.filter(data => {
+                    return data.id == zona[0].idDistrito
+                })
+                var circunscripcion = auxCircunscripciones.filter(data => {
+                    return data.id == distrito[0].idCircunscripcion
+                })
+
+                var collapse =
+                    '<div class="card">' +
+                    ' <div class="card-body">' +
+                    ' <h6>' + recinto.nombre + '</h6><br>' +
+                    'Circunscripcion: ' + circunscripcion[0].nombre + ' - ' + distrito[0].nombre + ' - Zona:' + zona[0].nombre +
+                    '<table class="table">' +
+                    '<thead>' +
+                    '<th>MESA</th>' +
+                    '<th>Inscritos</th>' +
+                    '<th>Votos Validos</th>' +
+                    '<th>Votos Blancos</th>' +
+                    '<th>Votos Nulos</th>' +
+                    '<th>Votos Emitidos</th>' +
+                    '<th> % Validos</th>' +
+                    '<th> % Blancos</th>' +
+                    '<th> % Nulos</th>' +
+                    '<th> % Emitidos</th>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    datoMesas +
+                    '</tbody>' +
+                    ' </table>' +
+
+                    '</div>' +
+                    '</div>';
+                // console.log('COLLAPSE', collapse)
+                auxMarca['marca-' + recinto.id].bindPopup(
+                    collapse, {
+                        closeOnClick: false,
+                        autoClose: false,
+                        // minWdth: '1000',
+                        maxWidth: 'auto',
+                        // autoPan: true,
+                        // className: 'custom'
+                    })
+                // console.log("MARKA", auxMarca['marca-' + recinto.id])
+            }
+
+
+            ///////////////////////////////////FIN /////////////////////////////////
+
+        }, this);
+
+    }
+
+
+
+
+    // generarMarcas();
+</script>
+
+<script>
+    //initialise an array for the automatic visualisation
+    var maps_ = [], numMaps = 4;
+    for (var i = 0; i < numMaps; i++)maps_.push(i)
+    //set the heading
+    d3.select('body').append('div')
+        .style('text-align', 'center')
+        .style('font-size', '14pt')
+        .append('text')
+    // .text('Comparación ' + maps_.length + ' mapas!');
+    //add a map-Container for each element in the initial array
+    d3.select('body').selectAll('.maps').data(maps_).enter().append('div')
+        .attr('class', 'mapContainer')
+        .attr('id', function (d) { return 'map' + d });
+    //make a map for each element in the initial array AND return the corresponding map-Elements
+    var infos = [];
+    var maps = maps_.map(showMap);
+    //function, that adds a leaflet-map to each map-Container
+    function showMap(d) {
+        //initial view
+        //var map = L.map('map'+d).setView([51, 11], 5);
+        var map = L.map('map' + d).setView([-16.51773269488567, -68.11798095703126], 12);
+
+        var data_attrib = " "
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '',
+            // id: 'mapbox.light'
+        }).addTo(map);
+        var geojsonC;
+        var geojsonD;
+        var geojsonZ;
+        var auxMarca = {};
+
+        infos[d] = L.control();
+
+        infos[d].onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+
+        infos[d].update = function (props) {
+            var textRecintos = '';
+            var totalInscritos = 0;
+            var totalValidos = 0;
+            var totalBlancos = 0;
+            var totalNulos = 0;
+            var totalEmitidos = 0;
+            if (props) {
+                console.log('TIPO:', props.tipo)
+
+                if (props.tipo == 'zona') {
+                    var zona = auxZonas.filter(dato => dato.nombre == props.zona);
+                    var distrito = auxDistritos.filter(dato => dato.id == zona[0].idDistrito);
+
+                    var circunscripcion = auxCircunscripciones.filter(dato => dato.id == distrito[0].idCircunscripcion)
+
+                    var recintos = auxRecintos.filter(dato => dato.idZona == zona[0].id);
+
+                    recintos.forEach(function (recinto) {
+
+                        recinto.mesas.forEach(function (mesa) {
+                            if(mesa.idEleccion==(d+1)){
+                                totalInscritos += parseInt(mesa.inscritos);
+                                totalEmitidos += parseInt(mesa.votosEmitidos);
+                                totalValidos += parseInt(mesa.votosValidos);
+                                totalBlancos += parseInt(mesa.votosBlancos);
+                                totalNulos += parseInt(mesa.votosNulos);
+                            }
+                        }, this);
+
+
+                    }, this);
+
+                    textRecintos += '<b>Zona : ' + zona[0].nombre + '</b>' +
+                        '<ul class="list-group">' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Inscritos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Emitidos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalEmitidos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Válidos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalValidos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Blancos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalBlancos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Nulos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalNulos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Emitidos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Válidos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Blancos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Nulos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '</ul>';
+                } else if (props.tipo == 'distrito') {
+                    console.log('DISTIRTO,', props.zona)
+                    var distrito = auxDistritos.filter(dato => dato.nombre == props.zona);
+
+                    var circunscripcion = auxCircunscripciones.filter(dato => dato.id == distrito[0].idCircunscripcion)
+
+                    var zonas = auxZonas.filter(dato => dato.idDistrito == distrito[0].id);
+
+                    zonas.forEach(function (zona) {
+                        var recintos = auxRecintos.filter(dato => dato.idZona == zona.id)
+                        recintos.forEach(function (recinto) {
+
+                            recinto.mesas.forEach(function (mesa) {
+                                if(mesa.idEleccion==(d+1)){
+                                totalInscritos += parseInt(mesa.inscritos);
+                                totalEmitidos += parseInt(mesa.votosEmitidos);
+                                totalValidos += parseInt(mesa.votosValidos);
+                                totalBlancos += parseInt(mesa.votosBlancos);
+                                totalNulos += parseInt(mesa.votosNulos);
+                            }
+                            }, this);
+
+
+                        }, this);
+
+                    }, this);
+
+
+                    textRecintos += '<b>Distrito : ' + distrito[0].nombre + '</b>' +
+                        '<ul class="list-group">' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Inscritos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Emitidos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalEmitidos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Válidos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalValidos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Blancos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalBlancos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Nulos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalNulos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Emitidos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Válidos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Blancos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Nulos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '</ul>';
+                } else {
+                    console.log('Circunscripcion,', props.zona)
+
+                    var circunscripcion = auxCircunscripciones.filter(dato => dato.nombre == props.zona)
+
+                    var distritos = auxDistritos.filter(dato => dato.idCircunscripcion == circunscripcion[0].id);
+
+
+                    distritos.forEach(function (distrito) {
+                        var zonas = auxZonas.filter(dato => dato.idDistrito == distrito.id)
+                        zonas.forEach(function (zona) {
+                            var recintos = auxRecintos.filter(dato => dato.idZona == zona.id)
+                            recintos.forEach(function (recinto) {
+
+                                recinto.mesas.forEach(function (mesa) {
+                                    if(mesa.idEleccion==(d+1)){
+                                totalInscritos += parseInt(mesa.inscritos);
+                                totalEmitidos += parseInt(mesa.votosEmitidos);
+                                totalValidos += parseInt(mesa.votosValidos);
+                                totalBlancos += parseInt(mesa.votosBlancos);
+                                totalNulos += parseInt(mesa.votosNulos);
+                            }
+                                }, this);
+
+
+                            }, this);
+
+                        }, this);
+                    }, this);
+
+
+                    textRecintos += '<b>Circunscripción : ' + circunscripcion[0].nombre + '</b>' +
+                        '<ul class="list-group">' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Inscritos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Emitidos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalEmitidos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Válidos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalValidos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Blancos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalBlancos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        'Nulos' +
+                        ' <span class="badge badge-dark badge-pill">' + totalNulos + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Emitidos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Válidos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Blancos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '% Nulos' +
+                        ' <span class="badge badge-dark badge-pill">' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '</span>' +
+                        '</li>' +
+                        '</ul>';
+                }
+
+
+
+
+
+            }
+            // this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
+            //     '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
+            this._div.innerHTML = '<h4>Información</h4>' + (props ?
+                textRecintos : '');
+        };
+
+        infos[d].addTo(map);
+
+        geojsonC = L.geoJson(datoGeoJsonC, {
+            style: style,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeatureMapa,
+                    mouseout: function (e) {
+                        geojsonC.resetStyle(e.target);
+                        infos[d].update();
+                    },
+                    click: zoomToFeatureMapa
+                });
+                layer.bindTooltip(cambiarNombre(feature.properties), {
+                    direction: 'center',
+                    className: 'zonaLabel',
+                    permanent: true
+                });
+            }
+        }).addTo(map);
+        geojsonD = L.geoJson(datoGeoJsonD, {
+            style: style,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeatureMapa,
+                    mouseout: function (e) {
+                        geojsonD.resetStyle(e.target);
+                        infos[d].update();
+                    },
+                    click: zoomToFeatureMapa
+                });
+                layer.bindTooltip(cambiarNombre(feature.properties), {
+                    direction: 'center',
+                    className: 'zonaLabel',
+                    permanent: true
+                });
+            }
+        })
+        geojsonZ = L.geoJson(geoZonasCompleto, {
+            style: style,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeatureMapa,
+                    mouseout: function (e) {
+                        geojsonZ.resetStyle(e.target);
+                        infos[d].update();
+                    },
+                    click: zoomToFeatureMapa
+                });
+                layer.bindTooltip(cambiarNombre(feature.properties), {
+                    direction: 'center',
+                    className: 'zonaLabel',
+                    permanent: true
+                });
+            }
+        })
+
+
+
+        map.on('zoomend', function () {
+            console.log('ZOOM:', map.getZoom())
+            if (map.getZoom() < 12) {
+                if (map.hasLayer(geojsonC)) {
+                    map.removeLayer(geojsonC);
+                } else {
+                    console.log("no point layer active");
+                }
+            } else if (map.getZoom() >= 12 && map.getZoom() < 12.5) {
+                if (map.hasLayer(geojsonC)) {
+                    console.log("entre 11 y 12");
+                } else {
+                    if (map.hasLayer(geojsonD)) {
+
+                        map.removeLayer(geojsonD)
+                    }
+                    map.addLayer(geojsonC);
+                }
+            } else if (map.getZoom() >= 12.5 && map.getZoom() <= 14) {
+                if (map.hasLayer(geojsonD)) {
+                    console.log("entre 13 y 14");
+                } else {
+                    map.removeLayer(geojsonC)
+                    if (map.hasLayer(geojsonZ)) {
+                        map.removeLayer(geojsonZ)
+                        //removerMarcas()
+                    }
+                    map.addLayer(geojsonD);
+                }
+            } else if (map.getZoom() >= 14.1) {
+                if (map.hasLayer(geojsonZ)) {
+                    console.log("entre 15 para arriva");
+                } else {
+                    map.removeLayer(geojsonD)
+                    map.addLayer(geojsonZ);
+                    // generarMarcas();
+                }
+            }
+        });
+
+        var legend = L.control({
+            position: 'bottomright'
+        });
+
+        legend.onAdd = function (map) {
+
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [0, 10, 20, 50, 100, 300, 500, 1000],
+                labels = [],
+                from, to;
+            labels.push('Concentración');
+
+            labels.push('<i style="background:blue"></i> ' +
+                '&ndash; Alta 40 - 60');
+            labels.push('<i style="background:green"></i> ' +
+                '&ndash; Media 20 - 40');
+            labels.push('<i style="background:red"></i> ' +
+                '&ndash; Baja 0 - 20');
+            div.innerHTML = labels.join('<br>');
+            return div;
+        };
+
+        legend.addTo(map);
+
+        var titulo = L.control({
+            position: 'bottomleft'
+        });
+
+        titulo.onAdd = function (map) {
+
+            var div = L.DomUtil.create('div', 'info titulo')
+            div.innerHTML = '<h4>Nuestra Señora de La Paz - GENERAL</h4>';
+            return div;
+        };
+        titulo.addTo(map);
+
+        generarMarcasMapa(map,d);
+        map.on("zoomend", reset);
+        map.on("drag", reset);
+        return map;
+    }
+    function reset(e) {
+        var current = this._container.id.replace('map', '');
+        maps_.forEach(function (d) {
+            if (d != current) {
+                maps[d].setView(maps[current].getCenter(), maps[current].getZoom())
+            }
+        });
+    }
+
+
+    function highlightFeatureMapa(e) {
+        var layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.8
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+        }
+        infos.forEach(function (inf) {
+            inf.update(layer.feature.properties);
+        })
+    }
+
+    function resetHighlightMapa(e) {
+        geojsonC.resetStyle(e.target);
+        infos.forEach(function (inf) {
+            inf.update();
+        })
+    }
+    function zoomToFeatureMapa(e) {
+
+        maps_.forEach(function (d) {
+            if (d != current) {
+                maps[d].fitBounds(e.target.getBounds());
+            }
+        });
+
+    }
+    function onEachFeatureMapa(feature, layer) {
+        // console.log('LAYER:',layer)
+
+        layer.on({
+            mouseover: highlightFeatureMapa,
+            mouseout: resetHighlightMapa,
+            click: zoomToFeatureMapa
+        });
+        layer.bindTooltip(cambiarNombre(feature.properties), {
+            direction: 'center',
+            className: 'zonaLabel',
+            permanent: true
+        });
+    }
+
+</script>
