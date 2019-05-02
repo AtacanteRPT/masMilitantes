@@ -197,7 +197,7 @@ module.exports = {
         });
 
     },
-    mapa_curva: function (req, res) {
+    mapa_curva: async function (req, res) {
 
 
         try {
