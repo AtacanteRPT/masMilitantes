@@ -253,6 +253,34 @@ module.exports = {
         }
 
     },
+    mapa_2014: async function (req, res) {
+
+        try {
+
+            var idEleccion2005 = 2;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
+
+
+            for (var i = 0; i < datoRecintos.length; i++) {
+
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion2005);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapaCurva', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
+
+    },
 
 
     mapa_zona: function (req, res) {
