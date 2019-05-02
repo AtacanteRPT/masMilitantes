@@ -200,28 +200,30 @@ module.exports = {
     mapa_curva: function (req, res) {
 
 
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
+        try {
 
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
+            var idEleccion = 4;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
 
-                        res.view('pagesDatos/mapaCurva', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
 
-                });
-            });
-        });
+            for (var i = 0; i < datoRecintos.length; i++) {
+
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapaCurva', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
 
     },
 
@@ -257,7 +259,7 @@ module.exports = {
 
         try {
 
-            var idEleccion2005 = 2;
+            var idEleccion = 2;
             var datoCircunscripcion = await Circunscripcion.find();
             var datoDistrito = await Distrito.find();
             var datoZona = await Zona.find();
@@ -266,7 +268,7 @@ module.exports = {
 
             for (var i = 0; i < datoRecintos.length; i++) {
 
-                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion2005);
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
                 datoRecintos[i].mesas = auxMesas;
             }
             // res.send(datoRecintos)
