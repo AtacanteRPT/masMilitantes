@@ -47,6 +47,9 @@ module.exports = {
         idCircunscripcion: {
             model: 'circunscripcion',
         },
+        idEleccion: {
+            model: 'eleccion',
+        },
     },
 
 };
