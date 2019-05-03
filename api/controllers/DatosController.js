@@ -35,31 +35,32 @@ module.exports = {
         //   });
 
     },
-    zona: function (req, res) {
+    zona: async function (req, res) {
+
+        try {
+
+            var idEleccion = 4;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
 
 
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
+            for (var i = 0; i < datoRecintos.length; i++) {
 
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
-
-                        res.view('pagesDatos/zona', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
-
-                });
-            });
-        });
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/zona', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
 
     },
     mapa: function (req, res) {
@@ -315,7 +316,6 @@ module.exports = {
 
         try {
 
-            var idEleccion = 4;
             var datoCircunscripcion = await Circunscripcion.find();
             var datoDistrito = await Distrito.find();
             var datoZona = await Zona.find();
@@ -324,6 +324,28 @@ module.exports = {
 
         // res.send(datoRecintos)
             res.view('pagesDatos/mapaComparativo', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
+
+    },
+    mapa_comparativo_general: async function (req, res) {
+
+        try {
+
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
+
+
+        // res.send(datoRecintos)
+            res.view('pagesDatos/mapaGeneralComparativo', {
                 recintos: datoRecintos,
                 zonas: datoZona,
                 distritos: datoDistrito,

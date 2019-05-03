@@ -94,6 +94,11 @@
     </div>
 </div>
 
+<!-- 
+<div class="mapContainer" id='map1'></div>
+<div class="mapContainer" id='map2'></div>
+<div class="mapContainer" id='map3'></div> -->
+
 
 <script src="/js/geoJsonC2.js"></script>
 <script src="/js/geoJsonDistritosC2.js"></script>
@@ -115,6 +120,34 @@
     const rojo = '#fd0000'
     const verde = '#046500'
     const azul = '#143a83';
+
+
+    
+    var verdeIcon = new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var azulIcon = new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    var rojoIcon = new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
 
     const markerHtmlStylesRojo = `
         background-color: ${rojo};
@@ -425,14 +458,14 @@
 
             var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
             var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
-            var auxIcon = puntoVerde;
+            var auxIcon = verdeIcon;
             // console.log(recinto.nombre, porcentajeEmitidos)
             // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
             // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (porcentajeValidos < 20) {
-                auxIcon = puntoRojo;
-            } else if (porcentajeValidos > 40) {
-                auxIcon = puntoAzul;
+            if (porcentajeValidos < 33) {
+                auxIcon = rojoIcon;
+            } else if (porcentajeValidos > 66) {
+                auxIcon = azulIcon;
             }
 
 
@@ -565,39 +598,49 @@
     var maps_ = [], numMaps = 4;
     for (var i = 0; i < numMaps; i++)maps_.push(i)
 
-    var elecciones = [
-  {
-
-    "id": 1,
-    "nombre": "Elecciones 2005",
-
-  },
-  {
-
-    "id": 2,
-    "nombre": "Elecciones 2014",
-
-  },
-  {
-
-    "id": 3,
-    "nombre": "Elecciones 2009",
- 
-  },
-  {
-
-    "id": 4,
-    "nombre": "Elecciones Primarias",
-
-  }
-];
-
     var infos = [];
     var maps = maps_.map(showMap);
     //function, that adds a leaflet-map to each map-Container
     function showMap(d) {
         //initial view
         //var map = L.map('map'+d).setView([51, 11], 5);
+        var elecciones = [
+  {
+    "createdAt": 1556771913960,
+    "updatedAt": 1556771913960,
+    "id": 1,
+    "nombre": "Elecciones 2005",
+    "fecha": null,
+    "tipo": ""
+  },
+  {
+    "createdAt": 1556771926341,
+    "updatedAt": 1556771926341,
+    "id": 2,
+    "nombre": "Elecciones 2014",
+    "fecha": null,
+    "tipo": ""
+  },
+  {
+    "createdAt": 1556771932380,
+    "updatedAt": 1556771932380,
+    "id": 3,
+    "nombre": "Elecciones 2009",
+    "fecha": null,
+    "tipo": ""
+  },
+  {
+    "createdAt": 1556779113336,
+    "updatedAt": 1556779113336,
+    "id": 4,
+    "nombre": "Elecciones Primarias",
+    "fecha": null,
+    "tipo": ""
+  }
+];
+
+
+
         var map = L.map('map' + d).setView([-16.51773269488567, -68.11798095703126], 12);
 
         var data_attrib = " "
@@ -830,10 +873,6 @@
                         '</ul>';
                 }
 
-
-
-
-
             }
             // this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
             //     '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
@@ -953,11 +992,11 @@
             labels.push('Concentración');
 
             labels.push('<i style="background:blue"></i> ' +
-                '&ndash; Alta 40 - 60');
+                '&ndash; Alta 67 - 100');
             labels.push('<i style="background:green"></i> ' +
-                '&ndash; Media 20 - 40');
+                '&ndash; Media 34 - 66');
             labels.push('<i style="background:red"></i> ' +
-                '&ndash; Baja 0 - 20');
+                '&ndash; Baja 0 - 33');
             div.innerHTML = labels.join('<br>');
             return div;
         };
@@ -971,8 +1010,8 @@
         titulo.onAdd = function (map) {
 
             var div = L.DomUtil.create('div', 'info titulo')
-            div.innerHTML = '<h4>La Paz - '+elecciones[d].nombre+'</h4>';           
-             return div;
+            div.innerHTML = '<h4>La Paz - '+elecciones[d].nombre+'</h4>';
+            return div;
         };
         titulo.addTo(map);
 
