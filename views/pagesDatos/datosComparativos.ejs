@@ -1,0 +1,117 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="/js/jqueryautocomplete.js"></script>
+
+<style>
+
+</style>
+
+<br>
+<br>
+<br>
+<table id="example" class="display" width="100%"></table>
+
+
+<script>
+    var datos = [];
+    var auxRecintos = <%- JSON.stringify(recintos) %>;
+    var auxZonas = <%- JSON.stringify(zonas) %>;
+    var auxDistritos = <%- JSON.stringify(distritos) %>;
+    var auxCircunscripciones = <%- JSON.stringify(circunscripciones) %>;
+    var colores1 = [0,0,0];
+    var colores2 = [0,0,0];
+    var colores3 = [0,0,0];
+    var Recintos1 = [[],[],[]];
+    var Recintos2 = [[],[],[]];
+    var Recintos3 = [[],[],[]];
+
+    auxRecintos.forEach(recinto => {
+        var datosRecinto = [];
+        datosRecinto.push(recinto.nombre);
+        //var auxmesa = recinto.mesas.filter(dato => dato.idEleccion == 1 );
+        var totalValidos = [0,0,0];
+        var totalEmitidos = [0,0,0];
+        var auxmesas = recinto.mesas;
+        //console.log(auxmesas);
+        auxmesas.forEach( mesa => {
+            if( mesa.idEleccion == 1 ) {    
+                totalValidos[0] += parseInt(mesa.votosValidos);
+                totalEmitidos[0] += parseInt(mesa.votosEmitidos);    
+            }else if(mesa.idEleccion == 3 ){
+                totalValidos[1] += parseInt(mesa.votosValidos);
+                totalEmitidos[1] += parseInt(mesa.votosEmitidos);
+            }else if(mesa.idEleccion == 2){    
+                totalValidos[2] += parseInt(mesa.votosValidos);
+                totalEmitidos[2] += parseInt(mesa.votosEmitidos);
+            }
+        });
+        if(totalEmitidos[0]>0){
+            var porcentaje1 = ( 100 * totalValidos[0] ) / totalEmitidos[0];
+            //console.log(porcentaje1+" "+totalValidos[0]+" "+totalEmitidos[0]);
+            var auxcolor1 = 2;
+            if(porcentaje1 <= 33){
+                auxcolor1 = 0;
+            }else if(porcentaje1 <= 66){
+                auxcolor1 = 1;
+            }
+            var roundpor1= Math.round(porcentaje1 * 100) / 100;
+            datosRecinto.push(roundpor1);
+            colores1[auxcolor1]++;
+            Recintos1[auxcolor1].push(recinto);
+        }else{
+            datosRecinto.push("No habilitada");
+        }
+        
+        if(totalEmitidos[1]>0){
+            var porcentaje2 = ( 100 * totalValidos[1] ) / totalEmitidos[1];
+            var auxcolor2 = 2;
+            if(porcentaje2 <= 33){
+                auxcolor2 = 0;
+            }else if(porcentaje2 <= 66){
+                auxcolor2 = 1;
+            }
+            var roundpor2= Math.round(porcentaje2 * 100) / 100;
+            datosRecinto.push(roundpor2);
+            colores2[auxcolor2]++;
+            Recintos2[auxcolor2].push(recinto);
+        }else{
+            datosRecinto.push("No habilitada");
+        }
+
+        if(totalEmitidos[2]>0){
+            var porcentaje3 = ( 100 * totalValidos[2] ) / totalEmitidos[2];
+            var auxcolor3 = 2;
+            if(porcentaje3 <= 33){
+                auxcolor3 = 0;
+            }else if(porcentaje3 <= 66){
+                auxcolor3 = 1;
+            }
+            var roundpor3= Math.round(porcentaje3 * 100) / 100;
+            datosRecinto.push(roundpor3);
+            colores3[auxcolor3]++;
+            Recintos3[auxcolor3].push(recinto);
+        }else{
+            datosRecinto.push("No habilitada");
+        }
+        datos.push(datosRecinto);
+    });
+    //console.log("caaaaaarlos");
+    console.log(colores1);
+    console.log(colores2);
+    console.log(colores3);
+
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        data: datos,
+        columns: [
+            { title: "Nombre" },
+            { title: "Elecciones Nacionales 2005" },
+            { title: "Referendum Constituyente 2009" },
+            { title: "Elecciones Nacionales 2014" },
+        ]
+    } );
+} );
+
+</script>
+
+</div>      

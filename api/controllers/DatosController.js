@@ -357,6 +357,23 @@ module.exports = {
 
     },
 
+    datos_comparativos: async function (req, res){
+        try{
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecinto = await Recinto.find().populate('mesas');
+            
+            res.view('pagesDatos/datosComparativos', {
+                recintos: datoRecinto,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        }catch(err){
+            res.sendError(err);
+        }
+    },
 
     mapa_zona: function (req, res) {
 

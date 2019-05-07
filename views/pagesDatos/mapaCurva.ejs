@@ -125,7 +125,6 @@
         var totalEmitidos = 0;
         if (props) {
             console.log('TIPO:', props.tipo)
-
             if (props.tipo == 'zona') {
                 var zona = auxZonas.filter(dato => dato.nombre == props.zona);
                 var distrito = auxDistritos.filter(dato => dato.id == zona[0].idDistrito);

@@ -26,9 +26,6 @@ module.exports = {
         votosEmitidos: {
             type: "string"
         },
-        votosEmitidos: {
-            type: "string"
-        },
         asistencias: {
             type: "string"
         },

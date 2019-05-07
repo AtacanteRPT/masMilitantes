@@ -38,7 +38,7 @@ module.exports = {
         },
         mesas: {
             collection: 'mesarecinto',
-            via: 'idRecinto'
+            via: 'idRecinto'    
         }
         //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
         //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗

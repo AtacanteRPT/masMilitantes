@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.5.0"></script>
 <script src="/js/jqueryautocomplete.js">
-  
+
 </script>
 
 
@@ -76,18 +76,27 @@
     <div class="col-12 col-md-9">
 
 
-<table> 
-  <tr>
-    <td>
-        <h4 class="center" id="tituloZona">Escoger Zona &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;</h4> 
-    </td>
-    <td> &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="rojo"></p><p id="rojo2"></p><h6>BAJO</h6></td>
-    <td>   &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="azul"></p><p id="azul2"></p><h6>MEDIO</h6></td>
-    <td>&ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="verde"></p><p id="verde2"></p><h6>ALTO</h6></td>
-    <td> <button class="btn btn-dark" type="button" id="btnImprimir"><i class="fas fa-print"></i></button></td>
-  </tr>
-</table>
-          
+      <table>
+        <tr>
+          <td>
+            <h4 class="center" id="tituloZona">Escoger Zona &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;</h4>
+          </td>
+          <td> &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="rojo"></p>
+            <p id="rojo2"></p>
+            <h6>BAJO</h6>
+          </td>
+          <td> &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="azul"></p>
+            <p id="azul2"></p>
+            <h6>MEDIO</h6>
+          </td>
+          <td>&ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;&ensp;&ensp;<p id="verde"></p>
+            <p id="verde2"></p>
+            <h6>ALTO</h6>
+          </td>
+          <td> <button class="btn btn-dark" type="button" id="btnImprimir"><i class="fas fa-print"></i></button></td>
+        </tr>
+      </table>
+
 
 
       <div id="divCanvas" class="row">
@@ -106,10 +115,10 @@
         <option>Selecionar</option>
 
         <% for(var i=0;i<circunscripciones.length;i++){%>
-          <option value='<%= i%>'>
-            <%= circunscripciones[i].nombre%>
-          </option>
-          <% }%>
+        <option value='<%= i%>'>
+          <%= circunscripciones[i].nombre%>
+        </option>
+        <% }%>
       </select>
       <label for="selectDistrito2">Distrito</label>
 
@@ -126,11 +135,11 @@
       <select class="form-control" id="selectRecinto2">
 
         <% for(var i=0;i<recintos.length;i++){%>
-          <option value='<%= recintos[i].id%>'>
-            <%= i+1%>-
-              <%= recintos[i].nombre%>
-          </option>
-          <% }%>
+        <option value='<%= recintos[i].id%>'>
+          <%= i+1%>-
+          <%= recintos[i].nombre%>
+        </option>
+        <% }%>
       </select>
 
     </div>
@@ -150,7 +159,7 @@
   var marcas = [];
   var estRecinto = auxRecintos[0];
   var globalZona = 0;
-  var ultimoRecurso=[]
+  var ultimoRecurso = []
   ultimoRecurso.push(estRecinto)
   ultimoRecurso.push(auxRecintos[79]);
   mostrarChartsRecintos(ultimoRecurso);
@@ -483,7 +492,7 @@
 
 
 
-    
+
     var ctxRecinto = {}
     var chartRecinto = {}
     recintos.forEach(function (recinto) {
@@ -517,7 +526,7 @@
       };
 
       var colorLetra = "white";
-    if(sumaEmitidos.y < 10 || sumaValidos.y< 10){
+      if (sumaEmitidos.y < 10 || sumaValidos.y < 10) {
         colorLetra = "black";
       }
 
@@ -531,11 +540,11 @@
               weight: 'bold',
               defaultFontSize: 15
             },
-  
+
             formatter: function (value, context) {
-  
+
               if (value.y > 9) {
-  
+
                 return value.y + "% \n #" + value.cantidad
               }
               return value.y + "% #" + value.cantidad
@@ -649,7 +658,7 @@
       return dato.id == recintos[0].idZona
     })
 
-    $('#tituloZona').html('ZONA : ' + tituloZona[0].nombre+'&ensp;&ensp;&ensp; &ensp;&ensp;&ensp;');
+    $('#tituloZona').html('ZONA : ' + tituloZona[0].nombre + '&ensp;&ensp;&ensp; &ensp;&ensp;&ensp;');
     globalZona = tituloZona[0].id;
   }
   $('#selectZona2').change(function () {
@@ -687,11 +696,11 @@
 </script>
 
 <script>
-$('#btnImprimir').click(function(){
-  console.log('prueba')
-  // window.open("/datos/generarPdfZona/"+globalZona,"_blank")
-  window.open("/reportes/zona"+globalZona+".pdf","_blank")
-});
+  $('#btnImprimir').click(function () {
+    console.log('prueba')
+    // window.open("/datos/generarPdfZona/"+globalZona,"_blank")
+    window.open("/reportes/zona" + globalZona + ".pdf", "_blank")
+  });
 
   $('#selectC3').change(function () {
     var zonas = [];
