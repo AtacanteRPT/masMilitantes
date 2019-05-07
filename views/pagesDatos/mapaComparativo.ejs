@@ -425,13 +425,15 @@
 
             var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
             var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+
+            var procentValidosEmitidos = ((100 * sumaValidos) / sumaEmitidos).toFixed(2);
             var auxIcon = puntoVerde;
             // console.log(recinto.nombre, porcentajeEmitidos)
             // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
             // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (porcentajeValidos < 20) {
+            if (procentValidosEmitidos < 20) {
                 auxIcon = puntoRojo;
-            } else if (porcentajeValidos > 40) {
+            } else if (procentValidosEmitidos > 40) {
                 auxIcon = puntoAzul;
             }
 
@@ -461,25 +463,25 @@
 
                     if(mesa.idEleccion == (d+1)){
 
-                    }
-                    totalInscritos = totalInscritos + parseInt(mesa.inscritos);
-                    totalValidos = totalValidos + parseInt(mesa.votosValidos);
-                    totalBlancos = totalBlancos + parseInt(mesa.votosBlancos);
-                    totalNulos = totalNulos + parseInt(mesa.votosNulos);
-                    totalEmitidos = totalEmitidos + parseInt(mesa.votosEmitidos);
-                    datoMesas = datoMesas + '<tr>' +
-                        '<th>' + mesa.nombre + '</th>' +
-                        '<th>' + mesa.inscritos + '</th>' +
-                        '<th>' + mesa.votosValidos + '</th>' +
-                        '<th>' + mesa.votosBlancos + '</th>' +
-                        '<th>' + mesa.votosNulos + '</th>' +
-                        '<th>' + mesa.votosEmitidos + '</th>' +
-                        '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
-
-                        '</tr>'
+                        totalInscritos = totalInscritos + parseInt(mesa.inscritos);
+                        totalValidos = totalValidos + parseInt(mesa.votosValidos);
+                        totalBlancos = totalBlancos + parseInt(mesa.votosBlancos);
+                        totalNulos = totalNulos + parseInt(mesa.votosNulos);
+                        totalEmitidos = totalEmitidos + parseInt(mesa.votosEmitidos);
+                        datoMesas = datoMesas + '<tr>' +
+                            '<th>' + mesa.nombre + '</th>' +
+                            '<th>' + mesa.inscritos + '</th>' +
+                            '<th>' + mesa.votosValidos + '</th>' +
+                            '<th>' + mesa.votosBlancos + '</th>' +
+                            '<th>' + mesa.votosNulos + '</th>' +
+                            '<th>' + mesa.votosEmitidos + '</th>' +
+                            '<th>' + ((100 * mesa.votosValidos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                            '<th>' + ((100 * mesa.votosBlancos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                            '<th>' + ((100 * mesa.votosNulos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                            '<th>' + ((100 * mesa.votosEmitidos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                            
+                            '</tr>'
+                        }
 
                 })
                 datoMesas = datoMesas + '<tr  class="table-primary">' +
@@ -489,10 +491,10 @@
                     '<th>' + totalBlancos + '</th>' +
                     '<th>' + totalNulos + '</th>' +
                     '<th>' + totalEmitidos + '</th>' +
-                    '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalValidos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalBlancos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalNulos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalEmitidos) / totalEmitidos).toFixed(2) + '%</th>' +
 
                     '</tr>';
                 // console.log('DATO MESAS', datoMesas)
@@ -953,7 +955,7 @@
             labels.push('Concentración');
 
             labels.push('<i style="background:blue"></i> ' +
-                '&ndash; Alta 40 - 60');
+                '&ndash; Alta 40 - 100');
             labels.push('<i style="background:green"></i> ' +
                 '&ndash; Media 20 - 40');
             labels.push('<i style="background:red"></i> ' +

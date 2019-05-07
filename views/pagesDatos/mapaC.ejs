@@ -83,9 +83,9 @@
 
 
 
-<script src="/js/geoJsonC2.js"></script>
-<!-- <script src="/js/geoJsonDistritosC2.js"></script> -->
-<!-- <script src="/js/geoJsonZonasC2.js"></script> -->
+<!-- <script src="/js/geoJsonC2.js"></script>
+<script src="/js/geoJsonDistritosC2.js"></script> -->
+<script src="/js/geoJsonZonasC2.js"></script>
 
 
 
@@ -321,10 +321,6 @@
                     '</ul>';
             }
 
-
-
-
-
         }
         // this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
         //     '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
@@ -398,7 +394,7 @@
 
 
     function resetHighlight(e) {
-        geojsonC.resetStyle(e.target);
+        geojsonZ.resetStyle(e.target);
         info.update();
     }
 
@@ -521,8 +517,6 @@
 
     legend.addTo(map);
 
-
-
     var titulo = L.control({
         position: 'bottomleft'
     });
@@ -530,12 +524,11 @@
     titulo.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info titulo')
-        div.innerHTML = '<h4>Nuestra Señora de La Paz - CIRCUNSCRIPCIONES</h4>';
+        div.innerHTML = '<h4>Nuestra Señora de La Paz - ZONAS</h4>';
         return div;
     };
 
     titulo.addTo(map);
-
 
     // var squareRedMarker = L.AwesomeMarkers.icon({
     //     icon: 'coffee',
@@ -580,7 +573,6 @@
         display: block;
         left: -1.5rem;
         top: -1.5rem;
-        // position: relative;
         border-radius: 3rem 3rem 0;
         transform: rotate(45deg);
         border: 1px solid #FFFFFF`
@@ -600,7 +592,6 @@
         display: block;
         left: -1.5rem;
         top: -1.5rem;
-        // position: relative;
         border-radius: 3rem 3rem 0;
         transform: rotate(45deg);
         border: 1px solid #FFFFFF`
@@ -620,7 +611,6 @@
         display: block;
         left: -1.5rem;
         top: -1.5rem;
-        // position: relative;
         border-radius: 3rem 3rem 0;
         transform: rotate(45deg);
         border: 1px solid #FFFFFF`
@@ -655,13 +645,17 @@
 
             var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
             var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+
+
+            var procentValidosEmitidos = ((100 * sumaValidos) / sumaEmitidos).toFixed(2);
+
             var auxIcon = puntoVerde;
             // console.log(recinto.nombre, porcentajeEmitidos)
             // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
             // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (porcentajeValidos < 20) {
+            if (procentValidosEmitidos < 20) {
                 auxIcon = puntoRojo;
-            } else if (porcentajeValidos > 40) {
+            } else if (procentValidosEmitidos > 40) {
                 auxIcon = puntoAzul;
             }
 
@@ -702,10 +696,10 @@
                         '<th>' + mesa.votosBlancos + '</th>' +
                         '<th>' + mesa.votosNulos + '</th>' +
                         '<th>' + mesa.votosEmitidos + '</th>' +
-                        '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosValidos) / mesa.votosValidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosBlancos) / mesa.votosValidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosNulos) / mesa.votosValidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.votosValidos).toFixed(2) + '%</th>' +
 
                         '</tr>'
 
@@ -717,10 +711,10 @@
                     '<th>' + totalBlancos + '</th>' +
                     '<th>' + totalNulos + '</th>' +
                     '<th>' + totalEmitidos + '</th>' +
-                    '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalValidos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalBlancos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalNulos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalEmitidos) / totalEmitidos).toFixed(2) + '%</th>' +
 
                     '</tr>';
                 // console.log('DATO MESAS', datoMesas)

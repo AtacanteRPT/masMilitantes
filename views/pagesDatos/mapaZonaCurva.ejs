@@ -508,11 +508,11 @@
         labels.push('Concentración');
 
         labels.push('<i style="background:blue"></i> ' +
-            '&ndash; Alta 66 - 100');
+            '&ndash; Alta 40 - 60');
         labels.push('<i style="background:green"></i> ' +
-            '&ndash; Media 33 - 66');
+            '&ndash; Media 20 - 40');
         labels.push('<i style="background:red"></i> ' +
-            '&ndash; Baja 0 - 33');
+            '&ndash; Baja 0 - 20');
 
 
         div.innerHTML = labels.join('<br>');
@@ -657,9 +657,9 @@
             // console.log(recinto.nombre, porcentajeEmitidos)
             // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
             // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (procentValidosEmitidos <=33) {
+            if (procentValidosEmitidos < 20) {
                 auxIcon = puntoRojo;
-            } else if (procentValidosEmitidos > 66) {
+            } else if (procentValidosEmitidos > 40) {
                 auxIcon = puntoAzul;
             }
 

@@ -39,6 +39,17 @@ module.exports.routes = {
     'get /mapa/editar/:id': 'MapaController.editar',
     'POST /mapa/guardar/:id': 'MapaController.guardar',
 
+    'get /datos/mapa/:id': 'DatosController.mapa',
+    'get /datos/mapa_curva/:id': 'DatosController.mapa_curva',
+
+    'get /datos/mapa_zona/:id': 'DatosController.mapa_zona',
+    'get /datos/mapa_distrito/:id': 'DatosController.mapa_distrito',
+    'get /datos/mapa_c/:id': 'DatosController.mapa_c',
+
+    'get /datos/mapa_zona_curva/:id': 'DatosController.mapa_zona_curva',
+    'get /datos/mapa_distrito_curva/:id': 'DatosController.mapa_distrito_curva',
+    'get /datos/mapa_c_curva/:id': 'DatosController.mapa_c_curva',
+
 
 
     // 'POST /mapa/guardar/:id': 'MapaController.guardar',
