@@ -83,9 +83,9 @@
 
 
 
-<!-- <script src="/js/geoJsonC2.js"></script>
-<script src="/js/geoJsonDistritosC2.js"></script> -->
-<script src="/js/geoJsonZonasC2.js"></script>
+<script src="/js/geoJsonC2.js"></script>
+<!-- <script src="/js/geoJsonDistritosC2.js"></script> -->
+<!-- <script src="/js/geoJsonZonasC2.js"></script> -->
 
 
 
@@ -321,6 +321,10 @@
                     '</ul>';
             }
 
+
+
+
+
         }
         // this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
         //     '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
@@ -394,7 +398,7 @@
 
 
     function resetHighlight(e) {
-        geojsonZ.resetStyle(e.target);
+        geojsonC.resetStyle(e.target);
         info.update();
     }
 
@@ -504,11 +508,11 @@
         labels.push('Concentración');
 
         labels.push('<i style="background:blue"></i> ' +
-            '&ndash; Alta 40 - 60');
+            '&ndash; Alta 66 - 100');
         labels.push('<i style="background:green"></i> ' +
-            '&ndash; Media 20 - 40');
+            '&ndash; Media 33 - 66');
         labels.push('<i style="background:red"></i> ' +
-            '&ndash; Baja 0 - 20');
+            '&ndash; Baja 0 - 33');
 
 
         div.innerHTML = labels.join('<br>');
@@ -653,9 +657,9 @@
             // console.log(recinto.nombre, porcentajeEmitidos)
             // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
             // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (procentValidosEmitidos < 20) {
+            if (procentValidosEmitidos <=33) {
                 auxIcon = puntoRojo;
-            } else if (procentValidosEmitidos > 40) {
+            } else if (procentValidosEmitidos > 66) {
                 auxIcon = puntoAzul;
             }
 
@@ -696,10 +700,10 @@
                         '<th>' + mesa.votosBlancos + '</th>' +
                         '<th>' + mesa.votosNulos + '</th>' +
                         '<th>' + mesa.votosEmitidos + '</th>' +
-                        '<th>' + ((100 * mesa.votosValidos) / mesa.votosValidos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosBlancos) / mesa.votosValidos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosNulos) / mesa.votosValidos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.votosValidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosValidos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosBlancos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosNulos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
 
                         '</tr>'
 

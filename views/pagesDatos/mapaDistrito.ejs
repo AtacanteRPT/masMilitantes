@@ -508,11 +508,11 @@
         labels.push('Concentración');
 
         labels.push('<i style="background:blue"></i> ' +
-            '&ndash; Alta 40 - 60');
+            '&ndash; Alta 66 - 100');
         labels.push('<i style="background:green"></i> ' +
-            '&ndash; Media 20 - 40');
+            '&ndash; Media 33 - 66');
         labels.push('<i style="background:red"></i> ' +
-            '&ndash; Baja 0 - 20');
+            '&ndash; Baja 0 - 33');
 
 
         div.innerHTML = labels.join('<br>');
@@ -528,11 +528,18 @@
     titulo.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info titulo')
-        div.innerHTML = '<h4>Nuestra Señora de La Paz - DISTRITOS</h4>';
+        div.innerHTML = '<h4>Nuestra Señora de La Paz - ZONAS</h4>';
         return div;
     };
 
     titulo.addTo(map);
+
+    // var squareRedMarker = L.AwesomeMarkers.icon({
+    //     icon: 'coffee',
+    //     markerColor: 'red',
+    //     className: 'awesome-marker awesome-marker-square'
+    // });
+
     var verdeIcon = new L.Icon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -642,13 +649,17 @@
 
             var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
             var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+
+
+            var procentValidosEmitidos = ((100 * sumaValidos) / sumaEmitidos).toFixed(2);
+
             var auxIcon = puntoVerde;
             // console.log(recinto.nombre, porcentajeEmitidos)
             // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
             // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (porcentajeValidos < 20) {
+            if (procentValidosEmitidos <=33) {
                 auxIcon = puntoRojo;
-            } else if (porcentajeValidos > 40) {
+            } else if (procentValidosEmitidos > 66) {
                 auxIcon = puntoAzul;
             }
 
@@ -689,10 +700,10 @@
                         '<th>' + mesa.votosBlancos + '</th>' +
                         '<th>' + mesa.votosNulos + '</th>' +
                         '<th>' + mesa.votosEmitidos + '</th>' +
-                        '<th>' + ((100 * mesa.votosValidos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
-                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosValidos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosBlancos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosNulos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
+                        '<th>' + ((100 * mesa.votosEmitidos) / mesa.votosEmitidos).toFixed(2) + '%</th>' +
 
                         '</tr>'
 
@@ -704,10 +715,10 @@
                     '<th>' + totalBlancos + '</th>' +
                     '<th>' + totalNulos + '</th>' +
                     '<th>' + totalEmitidos + '</th>' +
-                    '<th>' + ((100 * totalValidos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalBlancos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalNulos) / totalInscritos).toFixed(2) + '%</th>' +
-                    '<th>' + ((100 * totalEmitidos) / totalInscritos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalValidos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalBlancos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalNulos) / totalEmitidos).toFixed(2) + '%</th>' +
+                    '<th>' + ((100 * totalEmitidos) / totalEmitidos).toFixed(2) + '%</th>' +
 
                     '</tr>';
                 // console.log('DATO MESAS', datoMesas)

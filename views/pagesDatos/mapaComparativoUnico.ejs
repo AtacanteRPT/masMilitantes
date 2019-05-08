@@ -1,6 +1,8 @@
 <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 <link rel="stylesheet" type="" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/css/dvf.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin="" />
 <link rel="stylesheet" type="" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css">
 <!-- <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
     integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
@@ -18,12 +20,12 @@
         height: 100%;
         margin: 0;
     }
-    
+
     #map {
         width: 100%;
         height: 700px;
     }
-    
+
     .info {
         padding: 6px 8px;
         font: 14px/16px Arial, Helvetica, sans-serif;
@@ -32,24 +34,24 @@
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
     }
-    
+
     .info h4 {
         margin: 0 0 5px;
         color: #777;
     }
-    
+
     .legend {
         text-align: left;
         line-height: 18px;
         color: #555;
     }
-    
+
     #map2 {
         width: 90%;
         height: 800px;
         box-shadow: 5px 5px 5px #888;
     }
-    
+
     .legend i {
         width: 18px;
         height: 18px;
@@ -57,25 +59,37 @@
         margin-right: 8px;
         opacity: 0.7;
     }
-    
+    .recuadro i {
+        width: 10px;
+        height: 10px;
+        float: left;
+        display: inline-block;
+        margin-right: 0.2px;
+        opacity: 0.7;
+    }
+    .recuadro{
+        width: 100px;
+    }
+
+
     .awesome-marker i {
         font-size: 18px;
         margin-top: 8px;
     }
-    
+
     .zonaLabel {
-        background: rgba(255, 255, 255, 0); 
+        background: rgba(255, 255, 255, 0);
         border: 0;
-        
+
         border-radius: 0px;
         font-family: Arial, Helvetica, sans-serif;
         box-shadow: 0 0px 0px;
     }
 </style>
 
-<div class="container">
-    <!-- <h1>Mapa de Nuestra señora de La Paz</h1> -->
-</div>
+<!-- <div class="container">
+    <h1>Mapa de Nuestra señora de La Paz</h1>
+</div> -->
 <div id='map'></div>
 
 
@@ -101,20 +115,20 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '',
-       // id: 'mapbox.light'
+        // id: 'mapbox.light'
     }).addTo(map);
 
 
     // control that shows state info on hover
     var info = L.control();
 
-    info.onAdd = function(map) {
+    info.onAdd = function (map) {
         this._div = L.DomUtil.create('div', 'info');
         this.update();
         return this._div;
     };
 
-    info.update = function(props) {
+    info.update = function (props) {
         var textRecintos = '';
         var totalInscritos = 0;
         var totalValidos = 0;
@@ -123,7 +137,6 @@
         var totalEmitidos = 0;
         if (props) {
             console.log('TIPO:', props.tipo)
-
             if (props.tipo == 'zona') {
                 var zona = auxZonas.filter(dato => dato.nombre == props.zona);
                 var distrito = auxDistritos.filter(dato => dato.id == zona[0].idDistrito);
@@ -132,9 +145,9 @@
 
                 var recintos = auxRecintos.filter(dato => dato.idZona == zona[0].id);
 
-                recintos.forEach(function(recinto) {
+                recintos.forEach(function (recinto) {
 
-                    recinto.mesas.forEach(function(mesa) {
+                    recinto.mesas.forEach(function (mesa) {
                         totalInscritos += parseInt(mesa.inscritos);
                         totalEmitidos += parseInt(mesa.votosEmitidos);
                         totalValidos += parseInt(mesa.votosValidos);
@@ -192,11 +205,11 @@
 
                 var zonas = auxZonas.filter(dato => dato.idDistrito == distrito[0].id);
 
-                zonas.forEach(function(zona) {
+                zonas.forEach(function (zona) {
                     var recintos = auxRecintos.filter(dato => dato.idZona == zona.id)
-                    recintos.forEach(function(recinto) {
+                    recintos.forEach(function (recinto) {
 
-                        recinto.mesas.forEach(function(mesa) {
+                        recinto.mesas.forEach(function (mesa) {
                             totalInscritos += parseInt(mesa.inscritos);
                             totalEmitidos += parseInt(mesa.votosEmitidos);
                             totalValidos += parseInt(mesa.votosValidos);
@@ -257,13 +270,13 @@
                 var distritos = auxDistritos.filter(dato => dato.idCircunscripcion == circunscripcion[0].id);
 
 
-                distritos.forEach(function(distrito) {
+                distritos.forEach(function (distrito) {
                     var zonas = auxZonas.filter(dato => dato.idDistrito == distrito.id)
-                    zonas.forEach(function(zona) {
+                    zonas.forEach(function (zona) {
                         var recintos = auxRecintos.filter(dato => dato.idZona == zona.id)
-                        recintos.forEach(function(recinto) {
+                        recintos.forEach(function (recinto) {
 
-                            recinto.mesas.forEach(function(mesa) {
+                            recinto.mesas.forEach(function (mesa) {
                                 totalInscritos += parseInt(mesa.inscritos);
                                 totalEmitidos += parseInt(mesa.votosEmitidos);
                                 totalValidos += parseInt(mesa.votosValidos);
@@ -412,7 +425,7 @@
         map.fitBounds(e.target.getBounds());
 
     }
-    map.on('zoomend', function() {
+    map.on('zoomend', function () {
         console.log('ZOOM:', map.getZoom())
         if (map.getZoom() < 12) {
             if (map.hasLayer(geojsonC)) {
@@ -437,7 +450,7 @@
                 map.removeLayer(geojsonC)
                 if (map.hasLayer(geojsonZ)) {
                     map.removeLayer(geojsonZ)
-                        //removerMarcas()
+                    //removerMarcas()
                 }
                 map.addLayer(geojsonD);
             }
@@ -466,12 +479,11 @@
             permanent: true
         });
     }
-    function cambiarNombre (dato){
-        if(dato.tipo =='circunscripcion'){
+    function cambiarNombre(dato) {
+        if (dato.tipo == 'circunscripcion') {
 
-            return 'C_'+dato.zona;
-        }else
-        {
+            return 'C_' + dato.zona;
+        } else {
             return dato.zona
         }
     }
@@ -497,20 +509,20 @@
         position: 'bottomright'
     });
 
-    legend.onAdd = function(map) {
+    legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend'),
             grades = [0, 10, 20, 50, 100, 300, 500, 1000],
             labels = [],
             from, to;
-        labels.push('Concentración ');
+        labels.push('Concentración');
 
         labels.push('<i style="background:blue"></i> ' +
-            '&ndash; Alta');
+            '&ndash; Alta 66 - 100');
         labels.push('<i style="background:green"></i> ' +
-            '&ndash; Media');
+            '&ndash; Media 33 - 66');
         labels.push('<i style="background:red"></i> ' +
-            '&ndash; Baja');
+            '&ndash; Baja 0 - 33');
 
 
         div.innerHTML = labels.join('<br>');
@@ -519,11 +531,20 @@
 
     legend.addTo(map);
 
-    // var squareRedMarker = L.AwesomeMarkers.icon({
-    //     icon: 'coffee',
-    //     markerColor: 'red',
-    //     className: 'awesome-marker awesome-marker-square'
-    // });
+    var titulo = L.control({
+        position: 'bottomleft'
+    });
+
+    titulo.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info titulo')
+        div.innerHTML = '<h4>Nuestra Señora de La Paz - GENERAL</h4>';
+        return div;
+    };
+
+    titulo.addTo(map);
+
+  
 
     var verdeIcon = new L.Icon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -551,51 +572,185 @@
         shadowSize: [41, 41]
     });
 
+    const rojo = '#fd0000'
+    const verde = '#046500'
+    const azul = '#143a83';
+
+    // const markerHtmlStylesRojo = `
+    //     background-color: ${rojo};
+    //     width: 1.1rem;
+    //     height: 1.1rem;
+    //     display: block;
+    //     left: -1.5rem;
+    //     top: -1.5rem;
+    //     border-radius: 3rem 3rem 0;
+    //     transform: rotate(45deg);
+    //     border: 1px solid #FFFFFF`
+
+    // const puntoRojo = L.divIcon({
+    //     className: "my-custom-pin",
+    //     iconAnchor: [0, 24],
+    //     labelAnchor: [-6, 0],
+    //     popupAnchor: [0, -36],
+    //     // html: `<span style="${markerHtmlStylesRojo}" />`
+    //     html : '<div class="recuadro"><span class="badge badge-primary">2005</span>'+
+    //             '<span class="badge badge-success">2014</span>'+
+    //             '<span class="badge badge-danger">2009</span></div>'
+    // })
+
+    const markerHtmlStylesVerde = `
+        background-color: ${verde};
+        width: 1.1rem;
+        height: 1.1rem;
+        display: block;
+        left: 0rem;
+        top: 0em;
+        border-radius: 1rem 1rem 0;
+        transform: rotate(45deg);
+        border: 1px solid #FFFFFF`
+
+    const puntoVerde = L.divIcon({
+        className: "my-custom-pin",
+        iconAnchor: [0, 14],
+        labelAnchor: [-6, 0],
+        popupAnchor: [0, -10],
+        html : '<div class="recuadro"><span class="badge badge-primary">2005</span>'+
+                '<span class="badge badge-success">2014</span>'+
+                '<span class="badge badge-danger">2009</span></div>'
+        // html:  '<div class="recuadro"><i style="background:blue"></i>'+
+        //         '<i style="background:red"></i>'+
+        //         '<i style="background:green"></i></div>'
+    })
+
+    const markerHtmlStylesAzul = `
+        background-color: ${azul};
+        width: 1.1rem;
+        height: 1.1rem;
+        display: block;
+        left: -1.5rem;
+        top: -1.5rem;
+        border-radius: 3rem 3rem 0;
+        transform: rotate(45deg);
+        border: 1px solid #FFFFFF`
+
+    const puntoAzul = L.divIcon({
+        className: "my-custom-pin",
+        iconAnchor: [0, 24],
+        labelAnchor: [-6, 0],
+        popupAnchor: [0, -36],
+        html : '<div class="recuadro"><span class="badge badge-primary">2005</span>'+
+                '<span class="badge badge-success">2014</span>'+
+                '<span class="badge badge-danger">2009</span></div>'
+    })
+
     function removerMarcas() {
-        auxRecintos.forEach(function(recinto) {
+        auxRecintos.forEach(function (recinto) {
             map.removeLayer(auxMarca['marca-' + recinto.id])
         }, this);
 
     }
 
+    function getNivel(recinto, idEleccion){
+        var sumaEmitidos = 0;
+        var sumaValidos = 0;
+        var sumaInscritos = 0;
+        recinto.mesas.forEach(function (mesa) {
+            if(mesa.idEleccion == idEleccion){
+
+                sumaEmitidos += parseInt(mesa.votosEmitidos);
+                sumaValidos += parseInt(mesa.votosValidos);
+                sumaInscritos += parseInt(mesa.inscritos)
+            }
+        }, this);
+
+        var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
+        var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
+
+        var procentValidosEmitidos = ((100 * sumaValidos) / sumaEmitidos).toFixed(2);
+
+
+        if (procentValidosEmitidos <=33) {
+            return {badge:'danger',color:'red'}
+        } else if (procentValidosEmitidos >=66) {
+            return {badge:'primary',color:'blue'}
+        }else if(procentValidosEmitidos >33 && procentValidosEmitidos <66) {
+            return {badge:'success',color:'green'}
+        }else{
+            return {badge:'secondary',color:'grey'}
+        }
+
+
+    // const rojo = '#fd0000'
+    // const verde = '#046500'
+    // const azul = '#143a83';
+    }
+
     function generarMarcas() {
-        auxRecintos.forEach(function(recinto) {
+        auxRecintos.forEach(function (recinto) {
             var sw = false;
             var sumaEmitidos = 0;
             var sumaValidos = 0;
             var sumaInscritos = 0;
-            recinto.mesas.forEach(function(mesa) {
-                sumaEmitidos += parseInt(mesa.votosEmitidos);
-                sumaValidos += parseInt(mesa.votosValidos);
-                sumaInscritos += parseInt(mesa.inscritos)
+           
+            //2005
+            var eleccion2005 = getNivel(recinto,1)
+            var eleccion2014 = getNivel(recinto,2)
+            var eleccion2009 = getNivel(recinto,3);
 
-            }, this);
+            var auxIcon;
 
-            var porcentajeEmitidos = ((100 * sumaEmitidos) / sumaInscritos).toFixed(2);
-            var porcentajeValidos = ((100 * sumaValidos) / sumaInscritos).toFixed(2);
-            var auxIcon = verdeIcon;
-            // console.log(recinto.nombre, porcentajeEmitidos)
-            // console.log('INSCRITOS :' + sumaInscritos + ' EMITIDOS :' + sumaEmitidos)
-            // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            if (porcentajeValidos <= 33) {
-                auxIcon = rojoIcon;
-            } else if (porcentajeValidos > 65) {
-                auxIcon = azulIcon;
+            if(eleccion2005.color == eleccion2009.color && eleccion2005.color == eleccion2014.color){
+                const markerHtmlStylesRojo = `
+                background-color: ${eleccion2005.color};
+                width: 1.1rem;
+                height: 1.1rem;
+                display: block;
+                left: -1.5rem;
+                top: -1.5rem;
+                border-radius: 3rem 3rem 0;
+                transform: rotate(45deg);
+                border: 1px solid #FFFFFF`
+                
+                const puntoGlobo = L.divIcon({
+                    className: "my-custom-pin",
+                    iconAnchor: [0, 24],
+                    labelAnchor: [-6, 0],
+                    popupAnchor: [0, -10],
+                    html: `<span style="${markerHtmlStylesRojo}" />`
+                    
+                })
+                auxIcon = puntoGlobo;
+
+            }else{
+                const puntoIcon = L.divIcon({
+                    className: "my-custom-pin",
+                    iconAnchor: [0, 24],
+                    labelAnchor: [-6, 0],
+                    popupAnchor: [0, -36],
+                    html : '<div class="recuadro"><span class="badge badge-'+eleccion2005.badge+'">2005</span>'+
+                            '<span class="badge badge-'+eleccion2009.badge+'">2009</span>'+
+                            '<span class="badge badge-'+eleccion2014.badge+'">2014</span></div>'
+                })
+                auxIcon = puntoIcon
             }
+            
+            
+            
 
+          
 
-            ///////////////////////////////// INICIO ///////////////////////////////////
+            //////////////////////////////// INICIO ///////////////////////////////////
 
 
             if (recinto.latitud != null || recinto.longitud != null) {
                 var sw = false;
                 auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
-                        icon: auxIcon
-                    })
+                    icon: auxIcon
+                })
                     .addTo(map);
 
 
-                var sortMesas = recinto.mesas.sort(function(a, b) {
+                var sortMesas = recinto.mesas.sort(function (a, b) {
                     // a must be equal to b
                     return a.nombre - b.nombre;
                 });
@@ -606,7 +761,7 @@
                 var totalBlancos = 0;
                 var totalNulos = 0;
                 var totalEmitidos = 0;
-                sortMesas.forEach(function(mesa) {
+                sortMesas.forEach(function (mesa) {
 
                     totalInscritos = totalInscritos + parseInt(mesa.inscritos);
                     totalValidos = totalValidos + parseInt(mesa.votosValidos);
@@ -645,9 +800,9 @@
 
 
                 var zona = auxZonas.filter(data => {
-                        return data.id == recinto.idZona
-                    })
-                    // console.log('ZONA AAA', zona)
+                    return data.id == recinto.idZona
+                })
+                // console.log('ZONA AAA', zona)
                 var distrito = auxDistritos.filter(data => {
                     return data.id == zona[0].idDistrito
                 })
@@ -660,37 +815,39 @@
                     ' <div class="card-body">' +
                     ' <h6>' + recinto.nombre + '</h6><br>' +
                     'Circunscripcion: ' + circunscripcion[0].nombre + ' - ' + distrito[0].nombre + ' - Zona:' + zona[0].nombre +
-                    '<table class="table">' +
-                    '<thead>' +
-                    '<th>MESA</th>' +
-                    '<th>Inscritos</th>' +
-                    '<th>Votos Validos</th>' +
-                    '<th>Votos Blancos</th>' +
-                    '<th>Votos Nulos</th>' +
-                    '<th>Votos Emitidos</th>' +
-                    '<th> % Validos</th>' +
-                    '<th> % Blancos</th>' +
-                    '<th> % Nulos</th>' +
-                    '<th> % Emitidos</th>' +
-                    '</thead>' +
-                    '<tbody>' +
-                    datoMesas +
-                    '</tbody>' +
-                    ' </table>' +
+                    // '<table class="table">' +
+                    // '<thead>' +
+                    // '<th>MESA</th>' +
+                    // '<th>Inscritos</th>' +
+                    // '<th>Votos Validos</th>' +
+                    // '<th>Votos Blancos</th>' +
+                    // '<th>Votos Nulos</th>' +
+                    // '<th>Votos Emitidos</th>' +
+                    // '<th> % Validos</th>' +
+                    // '<th> % Blancos</th>' +
+                    // '<th> % Nulos</th>' +
+                    // '<th> % Emitidos</th>' +
+                    // '</thead>' +
+                    // '<tbody>' +
+                    // datoMesas +
+                    // '</tbody>' +
+                    // ' </table>' +
 
                     '</div>' +
                     '</div>';
                 // console.log('COLLAPSE', collapse)
                 auxMarca['marca-' + recinto.id].bindPopup(
-                        collapse, {
-                            closeOnClick: false,
-                            autoClose: false,
-                            // minWdth: '1000',
-                            maxWidth: 'auto',
-                            // autoPan: true,
-                            // className: 'custom'
-                        })
-                    // console.log("MARKA", auxMarca['marca-' + recinto.id])
+                   collapse
+                , {
+                        closeOnClick: false,
+                        autoClose: false,
+                        minWdth: '1000',
+                        // maxWidth: 'auto',
+                        // autoPan: true,
+                        // className: 'custom'
+                    })
+                    // .openPopup()
+                // console.log("MARKA", auxMarca['marca-' + recinto.id])
             }
 
 

@@ -80,7 +80,6 @@ module.exports = {
         }
 
     },
-
     mapa: async function (req, res) {
         var paramId= req.param("id");
         
@@ -96,7 +95,7 @@ module.exports = {
                 datoRecintos[i].mesas = auxMesas;
             }
             // res.send(datoRecintos)
-            res.view('pagesDatos/mapaCurva', {
+            res.view('pagesDatos/mapa', {
                 recintos: datoRecintos,
                 zonas: datoZona,
                 distritos: datoDistrito,
@@ -106,114 +105,26 @@ module.exports = {
             res.serverError(error);
         }
     },
-    mapa2: function (req, res) {
-
-
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
-
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
-
-                        res.view('pagesDatos/mapa2', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
-
-                });
-            });
-        });
-
+    mapa_unico: async function (req, res) {
+        
+        try {
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
+            
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapaComparativoUnico', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
     },
-    mapa3: function (req, res) {
-
-
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
-
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
-
-                        res.view('pagesDatos/mapa3', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
-
-                });
-            });
-        });
-
-    },
-    mapa4: function (req, res) {
-
-
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
-
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
-
-                        res.view('pagesDatos/mapa5', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
-
-                });
-            });
-        });
-
-    },
-    mapa5: function (req, res) {
-
-
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
-
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
-
-                        res.view('pagesDatos/mapa5', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
-
-                });
-            });
-        });
-
-    },
+ 
     mapa_curva: async function (req, res) {
 
         var paramId = req.param("id")
@@ -243,90 +154,6 @@ module.exports = {
 
     },
 
-    mapa_2005: async function (req, res) {
-
-        try {
-
-            var idEleccion2005 = 1;
-            var datoCircunscripcion = await Circunscripcion.find();
-            var datoDistrito = await Distrito.find();
-            var datoZona = await Zona.find();
-            var datoRecintos = await Recinto.find().populate('mesas');
-
-
-            for (var i = 0; i < datoRecintos.length; i++) {
-
-                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion2005);
-                datoRecintos[i].mesas = auxMesas;
-            }
-            // res.send(datoRecintos)
-            res.view('pagesDatos/mapaCurva', {
-                recintos: datoRecintos,
-                zonas: datoZona,
-                distritos: datoDistrito,
-                circunscripciones: datoCircunscripcion
-            })
-        } catch (error) {
-            res.serverError(error);
-        }
-
-    },
-    mapa_2009: async function (req, res) {
-
-        try {
-
-            var idEleccion = 3;
-            var datoCircunscripcion = await Circunscripcion.find();
-            var datoDistrito = await Distrito.find();
-            var datoZona = await Zona.find();
-            var datoRecintos = await Recinto.find().populate('mesas');
-
-
-            for (var i = 0; i < datoRecintos.length; i++) {
-
-                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
-                datoRecintos[i].mesas = auxMesas;
-            }
-            // res.send(datoRecintos)
-            res.view('pagesDatos/mapaCurva', {
-                recintos: datoRecintos,
-                zonas: datoZona,
-                distritos: datoDistrito,
-                circunscripciones: datoCircunscripcion
-            })
-        } catch (error) {
-            res.serverError(error);
-        }
-
-    },
-    mapa_2014: async function (req, res) {
-
-        try {
-
-            var idEleccion = 2;
-            var datoCircunscripcion = await Circunscripcion.find();
-            var datoDistrito = await Distrito.find();
-            var datoZona = await Zona.find();
-            var datoRecintos = await Recinto.find().populate('mesas');
-
-
-            for (var i = 0; i < datoRecintos.length; i++) {
-
-                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
-                datoRecintos[i].mesas = auxMesas;
-            }
-            // res.send(datoRecintos)
-            res.view('pagesDatos/mapaCurva', {
-                recintos: datoRecintos,
-                zonas: datoZona,
-                distritos: datoDistrito,
-                circunscripciones: datoCircunscripcion
-            })
-        } catch (error) {
-            res.serverError(error);
-        }
-
-    },
     mapa_comparativo: async function (req, res) {
 
         try {
@@ -416,7 +243,7 @@ module.exports = {
                 datoRecintos[i].mesas = auxMesas;
             }
             // res.send(datoRecintos)
-            res.view('pagesDatos/mapaDistrito', {
+            res.view('pagesDatos/mapaDistritoCurva', {
                 recintos: datoRecintos,
                 zonas: datoZona,
                 distritos: datoDistrito,
@@ -444,7 +271,7 @@ module.exports = {
                 datoRecintos[i].mesas = auxMesas;
             }
             // res.send(datoRecintos)
-            res.view('pagesDatos/mapaC', {
+            res.view('pagesDatos/mapaCCurva', {
                 recintos: datoRecintos,
                 zonas: datoZona,
                 distritos: datoDistrito,
@@ -455,65 +282,91 @@ module.exports = {
         }
 
     },
+    mapa_distrito: async function (req, res) {
+        var paramId = req.param("id");
+        try {
+
+            var idEleccion = paramId;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
 
 
+            for (var i = 0; i < datoRecintos.length; i++) {
 
-    mapa_distrito: function (req, res) {
-
-
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
-
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
-
-                        res.view('pagesDatos/mapaDistrito', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
-
-                });
-            });
-        });
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapaDistrito', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
 
     },
-    mapa_c: function (req, res) {
+    mapa_c: async function (req, res) {
+
+        var paramId = req.param("id");
+        try {
+
+            var idEleccion = paramId;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
 
 
-        Circunscripcion.find().exec(function (err, datoCircunscripcion) {
-            console.log('dato Circunscripcion :', datoCircunscripcion)
-            if (err) { return res.serverError(err); }
-            Distrito.find().exec(function (err, datoDistrito) {
-                console.log('dato distrito :', datoDistrito)
-                if (err) { return res.serverError(err); }
-                Zona.find().exec(function (err, datoZona) {
-                    console.log('dato zona :', datoZona)
+            for (var i = 0; i < datoRecintos.length; i++) {
 
-                    Recinto.find().populate('mesas').exec(function (err, datoRecintos) {
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapaC', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
 
-                        res.view('pagesDatos/mapaC', {
-                            recintos: datoRecintos,
-                            zonas: datoZona,
-                            distritos: datoDistrito,
-                            circunscripciones: datoCircunscripcion
-                        })
-                    });
-
-                });
-            });
-        });
 
     },
+    mapa_zona: async function(req,res){
+        var paramId = req.param("id");
+        try {
+
+            var idEleccion = paramId;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
 
 
+            for (var i = 0; i < datoRecintos.length; i++) {
+
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapaZona', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
+    },
     generarDistritos: function (req, res) {
 
 
