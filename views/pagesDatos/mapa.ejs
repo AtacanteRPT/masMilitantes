@@ -7,6 +7,11 @@
 <!-- <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
     integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
     crossorigin=""></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+<script src="/js/jqueryautocomplete.js"></script>
+
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script> -->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/leaflet-dvf.min.js"></script>-->
@@ -33,6 +38,17 @@
         background: rgba(255, 255, 255, 0.8);
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
+        
+    }
+    .tabla {
+        padding: 6px 8px;
+        font: 10px/12px Arial, Helvetica, sans-serif;
+        background: white;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        width: 75%;
+        
     }
 
     .info h4 {
@@ -106,10 +122,163 @@
         // id: 'mapbox.light'
     }).addTo(map);
 
+    var tabla = L.control();
+
+    tabla.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'tabla');
+        var datos = [];
+        var colores1 = [0,0,0];
+        var Recintos1 = [[],[],[]];
+        auxRecintos.forEach(recinto => {
+            var datosRecinto = [];
+            //if(recinto.idZona != null)
+            var Nzona, Ndistrito, Ncircunscripcion;
+            var zona = null;
+            if(recinto.idZona != null ){
+                zona = (auxZonas.filter(dato => dato.id == recinto.idZona ))[0];
+                Nzona = zona.nombre;
+            } else{
+                Nzona = "-";
+            }
+            var distrito = null;
+            if(zona.idDistrito != null ){
+                distrito = (auxDistritos.filter(dato => dato.id == zona.idDistrito ))[0];
+                var auxnombred = distrito.nombre;
+                Ndistrito = auxnombred.replace("DISTRITO","D");
+                
+            }else{
+                Ndistrito = "-";
+            }
+            var circunscripcion = null;
+            if(distrito.idCircunscripcion != null ){
+                circunscripcion = (auxCircunscripciones. filter(dato => dato.id == distrito.idCircunscripcion ))[0];
+                Ncircunscripcion = circunscripcion.nombre;
+            }else{
+                Ncircunscripcion = "-";
+            }
+            datosRecinto.push(Ncircunscripcion);
+            datosRecinto.push(Ndistrito);
+            datosRecinto.push(Nzona);
+            datosRecinto.push(recinto.nombre);
+            
+            //console.log(recinto);
+            //console.log(zona);
+            //console.log(distrito);
+            //console.log(circunscripcion);
+            //console.log("aaa");
+            
+            
+            //console.log("bbb");
+            ////var auxmesa = recinto.mesas.filter(dato => dato.idEleccion == 1 );
+            var totalValidos = 0;
+            var totalEmitidos = 0;
+            var auxmesas = recinto.mesas;
+            
+            //console.log(auxmesas);
+            auxmesas.forEach( mesa => {
+                totalValidos += parseInt(mesa.votosValidos);
+                totalEmitidos += parseInt(mesa.votosEmitidos);
+                
+            });
+            var promedio = 0;
+            var cantidad = 0;
+            if(totalEmitidos>0){
+                var porcentaje1 = ( 100 * totalValidos ) / totalEmitidos;
+                //console.log(porcentaje1+" "+totalValidos[0]+" "+totalEmitidos[0]);
+                var auxcolor1 = 2;
+                if(porcentaje1 <= 33){
+                    auxcolor1 = 0;
+                }else if(porcentaje1 <= 66){
+                    auxcolor1 = 1;
+                }
+                promedio += porcentaje1;
+                cantidad++;
+                var roundpor1= Math.round(porcentaje1 * 100) / 100;
+                datosRecinto.push(roundpor1+"%");
+                colores1[auxcolor1]++;
+                Recintos1[auxcolor1].push(recinto);
+            }else{
+                datosRecinto.push("No habilitada");
+            }
+            
+            if(cantidad > 0){
+                promedio = promedio / cantidad;
+                var roundprom = Math.round(promedio * 100) / 100;
+                //datosRecinto.push(roundprom+"%");
+                datos.push(datosRecinto);
+            }
+        });
+        //console.log("caaaaaarlos");
+        //console.log(colores1);//fd0000
+        //console.log(colores2);//046500
+        //console.log(colores3);//143a83
+        
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "language": {
+                    
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "PORCENTAJE POR RECINTOS",
+                    "sZeroRecords":    "No se encontraron Recinto",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Mostrando Recintos del _START_ al _END_ de un total de _TOTAL_ Recintos",
+                    "sInfoEmpty":      "Mostrando Recintos del 0 al 0 de un total de 0 Recintos",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ Recintos)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }            
+                },
+                'rowCallback': function(row, data, index){
+                    if(data[4][0] != 'N'){
+                        var auxdata = data[4].slice(0,-1);
+                        //console.log(auxdata);
+                        $(row).find('td:eq(4)').css('color', 'white');
+                        if(auxdata <= 33){
+                            $(row).find('td:eq(4)').css('background-color', 'red');
+                        }else if(auxdata <= 66){
+                            $(row).find('td:eq(4)').css('background-color', 'green');
+                        }else{
+                            $(row).find('td:eq(4)').css('background-color', 'blue');
+                        }
+                    }
+                    
+                },
+                data: datos,
+                columns: [
+
+                    { title: "C" },
+                    { title: "Distrito" },
+                    { title: "Zona" },
+                    { title: "Recinto" },
+                    { title: "Eleccion" },
+                ]
+            } );
+        } );
+        div.innerHTML = '<table id="example" class="display" width="100%"></table>'
+        //div.innerHTML = '<h4>Nuestra Señora de La Paz - GENERAL</h4>';
+        return div;
+    };
+
+    tabla.addTo(map);
 
     // control that shows state info on hover
-    var info = L.control();
-
+    var info = L.control({
+        position: 'bottomleft'
+    });
+    
     info.onAdd = function (map) {
         this._div = L.DomUtil.create('div', 'info');
         this.update();
@@ -327,6 +496,8 @@
         }
         // this._div.innerHTML = '<h4>Concentración de votos</h4>' + (props ?
         //     '<b>Circunscripción :  ' + circunscripcion[0].nombre + '</b><br /><b>Distrito :  ' + distrito[0].nombre + '</b><br /><b>Zona :  ' + props.zona + '</b><br /> Recintos ' + textRecintos + ' ' : '');
+        
+        
         this._div.innerHTML = '<h4>Información</h4>' + (props ?
             textRecintos : '');
     };
@@ -520,7 +691,7 @@
     legend.addTo(map);
 
     var titulo = L.control({
-        position: 'bottomleft'
+        position: 'topleft'
     });
 
     titulo.onAdd = function (map) {
