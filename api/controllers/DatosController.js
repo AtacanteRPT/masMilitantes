@@ -99,7 +99,8 @@ module.exports = {
                 recintos: datoRecintos,
                 zonas: datoZona,
                 distritos: datoDistrito,
-                circunscripciones: datoCircunscripcion
+                circunscripciones: datoCircunscripcion,
+                eleccion: paramId
             })
         } catch (error) {
             res.serverError(error);
