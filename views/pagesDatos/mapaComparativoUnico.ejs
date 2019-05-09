@@ -136,7 +136,7 @@
         var totalNulos = 0;
         var totalEmitidos = 0;
         if (props) {
-            console.log('TIPO:', props.tipo)
+            // console.log('TIPO:', props.tipo)
             if (props.tipo == 'zona') {
                 var zona = auxZonas.filter(dato => dato.nombre == props.zona);
                 var distrito = auxDistritos.filter(dato => dato.id == zona[0].idDistrito);
@@ -198,7 +198,7 @@
                     '</li>' +
                     '</ul>';
             } else if (props.tipo == 'distrito') {
-                console.log('DISTIRTO,', props.zona)
+                // console.log('DISTIRTO,', props.zona)
                 var distrito = auxDistritos.filter(dato => dato.nombre == props.zona);
 
                 var circunscripcion = auxCircunscripciones.filter(dato => dato.id == distrito[0].idCircunscripcion)
@@ -346,10 +346,9 @@
     info.addTo(map);
 
     function getRandomColor(zona) {
-        // console.log('ZONA:', zona);
+        // console.log('COLOR ZONA:', zona);
         var color = '';
         if (zona) {
-
             var letters = '0123456789ABCDEF';
             color = '#';
             for (var i = 0; i < 6; i++) {
@@ -370,18 +369,6 @@
         return color;
     }
 
-    function style(feature) {
-        // console.log('FEATURE', feature)
-        return {
-            weight: 2,
-            opacity: 1,
-            color: 'black',
-            dashArray: '5',
-            fillOpacity: getOpacidad(feature.properties.zona),
-            // fillColor: getColor(feature.properties.density)
-            fillColor: getRandomColor(feature.properties.zona)
-        };
-    }
 
     function highlightFeature(e) {
         var layer = e.target;
@@ -405,9 +392,6 @@
     var geojsonZ;
     var auxMarca = {};
 
-
-
-
     function resetHighlight(e) {
         geojsonC.resetStyle(e.target);
         info.update();
@@ -425,45 +409,45 @@
         map.fitBounds(e.target.getBounds());
 
     }
-    map.on('zoomend', function () {
-        console.log('ZOOM:', map.getZoom())
-        if (map.getZoom() < 12) {
-            if (map.hasLayer(geojsonC)) {
-                map.removeLayer(geojsonC);
-            } else {
-                console.log("no point layer active");
-            }
-        } else if (map.getZoom() >= 12 && map.getZoom() < 12.5) {
-            if (map.hasLayer(geojsonC)) {
-                console.log("entre 11 y 12");
-            } else {
-                if (map.hasLayer(geojsonD)) {
+    // map.on('zoomend', function () {
+    //     // console.log('ZOOM:', map.getZoom())
+    //     if (map.getZoom() < 12) {
+    //         if (map.hasLayer(geojsonC)) {
+    //             map.removeLayer(geojsonC);
+    //         } else {
+    //             // console.log("no point layer active");
+    //         }
+    //     } else if (map.getZoom() >= 12 && map.getZoom() < 12.5) {
+    //         if (map.hasLayer(geojsonC)) {
+    //             // console.log("entre 11 y 12");
+    //         } else {
+    //             if (map.hasLayer(geojsonD)) {
 
-                    map.removeLayer(geojsonD)
-                }
-                map.addLayer(geojsonC);
-            }
-        } else if (map.getZoom() >= 12.5 && map.getZoom() <= 14) {
-            if (map.hasLayer(geojsonD)) {
-                console.log("entre 13 y 14");
-            } else {
-                map.removeLayer(geojsonC)
-                if (map.hasLayer(geojsonZ)) {
-                    map.removeLayer(geojsonZ)
-                    //removerMarcas()
-                }
-                map.addLayer(geojsonD);
-            }
-        } else if (map.getZoom() >= 14.1) {
-            if (map.hasLayer(geojsonZ)) {
-                console.log("entre 15 para arriva");
-            } else {
-                map.removeLayer(geojsonD)
-                map.addLayer(geojsonZ);
-                // generarMarcas();
-            }
-        }
-    });
+    //                 map.removeLayer(geojsonD)
+    //             }
+    //             map.addLayer(geojsonC);
+    //         }
+    //     } else if (map.getZoom() >= 12.5 && map.getZoom() <= 14) {
+    //         if (map.hasLayer(geojsonD)) {
+    //             // console.log("entre 13 y 14");
+    //         } else {
+    //             map.removeLayer(geojsonC)
+    //             if (map.hasLayer(geojsonZ)) {
+    //                 map.removeLayer(geojsonZ)
+    //                 //removerMarcas()
+    //             }
+    //             map.addLayer(geojsonD);
+    //         }
+    //     } else if (map.getZoom() >= 14.1) {
+    //         if (map.hasLayer(geojsonZ)) {
+    //             // console.log("entre 15 para arriva");
+    //         } else {
+    //             map.removeLayer(geojsonD)
+    //             map.addLayer(geojsonZ);
+    //             // generarMarcas();
+    //         }
+    //     }
+    // });
 
     function onEachFeature(feature, layer) {
         // console.log('LAYER:',layer)
@@ -486,21 +470,85 @@
         } else {
             return dato.zona
         }
+    } 
+    function getColor(layer){
+        // console.log('LAYER',layer)
+        if(layer.tipo == 'zona'){
+        var zona = auxZonas.filter(dato=> dato.nombre == layer.zona);
+        var recintos = auxRecintos.filter(dato => zona[0].id== dato.idZona);
+
+        var eleccionZona= []; 
+        var suma2005 = 0;
+        var suma2009 = 0;
+        var suma2014 = 0;       
+        recintos.forEach(recinto => {
+
+            var eleccion2005 = getNivel(recinto,1);
+            var eleccion2009 = getNivel(recinto,3);
+            var eleccion2014 = getNivel(recinto,2);
+            suma2005+=  eleccion2005.estado;
+            suma2009+=  eleccion2009.estado;
+            suma2014+=  eleccion2014.estado;
+        });
+        console.log('ZONA',layer.zona)
+        console.log('2005:',suma2005)
+        console.log('2009:',suma2009)
+        console.log('2014:',suma2014)
+            
+
+            
+            if(suma2014 <suma2009){
+                return '#f79696'
+            }else {
+                if(suma2014 == suma2009){
+                    if(suma2014 < suma2005){
+                        return '#f79696'
+                    }else{
+                        if(suma2014 == suma2005){
+                            return '#ecefeb'
+                        }else{
+                            return '#baeeae'
+                        }
+                    }
+                }else{
+                    return '#baeeae'
+                }
+            }   
+        
+
+           
+        }else{
+
+        return getRandomColor();
+        }
+        
+    }
+    function style(feature) {
+        // console.log('FEATURE', feature)
+        return {
+            weight: 2,
+            opacity: 1,
+            color: 'black',
+            dashArray: '5',
+            fillOpacity: getOpacidad(feature.properties.zona),
+            fillColor: getColor(feature.properties)
+            // fillColor: getRandomColor(feature.properties.zona)
+        };
     }
 
-    geojsonC = L.geoJson(datoGeoJsonC, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-    geojsonD = L.geoJson(datoGeoJsonD, {
-        style: style,
-        onEachFeature: onEachFeature
-    })
+    // geojsonC = L.geoJson(datoGeoJsonC, {
+    //     style: style,
+    //     onEachFeature: onEachFeature
+    // }).addTo(map);
+    // geojsonD = L.geoJson(datoGeoJsonD, {
+    //     style: style,
+    //     onEachFeature: onEachFeature
+    // })
     geojsonZ = L.geoJson(geoZonasCompleto, {
         style: style,
         onEachFeature: onEachFeature
     })
-
+    map.addLayer(geojsonZ);
 
     map.attributionControl.addAttribution('');
 
@@ -670,13 +718,13 @@
 
 
         if (procentValidosEmitidos <=33) {
-            return {badge:'danger',color:'red'}
+            return {badge:'danger',color:'red',estado:1}
         } else if (procentValidosEmitidos >=66) {
-            return {badge:'primary',color:'blue'}
+            return {badge:'primary',color:'blue',estado:3}
         }else if(procentValidosEmitidos >33 && procentValidosEmitidos <66) {
-            return {badge:'success',color:'green'}
+            return {badge:'success',color:'green',estado:2}
         }else{
-            return {badge:'secondary',color:'grey'}
+            return {badge:'secondary',color:'grey',estado:3}
         }
 
 
@@ -698,8 +746,14 @@
             var eleccion2009 = getNivel(recinto,3);
 
             var auxIcon;
+            var todosNulos = false;
 
             if(eleccion2005.color == eleccion2009.color && eleccion2005.color == eleccion2014.color){
+
+                if(eleccion2005.color == 'grey'){ 
+                    todosNulos = true;
+                }
+               
                 const markerHtmlStylesRojo = `
                 background-color: ${eleccion2005.color};
                 width: 1.1rem;
@@ -710,7 +764,6 @@
                 border-radius: 3rem 3rem 0;
                 transform: rotate(45deg);
                 border: 1px solid #FFFFFF`
-                
                 const puntoGlobo = L.divIcon({
                     className: "my-custom-pin",
                     iconAnchor: [0, 24],
@@ -733,21 +786,15 @@
                 })
                 auxIcon = puntoIcon
             }
-            
-            
-            
-
-          
-
+        
             //////////////////////////////// INICIO ///////////////////////////////////
 
-
-            if (recinto.latitud != null || recinto.longitud != null) {
+            if ((recinto.latitud != null || recinto.longitud != null) && todosNulos!=true) {
                 var sw = false;
                 auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
                     icon: auxIcon
                 })
-                    .addTo(map);
+                .addTo(map);
 
 
                 var sortMesas = recinto.mesas.sort(function (a, b) {
