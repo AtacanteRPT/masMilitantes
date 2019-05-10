@@ -82,7 +82,7 @@ module.exports = {
     },
     mapa: async function (req, res) {
         var paramId= req.param("id");
-        
+        console.log(paramId);
         try {
             var idEleccion2005 = paramId;
             var datoCircunscripcion = await Circunscripcion.find();
