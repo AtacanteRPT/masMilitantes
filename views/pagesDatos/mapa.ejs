@@ -328,7 +328,7 @@
                     '<ul class="list-group">' +
                     '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     'Inscritos' +
-                    ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+                    // ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
                     '</li>' +
                     '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     'Emitidos' +
@@ -393,7 +393,7 @@
                     '<ul class="list-group">' +
                     '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     'Inscritos' +
-                    ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+                    // ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
                     '</li>' +
                     '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     'Emitidos' +
@@ -461,7 +461,7 @@
                     '<ul class="list-group">' +
                     '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     'Inscritos' +
-                    ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
+                    // ' <span class="badge badge-dark badge-pill">' + totalInscritos + '</span>' +
                     '</li>' +
                     '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     'Emitidos' +
@@ -877,13 +877,12 @@
                         '<th>' + ((100 * mesa.votosBlancos) / mesa.inscritos).toFixed(2) + '%</th>' +
                         '<th>' + ((100 * mesa.votosNulos) / mesa.inscritos).toFixed(2) + '%</th>' +
                         '<th>' + ((100 * mesa.votosEmitidos) / mesa.inscritos).toFixed(2) + '%</th>' +
-
                         '</tr>'
 
                 })
                 datoMesas = datoMesas + '<tr  class="table-primary">' +
                     '<th>TOTAL </th>' +
-                    '<th>' + totalInscritos + '</th>' +
+                    //'<th>' + totalInscritos + '</th>' +
                     '<th>' + totalValidos + '</th>' +
                     '<th>' + totalBlancos + '</th>' +
                     '<th>' + totalNulos + '</th>' +
@@ -916,7 +915,7 @@
                     '<table class="table">' +
                     '<thead>' +
                     '<th>MESA</th>' +
-                    '<th>Inscritos</th>' +
+                   //'<th>Inscritos</th>' +
                     '<th>Votos Validos</th>' +
                     '<th>Votos Blancos</th>' +
                     '<th>Votos Nulos</th>' +
