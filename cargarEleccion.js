@@ -9,7 +9,7 @@ var async = require('async')
 var files = [];
 
 
-files.push('./eleccion_2009.csv');
+files.push('./eleccion_2009_2.csv');
 
 async.eachSeries(files, function(file, callback) {
 
@@ -39,7 +39,7 @@ async.eachSeries(files, function(file, callback) {
             console.log("MESA", mesa);
             mesa.idEleccion = 3;
 
-            rest.postJson('http://localhost:3030/mesarecinto', mesa).on('complete', function(data2, response2) {
+            rest.postJson('http://militantesmasipsp.com:3030/mesarecinto', mesa).on('complete', function(data2, response2) {
                 // handle response
 
                 console.log("contador", contador++)
