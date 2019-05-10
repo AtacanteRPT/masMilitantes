@@ -26,6 +26,58 @@ module.exports = {
         votosEmitidos: {
             type: "string"
         },
+        MAS:{
+            type:'string'
+        },
+        UN:{
+            type:'string'
+        },
+        FREPAB:{
+            type:'string'
+        },
+        MIP:{
+            type:'string'
+        },
+        NRF:{
+            type:'string'
+        },
+        MNR:{
+            type:'string'
+        },
+        PODEMOS:{
+            type:'string'
+        },
+        CONVERGENCIA:{
+            type:'string'
+        },
+        PULSO:{
+            type:'string'
+        },
+        MUSPA:{
+            type:'string'
+        },
+        BSD:{
+            type:'string'
+        },
+        GENTE:{
+            type:'string'
+        },
+        AS:{
+            type:'string'
+        },
+        PDC:{
+            type:'string'
+        },
+        PVB_IEP:{
+            type:'string'
+        },
+        MSM:{
+            type:'string'
+        },
+        UD:{
+            type:'string'
+        },
+
         asistencias: {
             type: "string"
         },
@@ -47,6 +99,7 @@ module.exports = {
         idEleccion: {
             model: 'eleccion',
         },
+
     },
 
 };
