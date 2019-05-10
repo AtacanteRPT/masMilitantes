@@ -100,7 +100,7 @@ module.exports = {
                 zonas: datoZona,
                 distritos: datoDistrito,
                 circunscripciones: datoCircunscripcion,
-                eleccion: paramId
+                elecciones: paramId
             })
         } catch (error) {
             res.serverError(error);
