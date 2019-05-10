@@ -4,7 +4,10 @@
     integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
     crossorigin="" />
 <!-- <link rel="stylesheet" type="" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css"> -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
+<script src="/js/jqueryautocomplete.js"></script>
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
 
@@ -90,7 +93,7 @@
         <div class="mapContainer" id='map2'></div>
     </div>
     <div class="col-12 col-md-6">
-        <div class="mapContainer" id='map3'></div>
+        <table id="example" class="display" width="100%"></table>
     </div>
 </div>
 
@@ -98,6 +101,7 @@
 <script src="/js/geoJsonC2.js"></script>
 <script src="/js/geoJsonDistritosC2.js"></script>
 <script src="/js/geoJsonZonasC2.js"></script>
+
 
 
 
@@ -1040,5 +1044,227 @@
             permanent: true
         });
     }
+
+</script>
+
+<script>
+    var datos = [];
+    var auxRecintos = <%- JSON.stringify(recintos) %>;
+    var auxZonas = <%- JSON.stringify(zonas) %>;
+    var auxDistritos = <%- JSON.stringify(distritos) %>;
+    var auxCircunscripciones = <%- JSON.stringify(circunscripciones) %>;
+    var colores1 = [0,0,0];
+    var colores2 = [0,0,0];
+    var colores3 = [0,0,0];
+    var Recintos1 = [[],[],[]];
+    var Recintos2 = [[],[],[]];
+    var Recintos3 = [[],[],[]];
+
+    auxRecintos.forEach(recinto => {
+        var datosRecinto = [];
+        //if(recinto.idZona != null)
+        var Nzona, Ndistrito, Ncircunscripcion;
+        var zona = null;
+        if(recinto.idZona != null ){
+            zona = (auxZonas.filter(dato => dato.id == recinto.idZona ))[0];
+            Nzona = zona.nombre;
+        } else{
+            Nzona = "-";
+        }
+        var distrito = null;
+        if(zona.idDistrito != null ){
+            distrito = (auxDistritos.filter(dato => dato.id == zona.idDistrito ))[0];
+            Ndistrito = distrito.nombre;
+        }else{
+            Ndistrito = "-";
+        }
+        var circunscripcion = null;
+        if(distrito.idCircunscripcion != null ){
+            circunscripcion = (auxCircunscripciones. filter(dato => dato.id == distrito.idCircunscripcion ))[0];
+            Ncircunscripcion = circunscripcion.nombre;
+        }else{
+            Ncircunscripcion = "-";
+        }
+        datosRecinto.push(Ncircunscripcion);
+        datosRecinto.push(Ndistrito);
+        datosRecinto.push(Nzona);
+        datosRecinto.push(recinto.nombre);
+        
+        //console.log(recinto);
+        //console.log(zona);
+        //console.log(distrito);
+        //console.log(circunscripcion);
+        //console.log("aaa");
+        
+        
+        //console.log("bbb");
+        ////var auxmesa = recinto.mesas.filter(dato => dato.idEleccion == 1 );
+        var totalValidos = [0,0,0];
+        var totalEmitidos = [0,0,0];
+        var auxmesas = recinto.mesas;
+        
+        //console.log(auxmesas);
+        auxmesas.forEach( mesa => {
+            if( mesa.idEleccion == 1 ) {    
+                totalValidos[0] += parseInt(mesa.votosValidos);
+                totalEmitidos[0] += parseInt(mesa.votosEmitidos);    
+            }else if(mesa.idEleccion == 3 ){
+                totalValidos[1] += parseInt(mesa.votosValidos);
+                totalEmitidos[1] += parseInt(mesa.votosEmitidos);
+            }else if(mesa.idEleccion == 2){    
+                totalValidos[2] += parseInt(mesa.votosValidos);
+                totalEmitidos[2] += parseInt(mesa.votosEmitidos);
+            }
+        });
+        var promedio = 0;
+        var cantidad = 0;
+        if(totalEmitidos[0]>0){
+            var porcentaje1 = ( 100 * totalValidos[0] ) / totalEmitidos[0];
+            //console.log(porcentaje1+" "+totalValidos[0]+" "+totalEmitidos[0]);
+            var auxcolor1 = 2;
+            if(porcentaje1 <= 33){
+                auxcolor1 = 0;
+            }else if(porcentaje1 <= 66){
+                auxcolor1 = 1;
+            }
+            promedio += porcentaje1;
+            cantidad++;
+            var roundpor1= Math.round(porcentaje1 * 100) / 100;
+            datosRecinto.push(roundpor1+"%");
+            colores1[auxcolor1]++;
+            Recintos1[auxcolor1].push(recinto);
+        }else{
+            datosRecinto.push("No habilitada");
+        }
+        
+        if(totalEmitidos[1]>0){
+            var porcentaje2 = ( 100 * totalValidos[1] ) / totalEmitidos[1];
+            var auxcolor2 = 2;
+            if(porcentaje2 <= 33){
+                auxcolor2 = 0;
+            }else if(porcentaje2 <= 66){
+                auxcolor2 = 1;
+            }
+            promedio += porcentaje2;
+            cantidad++;
+            var roundpor2= Math.round(porcentaje2 * 100) / 100;
+            datosRecinto.push(roundpor2+"%");
+            colores2[auxcolor2]++;
+            Recintos2[auxcolor2].push(recinto);
+        }else{
+            datosRecinto.push("No habilitada");
+        }
+
+        if(totalEmitidos[2]>0){
+            var porcentaje3 = ( 100 * totalValidos[2] ) / totalEmitidos[2];
+            var auxcolor3 = 2;
+            if(porcentaje3 <= 33){
+                auxcolor3 = 0;
+            }else if(porcentaje3 <= 66){
+                auxcolor3 = 1;
+            }
+            promedio += porcentaje3;
+            cantidad++;
+            var roundpor3= Math.round(porcentaje3 * 100) / 100;
+            datosRecinto.push(roundpor3+"%");
+            colores3[auxcolor3]++;
+            Recintos3[auxcolor3].push(recinto);
+        }else{
+            datosRecinto.push("No habilitada");
+        }
+        if(cantidad > 0){
+            promedio = promedio / cantidad;
+            var roundprom = Math.round(promedio * 100) / 100;
+            datosRecinto.push(roundprom+"%");
+            datos.push(datosRecinto);
+        }
+    });
+    //console.log("caaaaaarlos");
+    console.log(colores1);//fd0000
+    console.log(colores2);//046500
+    console.log(colores3);//143a83
+     
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        "language": {
+            
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ Recintos",
+            "sZeroRecords":    "No se encontraron Recinto",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando Recintos del _START_ al _END_ de un total de _TOTAL_ Recintos",
+            "sInfoEmpty":      "Mostrando Recintos del 0 al 0 de un total de 0 Recintos",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ Recintos)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }            
+        },
+        'rowCallback': function(row, data, index){
+            if(data[4][0] != 'N'){
+                var auxdata = data[4].slice(0,-1);
+                //console.log(auxdata);
+                $(row).find('td:eq(4)').css('color', 'white');
+                if(auxdata <= 33){
+                    $(row).find('td:eq(4)').css('background-color', 'red');
+                }else if(auxdata <= 66){
+                    $(row).find('td:eq(4)').css('background-color', 'green');
+                }else{
+                    $(row).find('td:eq(4)').css('background-color', 'blue');
+                }
+            }
+            
+            if(data[5][0] != 'N'){
+                var auxdata = data[5].slice(0,-1);
+                //console.log(auxdata);
+                $(row).find('td:eq(5)').css('color', 'white');
+                if(auxdata <= 33){
+                    $(row).find('td:eq(5)').css('background-color', 'red');
+                }else if(auxdata <= 66){
+                    $(row).find('td:eq(5)').css('background-color', 'green');
+                }else{
+                    $(row).find('td:eq(5)').css('background-color', 'blue');
+                }
+            }
+
+            if(data[6][0] != 'N'){
+                var auxdata = data[6].slice(0,-1);
+                //console.log(auxdata);
+                $(row).find('td:eq(6)').css('color', 'white');
+                if(auxdata <= 33){
+                    $(row).find('td:eq(6)').css('background-color', 'red');
+                }else if(auxdata <= 66){
+                    $(row).find('td:eq(6)').css('background-color', 'green');
+                }else{
+                    $(row).find('td:eq(6)').css('background-color', 'blue');
+                }
+            }
+            
+        },
+        data: datos,
+        columns: [
+
+            { title: "Circunscripcion" },
+            { title: "Distrito" },
+            { title: "Zona" },
+            { title: "Recinto" },
+            { title: "Elecciones Nacionales 2005" },
+            { title: "Referendum Constituyente 2009" },
+            { title: "Elecciones Nacionales 2014" },
+            { title: "Promedio Total"}
+        ]
+    } );
+} );
 
 </script>

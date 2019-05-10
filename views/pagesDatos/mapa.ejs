@@ -110,16 +110,17 @@
     var auxZonas = <%- JSON.stringify(zonas) %>;
     var auxDistritos = <%- JSON.stringify(distritos) %>;
     var auxCircunscripciones = <%- JSON.stringify(circunscripciones) %>;
-    var auxeleccion = <%- JSON.stringify(eleccion) %>;
+    var auxelecciones = <%- JSON.stringify(elecciones) %>;
     var nombreelec;
-    if(auxeleccion = 1){
+    if(auxelecciones == 1){
         nombreelec = "Elecciones Nacionales 2005";
-    }else if(auxeleecion = 2){
-        nombreelec = "Referendum Constituyente 2009";
+    }else if(auxelecciones == 3){
+        nombreelec = "Elecciones Nacionales 2009";
     }else{
         nombreelec = "Elecciones Nacionales 2014";
     }
-
+    //console.log(auxeleccion);
+    //console.log(nombreelec);
 
     var map = L.map('map').setView([-16.51773269488567, -68.11798095703126], 12);
 
