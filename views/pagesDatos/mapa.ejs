@@ -146,7 +146,7 @@
             var zona = null;
             if(recinto.idZona != null ){
                 zona = (auxZonas.filter(dato => dato.id == recinto.idZona ))[0];
-                Nzona = zona.nombre.replace("_"," ");
+                Nzona = zona.nombre.replace(/_/g,' ');
             } else{
                 Nzona = "-";
             }
@@ -301,7 +301,7 @@
                 data: datos,
                 columns: [
 
-                    { title: "C" },
+                    { title: "Circ." },
                     { title: "Distrito" },
                     { title: "Zona" },
                     { title: "Recinto" },
