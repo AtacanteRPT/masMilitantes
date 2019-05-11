@@ -113,11 +113,11 @@
     var auxelecciones = <%- JSON.stringify(elecciones) %>;
     var nombreelec;
     if(auxelecciones == 1){
-        nombreelec = "Elecciones Generales 2005 - VOTACIÓN EMITIDA POR EL MAS IPSP ";
+        nombreelec = "Elecciones Generales 2005 ";
     }else if(auxelecciones == 3){
-        nombreelec = "Elecciones Generales 2009 - VOTACIÓN EMITIDA POR EL MAS IPSP";
+        nombreelec = "Elecciones Generales 2009";
     }else{
-        nombreelec = "Elecciones Generales 2014 - VOTACIÓN EMITIDA POR EL MAS IPSP";
+        nombreelec = "Elecciones Generales 2014";
     }
     //console.log(auxeleccion);
     //console.log(nombreelec);
@@ -457,7 +457,7 @@
     titulo.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info titulo')
-        div.innerHTML = '<h4>'+nombreelec+'</h4>';
+        div.innerHTML = '<h4>VOTACIÓN EMITIDA POR EL MAS IPSP</h4><br><h4>'+nombreelec+'</h4>';
         return div;
     };
 
