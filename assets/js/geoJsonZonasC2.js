@@ -3,6 +3,7 @@ var geoZonasCompleto = {
     "features": [{
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CHAMOCO_CHICO"
             },
             "geometry": {
@@ -31,6 +32,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SAN_LORENZO"
             },
             "geometry": {
@@ -78,6 +80,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CIUDADELA_FERROVIARIA"
             },
             "geometry": {
@@ -141,6 +144,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "PANTICIRCA"
             },
             "geometry": {
@@ -197,6 +201,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "LLOJETA_ALTO"
             },
             "geometry": {
@@ -238,6 +243,7 @@ var geoZonasCompleto = {
         }, {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "PAMPAHASI_ALTO"
             },
             "geometry": {
@@ -269,6 +275,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "PAMPAHASI_BAJO"
             },
             "geometry": {
@@ -329,6 +336,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
 
                 "zona": "CIUDAD_DEL_NIÑO"
             },
@@ -388,6 +396,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CHICANI"
             },
             "geometry": {
@@ -444,6 +453,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CHINCHAYA"
             },
             "geometry": {
@@ -483,6 +493,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SAN_ISIDRO"
             },
             "geometry": {
@@ -556,6 +567,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "KUPINI"
             },
             "geometry": {
@@ -598,6 +610,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CALLAPA"
             },
             "geometry": {
@@ -678,6 +691,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ALTO_OBRAJES"
             },
             "geometry": {
@@ -737,6 +751,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "IRPAVI"
             },
             "geometry": {
@@ -789,6 +804,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "BOLONIA"
             },
             "geometry": {
@@ -839,6 +855,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "KOANI"
             },
             "geometry": {
@@ -891,6 +908,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ALTO_IRPAVI"
             },
             "geometry": {
@@ -959,6 +977,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CALACOTO_KOANI"
             },
             "geometry": {
@@ -992,6 +1011,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ACHUMANI_BAJO_Y_MESETA"
             },
             "geometry": {
@@ -1062,6 +1082,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CALACOTO_LA_FLORIDA"
             },
             "geometry": {
@@ -1148,6 +1169,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ACHUMANI_ALTO"
             },
             "geometry": {
@@ -1224,6 +1246,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "COTA_COTA"
             },
             "geometry": {
@@ -1303,6 +1326,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SAN_MIGUEL"
             },
             "geometry": {
@@ -1332,6 +1356,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "LOS_PINOS"
             },
             "geometry": {
@@ -1377,6 +1402,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ROSALES"
             },
             "geometry": {
@@ -1444,6 +1470,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CHASQUIPAMPA"
             },
             "geometry": {
@@ -1513,6 +1540,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "OVEJUYO"
             },
             "geometry": {
@@ -1564,6 +1592,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "APAÑA"
             },
             "geometry": {
@@ -1652,7 +1681,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "ACHACHICALA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "ACHACHICALA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1684,7 +1716,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "ALTO_ACHACHICALA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "ALTO_ACHACHICALA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1729,7 +1764,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "LIMANIPATA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "LIMANIPATA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1761,7 +1799,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VILLA_DE_LA_CRUZ" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VILLA_DE_LA_CRUZ"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1808,7 +1849,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "LA_ZARZUELA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "LA_ZARZUELA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1866,7 +1910,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VINO_TINTO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VINO_TINTO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -1921,84 +1968,13 @@ var geoZonasCompleto = {
 
             }
         },
-        // {
-        //     "type": "Feature",
-        //     "properties": {
-        //         "zona": "" },
-        //     "geometry": {
-        //         "type": "Polygon",
-        //         "coordinates": {
-        //             "type": "Feature",
-        //             "properties": {
-        //                 "zona": "" },
-        //             "geometry": {
-        //                 "type": "Polygon",
-        //                 "coordinates": [
-        //                     [
-        //                         [-68.12598139978947, -16.49589106753384],
-        //                         [-68.12649638392033, -16.49572647165192],
-        //                         [-68.12672168947756, -16.49611738664284],
-        //                         [-68.12679679133, -16.49611738664284],
-        //                         [-68.12722594477238, -16.49576762063551],
-        //                         [-68.12752635218204, -16.49583963133578],
-        //                         [-68.12778384424747, -16.495757333390433],
-        //                         [-68.12783748842777, -16.49535613040563],
-        //                         [-68.12763364054264, -16.494502285386677],
-        //                         [-68.12733323313297, -16.49401878111469],
-        //                         [-68.12720448710026, -16.49326780399889],
-        //                         [-68.12757999636234, -16.492290500648377],
-        //                         [-68.12819154001774, -16.491776128481476],
-        //                         [-68.12837393023075, -16.49171440372959],
-        //                         [-68.12850267626347, -16.49153951682563],
-        //                         [-68.12866360880436, -16.491426354627094],
-        //                         [-68.12888891436161, -16.491292617398067],
-        //                         [-68.1291034910828, -16.4910354301594],
-        //                         [-68.12928588129581, -16.490860542641897],
-        //                         [-68.12936098314823, -16.490891405156475],
-        //                         [-68.12907130457462, -16.49138520472032],
-        //                         [-68.12895328737797, -16.49173497864907],
-        //                         [-68.1287601683289, -16.492053889621403],
-        //                         [-68.12880308367313, -16.49210532682579],
-        //                         [-68.12903911806644, -16.491961302619064],
-        //                         [-68.12939316965641, -16.49149836694291],
-        //                         [-68.12972576357426, -16.49158066669961],
-        //                         [-68.12984378077091, -16.491745266107998],
-        //                         [-68.12987596727909, -16.491817278305152],
-        //                         [-68.12983305193485, -16.491868715572412],
-        //                         [-68.12944681383671, -16.492177338888965],
-        //                         [-68.12945754267277, -16.492403662341623],
-        //                         [-68.13004762865604, -16.492846021053005],
-        //                         [-68.12988669611515, -16.49302090677629],
-        //                         [-68.13014418818058, -16.49316493019442],
-        //                         [-68.13033730722965, -16.493329528255337],
-        //                         [-68.13042313791813, -16.49357642508417],
-        //                         [-68.13058407045902, -16.493905620365933],
-        //                         [-68.13136727549137, -16.493905620365933],
-        //                         [-68.13164622522892, -16.49358671244519],
-        //                         [-68.13204319216312, -16.494214240433955],
-        //                         [-68.13291222788395, -16.495572162885445],
-        //                         [-68.13219339586796, -16.496024801584785],
-        //                         [-68.12999188899995, -16.497282893714345],
-        //                         [-68.12977731227876, -16.497252032219162],
-        //                         [-68.12929451465608, -16.49724174505301],
-        //                         [-68.12895119190217, -16.49724174505301],
-        //                         [-68.12837183475496, -16.497385765329362],
-        //                         [-68.12779247760774, -16.496624514082825],
-        //                         [-68.12755644321443, -16.496470206032594],
-        //                         [-68.1273525953293, -16.49636733393074],
-        //                         [-68.1271916627884, -16.496408482778047],
-        //                         [-68.12627971172334, -16.496408482778047],
-        //                         [-68.12610805034639, -16.496213025675388]
-        //                     ]
-        //                 ]
 
-        //             }
-        //         },
-        //     }
-        // },
         {
             "type": "Feature",
-            "properties": { "zona": "AGUA_DE_LA_VIDA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "AGUA_DE_LA_VIDA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2057,7 +2033,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "ZONA_NORTE" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "ZONA_NORTE"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2093,7 +2072,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "SANTA_BARBARA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "SANTA_BARBARA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2129,7 +2111,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "ZONA_CENTRAL" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "ZONA_CENTRAL"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2156,7 +2141,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "EL_TEJAR" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "EL_TEJAR"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2214,7 +2202,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "ALTO_MARISCAL_SANTA_CRUZ" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "ALTO_MARISCAL_SANTA_CRUZ"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2254,7 +2245,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "BAJO_MARISCAL_SANTA_CRUZ" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "BAJO_MARISCAL_SANTA_CRUZ"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2297,51 +2291,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "CALLAMPAYA" },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [-68.14404021017255, -16.492915541361747],
-                        [-68.14419041387738, -16.49262749404708],
-                        [-68.14627180807294, -16.492524619902206],
-                        [-68.14655075781049, -16.49285381697327],
-                        [-68.14708719961347, -16.49320358824767],
-                        [-68.14848194830121, -16.49349163470483],
-                        [-68.15009127371015, -16.49299784051577],
-                        [-68.15120707266034, -16.493141863951085],
-                        [-68.15191517584027, -16.49285381697327],
-                        [-68.15243015997113, -16.492421745702657],
-                        [-68.15442572347821, -16.491886798983447],
-                        [-68.15479050390424, -16.493573933613835],
-                        [-68.15346012823285, -16.494376346142303],
-                        [-68.15382490865888, -16.495425649812542],
-                        [-68.15191517584027, -16.495549096929047],
-                        [-68.1516147684306, -16.495343351691105],
-                        [-68.14996252767743, -16.494849562227458],
-                        [-68.14910422079267, -16.495343351691105],
-                        [-68.1477953027934, -16.49524047899011],
-                        [-68.14762364141644, -16.494993584284526],
-                        [-68.14753781072797, -16.494664390853696],
-                        [-68.14738760702313, -16.49435577150365],
-                        [-68.14665804617108, -16.494026576987704],
-                        [-68.14610014669599, -16.493800255433126],
-                        [-68.14558516256513, -16.49384140482637],
-                        [-68.14545641653241, -16.493861979519718],
-                        [-68.14543495886029, -16.49353278416371],
-                        [-68.14498434774579, -16.493409335760827],
-                        [-68.14483414404096, -16.493121289181165],
-                        [-68.14472685568036, -16.49299784051577],
-                        [-68.14444790594281, -16.49295669094314],
-                        [-68.14412604086102, -16.492936116153537]
-                    ]
-                ]
-
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": { "zona": "CALLAMPAYA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "CALLAMPAYA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2386,6 +2339,54 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
+                "zona": "CALLAMPAYA"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [-68.14404021017255, -16.492915541361747],
+                        [-68.14419041387738, -16.49262749404708],
+                        [-68.14627180807294, -16.492524619902206],
+                        [-68.14655075781049, -16.49285381697327],
+                        [-68.14708719961347, -16.49320358824767],
+                        [-68.14848194830121, -16.49349163470483],
+                        [-68.15009127371015, -16.49299784051577],
+                        [-68.15120707266034, -16.493141863951085],
+                        [-68.15191517584027, -16.49285381697327],
+                        [-68.15243015997113, -16.492421745702657],
+                        [-68.15442572347821, -16.491886798983447],
+                        [-68.15479050390424, -16.493573933613835],
+                        [-68.15346012823285, -16.494376346142303],
+                        [-68.15382490865888, -16.495425649812542],
+                        [-68.15191517584027, -16.495549096929047],
+                        [-68.1516147684306, -16.495343351691105],
+                        [-68.14996252767743, -16.494849562227458],
+                        [-68.14910422079267, -16.495343351691105],
+                        [-68.1477953027934, -16.49524047899011],
+                        [-68.14762364141644, -16.494993584284526],
+                        [-68.14753781072797, -16.494664390853696],
+                        [-68.14738760702313, -16.49435577150365],
+                        [-68.14665804617108, -16.494026576987704],
+                        [-68.14610014669599, -16.493800255433126],
+                        [-68.14558516256513, -16.49384140482637],
+                        [-68.14545641653241, -16.493861979519718],
+                        [-68.14543495886029, -16.49353278416371],
+                        [-68.14498434774579, -16.493409335760827],
+                        [-68.14483414404096, -16.493121289181165],
+                        [-68.14472685568036, -16.49299784051577],
+                        [-68.14444790594281, -16.49295669094314],
+                        [-68.14412604086102, -16.492936116153537]
+                    ]
+                ]
+
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "tipo": "zona",
                 "zona": "CUSICANCHA"
             },
             "geometry": {
@@ -2496,7 +2497,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "ALTO_LA_PORTADA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "ALTO_LA_PORTADA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2551,7 +2555,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "LA_PORTADA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "LA_PORTADA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2604,7 +2611,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "MUNAYPATA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "MUNAYPATA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2672,7 +2682,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VILLA_VICTORIA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VILLA_VICTORIA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2729,7 +2742,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "CHALLAPAMPA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "CHALLAPAMPA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2787,7 +2803,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "PURA_PURA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "PURA_PURA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2929,7 +2948,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "SAN_SEBASTIAN" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "SAN_SEBASTIAN"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -2974,7 +2996,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "PURA_PURA_ALTO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "PURA_PURA_ALTO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3017,7 +3042,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "PANTICIRCA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "PANTICIRCA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3060,7 +3088,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "PURA_PURA_ALTO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "PURA_PURA_ALTO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3104,7 +3135,10 @@ var geoZonasCompleto = {
 
         {
             "type": "Feature",
-            "properties": { "zona": "MIRAFLORES" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "MIRAFLORES"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3148,7 +3182,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "MIRAFLORES_ALTO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "MIRAFLORES_ALTO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3171,7 +3208,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "SANTA_ROSA_GRANDE" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "SANTA_ROSA_GRANDE"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3200,7 +3240,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "SAN_JUAN_DE_LAZARETO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "SAN_JUAN_DE_LAZARETO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3240,7 +3283,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VILLA_FATIMA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VILLA_FATIMA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3268,7 +3314,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VILLA_LA_MERCED" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VILLA_LA_MERCED"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3291,7 +3340,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "LAS_DELICIAS" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "LAS_DELICIAS"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3316,7 +3368,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "BARRIO_MINASA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "BARRIO_MINASA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3346,7 +3401,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VILLA_EL_CARMEN" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VILLA_EL_CARMEN"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3379,7 +3437,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "CHUQUIAGUILLO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "CHUQUIAGUILLO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3401,7 +3462,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VILLA_COPACABANA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VILLA_COPACABANA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3448,7 +3512,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VALLE_HERMOSO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VALLE_HERMOSO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3494,7 +3561,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "VILLA_ARMONIA" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "VILLA_ARMONIA"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3526,7 +3596,10 @@ var geoZonasCompleto = {
         },
         {
             "type": "Feature",
-            "properties": { "zona": "IV_CENTENARIO" },
+            "properties": {
+                "tipo": "zona",
+                "zona": "IV_CENTENARIO"
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -3567,6 +3640,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "KANTUTANI_SAN_JORGE"
             },
             "geometry": {
@@ -3644,6 +3718,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SOPOCACHI_BAJO"
             },
             "geometry": {
@@ -3729,6 +3804,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SOPOCACHI_BAJO_21"
             },
             "geometry": {
@@ -3766,6 +3842,7 @@ var geoZonasCompleto = {
         // {
         //     "type": "Feature",
         //     "properties": {
+        //   "tipo": "zona",
         //         "zona": "LLOJETA_ALTO"
         //     },
         //     "geometry": {
@@ -3831,6 +3908,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "LLOJETA_BAJO"
             },
             "geometry": {
@@ -3896,6 +3974,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "LADRILLERAS"
             },
             "geometry": {
@@ -3979,6 +4058,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "LLOJETA_CENTRAL"
             },
             "geometry": {
@@ -4048,6 +4128,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "TACAGUA"
             },
             "geometry": {
@@ -4129,6 +4210,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "PASANKERI"
             },
             "geometry": {
@@ -4188,6 +4270,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "TEMBLADERANI19"
             },
             "geometry": {
@@ -4229,6 +4312,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "TEMBLADERANI20"
             },
             "geometry": {
@@ -4327,6 +4411,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SAN_PEDRO_BAJO"
             },
             "geometry": {
@@ -4357,6 +4442,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "BELLO_HORIZONTE"
             },
             "geometry": {
@@ -4422,6 +4508,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SOPOCACHI_ALTO_21"
             },
             "geometry": {
@@ -4462,6 +4549,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SOPOCACHI_ALTO"
             },
             "geometry": {
@@ -4506,6 +4594,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SAN_PEDRO_ALTO"
             },
             "geometry": {
@@ -4572,6 +4661,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ROSARIO"
             },
             "geometry": {
@@ -4611,6 +4701,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "BELEN"
             },
             "geometry": {
@@ -4663,6 +4754,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "GRAN_PODER"
             },
             "geometry": {
@@ -4690,6 +4782,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "CATORCE_DE_SEPTIEMBRE"
             },
             "geometry": {
@@ -4740,6 +4833,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "OBISPO_INDABURO"
             },
             "geometry": {
@@ -4798,6 +4892,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ALTO_CHIJINI_24"
             },
             "geometry": {
@@ -4843,6 +4938,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "VILLA_NUEVO_POTOSI"
             },
             "geometry": {
@@ -4923,6 +5019,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "MALLASILLA"
             },
             "geometry": {
@@ -5010,6 +5107,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "JUPAPINA"
             },
             "geometry": {
@@ -5061,6 +5159,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "MALLASA"
             },
             "geometry": {
@@ -5123,6 +5222,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ARANJUEZ"
             },
             "geometry": {
@@ -5161,6 +5261,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "OBRAJES"
             },
             "geometry": {
@@ -5213,6 +5314,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "BELLA_VISTA"
             },
             "geometry": {
@@ -5278,6 +5380,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SEGUENCOMA_ALTO"
             },
             "geometry": {
@@ -5340,6 +5443,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SEGUENCOMA_BAJO"
             },
             "geometry": {
@@ -5392,6 +5496,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "ARMANDO_ESCOBAR_URIA"
             },
             "geometry": {
@@ -5434,6 +5539,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SAN_ANTONIO_BAJO"
             },
             "geometry": {
@@ -5484,6 +5590,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "SAN_ANTONIO_ALTO"
             },
             "geometry": {
@@ -5527,6 +5634,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "VILLA_LITORAL"
             },
             "geometry": {
@@ -5582,6 +5690,7 @@ var geoZonasCompleto = {
         {
             "type": "Feature",
             "properties": {
+                "tipo": "zona",
                 "zona": "VILLA_PABON"
             },
             "geometry": {

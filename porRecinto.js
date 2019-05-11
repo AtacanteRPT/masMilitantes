@@ -17,5 +17,4 @@ rest.postJson('http://localhost:1337/militante/crear', personaMilitante).on('com
   console.log('PERSONA CREADA')
   console.log("contador", contador++)
   cb(null);
-
 });

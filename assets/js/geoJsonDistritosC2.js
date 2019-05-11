@@ -3,6 +3,7 @@ var datoGeoJsonD = {
     "features": [{
         "type": "Feature",
         "properties": {
+            tipo: 'distrito',
             "zona": "DISTRITO_1"
         },
         "geometry": {
@@ -93,7 +94,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_2" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_2"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -190,7 +194,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_3" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_3"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -292,7 +299,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_4" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_4"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -336,7 +346,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_5" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_5"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -398,7 +411,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_6" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_6"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -476,7 +492,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_7" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_7"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -533,7 +552,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_8" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_8"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -655,7 +677,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_9" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_9"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -778,7 +803,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_10" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_10"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -959,7 +987,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_11" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_11"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1101,7 +1132,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_12" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_12"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1319,7 +1353,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_13" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_13"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1408,7 +1445,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_14" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_14"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1536,7 +1576,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_15" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_15"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1651,7 +1694,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_16" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_16"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1780,7 +1826,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_17" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_17"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1879,7 +1928,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_18" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_18"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1984,7 +2036,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_19" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_19"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2103,7 +2158,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_20" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_20"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2198,7 +2256,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_21" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_21"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2331,7 +2392,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_22" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_22"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2401,7 +2465,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_23" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_23"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2484,7 +2551,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_24" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_24"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2574,7 +2644,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_25" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_25"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2666,7 +2739,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_26" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_26"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2737,7 +2813,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_27" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_27"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2885,7 +2964,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_28" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_28"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2987,7 +3069,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_29" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_29"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -3164,7 +3249,10 @@ var datoGeoJsonD = {
         }
     }, {
         "type": "Feature",
-        "properties": { "zona": "DISTRITO_30" },
+        "properties": {
+            tipo: 'distrito',
+            "zona": "DISTRITO_30"
+        },
         "geometry": {
             "type": "Polygon",
             "coordinates": [
