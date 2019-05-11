@@ -146,7 +146,7 @@
             var zona = null;
             if(recinto.idZona != null ){
                 zona = (auxZonas.filter(dato => dato.id == recinto.idZona ))[0];
-                Nzona = zona.nombre;
+                Nzona = zona.nombre.replace("_"," ");
             } else{
                 Nzona = "-";
             }
