@@ -164,9 +164,9 @@
                 circunscripcion = (auxCircunscripciones. filter(dato => dato.id == distrito.idCircunscripcion ))[0];
                 Ncircunscripcion = circunscripcion.nombre;
             }else{
-                Ncircunscripcion = "-";
+                Ncircunscripcion = "7";
             }
-            datosRecinto.push(Ncircunscripcion);
+            datosRecinto.push('C_'+Ncircunscripcion);
             datosRecinto.push(Ndistrito);
             datosRecinto.push(Nzona);
             datosRecinto.push(recinto.nombre);
@@ -197,9 +197,13 @@
                 //console.log(porcentaje1+" "+totalValidos[0]+" "+totalEmitidos[0]);
                 var auxcolor1 = 2;
                 if(porcentaje1 <= 33){
+                    datosRecinto.push("ROJO");
                     auxcolor1 = 0;
                 }else if(porcentaje1 <= 66){
+                    datosRecinto.push("VERDE");
                     auxcolor1 = 1;
+                }else{
+                    datosRecinto.push("AZUL");
                 }
                 promedio += porcentaje1;
                 cantidad++;
@@ -224,7 +228,7 @@
         //console.log(colores3);//143a83
         
         $(document).ready(function() {
-            $('#example').DataTable( {
+            var table = $('#example').DataTable( {
                 "language": {
                     
                     "sProcessing":     "Procesando...",
@@ -251,18 +255,45 @@
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }            
                 },
+                // initComplete: function () {
+                    
+                //     this.api().columns().every( function () {
+                //         var column = this;
+                //         console.log("carlooos");
+                //         var select = $('<select><option value=""></option></select>')
+                //             .appendTo( $(column.footer()).empty() )
+                //             .on( 'change', function () {
+                //                 console.log("carlos2222")
+                //                 var val = $.fn.dataTable.util.escapeRegex(
+                //                     $(this).val()
+                //                 );
+        
+                //                 column
+                //                     .search( val ? '^'+val+'$' : '', true, false )
+                //                     .draw();
+                //             } );
+        
+                //         column.data().unique().sort().each( function ( d, j ) {
+                //             select.append( '<option value="'+d+'">'+d+'</option>' )
+                //         } );
+                //     } );
+                // },
                 pageLength: 8,
+               
                 'rowCallback': function(row, data, index){
-                    if(data[4][0] != 'N'){
-                        var auxdata = data[4].slice(0,-1);
+                    if(data[5][0] != 'N'){
+                        var auxdata = data[5].slice(0,-1);
                         //console.log(auxdata);
-                        $(row).find('td:eq(4)').css('color', 'white');
+                        $(row).find('td:eq(5)').css('color', 'white');
                         if(auxdata <= 33){
-                            $(row).find('td:eq(4)').css('background-color', 'red');
+                            $(row).find('td:eq(5)').css('background-color', 'red');
+                            $(row).find('td:eq(4)').css('color', 'red');
                         }else if(auxdata <= 66){
-                            $(row).find('td:eq(4)').css('background-color', 'green');
+                            $(row).find('td:eq(5)').css('background-color', 'green');
+                            $(row).find('td:eq(4)').css('color', 'green');
                         }else{
-                            $(row).find('td:eq(4)').css('background-color', 'blue');
+                            $(row).find('td:eq(5)').css('background-color', 'blue');
+                            $(row).find('td:eq(4)').css('color', 'blue');
                         }
                     }
                     
@@ -274,9 +305,11 @@
                     { title: "Distrito" },
                     { title: "Zona" },
                     { title: "Recinto" },
+                    { title: "Color" },
                     { title: "Porcentaje" },
                 ]
             } );
+            
         } );
         div.innerHTML = '<table id="example" class="display" width="100%"></table>'
         //div.innerHTML = '<h4>Nuestra Señora de La Paz - GENERAL</h4>';
@@ -292,7 +325,6 @@
         // console.log('ZONA:', zona);
         var color = '';
         if (zona) {
-
             var letters = '0123456789ABCDEF';
             color = '#';
             for (var i = 0; i < 6; i++) {
