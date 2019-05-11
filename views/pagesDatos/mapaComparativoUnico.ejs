@@ -754,7 +754,7 @@
             var auxIcon;
             var todosNulos = false;
 
-            if(eleccion2005.color == eleccion2009.color && eleccion2005.color == eleccion2014.color && 0){
+            if(eleccion2005.color == eleccion2009.color && eleccion2005.color == eleccion2014.color){
 
                 if(eleccion2005.color == 'grey'){ 
                     todosNulos = true;
@@ -789,9 +789,9 @@
                     html : '<div class="recuadro"><span class="badge badge-'+eleccion2005.badge+'">2005</span>'+
                             '<span class="badge badge-'+eleccion2009.badge+'">2009</span>'+
                             '<span class="badge badge-'+eleccion2014.badge+'">2014</span></div>'+
-                            '<div class="recuadro"><span class="badge badge-'+eleccion2005.badge+'">'+eleccion2005.porcentaje+'</span>'+
-                            '<span class="badge badge-'+eleccion2009.badge+'">'+eleccion2009.porcentaje+'</span>'+
-                            '<span class="badge badge-'+eleccion2014.badge+'">'+eleccion2014.porcentaje+'</span></div>'
+                            '<div class="recuadro"><span class="badge badge-light">'+eleccion2005.porcentaje+'</span>'+
+                            '<span class="badge badge-light">'+eleccion2009.porcentaje+'</span>'+
+                            '<span class="badge badge-light">'+eleccion2014.porcentaje+'</span></div>'
                 })
                 auxIcon = puntoIcon
             }
