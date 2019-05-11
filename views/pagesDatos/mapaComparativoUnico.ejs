@@ -721,11 +721,14 @@
 
 
         if (procentValidosEmitidos <=33) {
-            return {badge:'danger',color:'red',estado:1,porcentaje:(procentValidosEmitidos+'%')}
+            var aux = Math.round(procentValidosEmitidos);
+            return {badge:'danger',color:'red',estado:1,porcentaje:(aux+'%')}
         } else if (procentValidosEmitidos >=66) {
-            return {badge:'primary',color:'blue',estado:3,porcentaje:(procentValidosEmitidos+'%')}
+            var aux = Math.round(procentValidosEmitidos);
+            return {badge:'primary',color:'blue',estado:3,porcentaje:(aux+'%')}
         }else if(procentValidosEmitidos >33 && procentValidosEmitidos <66) {
-            return {badge:'success',color:'green',estado:2,porcentaje:(procentValidosEmitidos+'%')}
+            var aux = Math.round(procentValidosEmitidos);
+            return {badge:'success',color:'green',estado:2,porcentaje:(aux+'%')}
         }else{
             return {badge:'secondary',color:'grey',estado:3,porcentaje:"N/A"}
         }
