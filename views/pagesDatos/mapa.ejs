@@ -245,11 +245,13 @@
                         "sNext":     "Siguiente",
                         "sPrevious": "Anterior"
                     },
+
                     "oAria": {
                         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }            
                 },
+                pageLength: 8,
                 'rowCallback': function(row, data, index){
                     if(data[4][0] != 'N'){
                         var auxdata = data[4].slice(0,-1);
