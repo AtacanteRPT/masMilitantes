@@ -91,7 +91,102 @@
     <div class="col-12 col-md-6">
         <div class="mapContainer" id='map2'></div>
     </div>
+    <div class="col-12 col-md-6">
+        <table id="tabla1" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>2005</th>
+                    <th>2009</th>
+                    <th>2014</th>
+                    <th>total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rojo, Verde, Rojo</td>
+                    <td>Rojo</td>
+                    <td>Verde</td>
+                    <td>Rojo</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Verde, Rojo, Rojo</td>
+                    <td>Verde</td>
+                    <td>Rojo</td>
+                    <td>Rojo</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>Verde, Rojo, Inhabilitado</td>
+                    <td>Verde</td>
+                    <td>Rojo</td>
+                    <td>Inhabilitado</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Verde, Verde, Rojo</td>
+                    <td>Verde</td>
+                    <td>Verde</td>
+                    <td>Rojo</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td>Verde, Verde, Azul</td>
+                    <td>Verde</td>
+                    <td>Verde</td>
+                    <td>Azul</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Verde, Azul, Verde</td>
+                    <td>Verde</td>
+                    <td>Azul</td>
+                    <td>Verde</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>Verde, Azul, Azul</td>
+                    <td>Verde</td>
+                    <td>Azul</td>
+                    <td>Azul</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Azul, Azul, Verde</td>
+                    <td>Azul</td>
+                    <td>Azul</td>
+                    <td>Verde</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <td>Azul, Inhabilitado, Verde</td>
+                    <td>Azul</td>
+                    <td>Inhabilitado</td>
+                    <td>Verde</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Inhabilitado, Azul, Verde</td>
+                    <td>Inhabilitado</td>
+                    <td>Azul</td>
+                    <td>Verde</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>Inhabilitado, Verde, Rojo</td>
+                    <td>Inhabilitado</td>
+                    <td>Verde</td>
+                    <td>Rojo</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<br>
+<br>
+<br>
 <div class="row">
     <div class="col-12 col-md-12">
         <table id="example" class="display" width="80%"></table>
@@ -103,6 +198,78 @@
 <script src="/js/geoJsonDistritosC2.js"></script>
 <script src="/js/geoJsonZonasC2.js"></script>
 
+<script>
+    $(document).ready(function() {
+        $('#tabla1').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ Recintos",
+                "sZeroRecords": "No se encontraron Recinto",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando Recintos del _START_ al _END_ de un total de _TOTAL_ Recintos",
+                "sInfoEmpty": "Mostrando Recintos del 0 al 0 de un total de 0 Recintos",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ Recintos)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+                },
+                searching: false,
+                paging: false,
+                info: false,
+                'rowCallback': function (row, data, index) {
+                if (data[2][0] != 'I') {
+                    //var auxdata = data[4].slice(0, -1);
+                    //console.log(auxdata);
+                    $(row).find('td:eq(2)').css('color', 'white');
+                    if (data[2]=='Rojo') {
+                        $(row).find('td:eq(2)').css('background-color', 'red');
+                    } else if (data[2]=='Verde') {
+                        $(row).find('td:eq(2)').css('background-color', 'green');
+                    } else {
+                        $(row).find('td:eq(2)').css('background-color', 'blue');
+                    }
+                }
+                if (data[3][0] != 'I') {
+                    //var auxdata = data[4].slice(0, -1);
+                    //console.log(auxdata);
+                    $(row).find('td:eq(3)').css('color', 'white');
+                    if (data[3]=='Rojo') {
+                        $(row).find('td:eq(3)').css('background-color', 'red');
+                    } else if (data[3]=='Verde') {
+                        $(row).find('td:eq(3)').css('background-color', 'green');
+                    } else {
+                        $(row).find('td:eq(3)').css('background-color', 'blue');
+                    }
+                }
+                if (data[1][0] != 'I') {
+                    //var auxdata = data[4].slice(0, -1);
+                    //console.log(auxdata);
+                    $(row).find('td:eq(1)').css('color', 'white');
+                    if (data[1]=='Rojo') {
+                        $(row).find('td:eq(1)').css('background-color', 'red');
+                    } else if (data[1]=='Verde') {
+                        $(row).find('td:eq(1)').css('background-color', 'green');
+                    } else {
+                        $(row).find('td:eq(1)').css('background-color', 'blue');
+                    }
+                }
+
+                },
+        });
+    } );
+</script>
 
 
 <script>
