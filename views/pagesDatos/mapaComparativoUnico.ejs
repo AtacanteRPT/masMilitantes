@@ -721,13 +721,13 @@
 
 
         if (procentValidosEmitidos <=33) {
-            return {badge:'danger',color:'red',estado:1}
+            return {badge:'danger',color:'red',estado:1,porcentaje:(procentValidosEmitidos+'%')}
         } else if (procentValidosEmitidos >=66) {
-            return {badge:'primary',color:'blue',estado:3}
+            return {badge:'primary',color:'blue',estado:3,porcentaje:(procentValidosEmitidos+'%')}
         }else if(procentValidosEmitidos >33 && procentValidosEmitidos <66) {
-            return {badge:'success',color:'green',estado:2}
+            return {badge:'success',color:'green',estado:2,porcentaje:(procentValidosEmitidos+'%')}
         }else{
-            return {badge:'secondary',color:'grey',estado:3}
+            return {badge:'secondary',color:'grey',estado:3,porcentaje:"N/A"}
         }
 
 
@@ -747,11 +747,11 @@
             var eleccion2005 = getNivel(recinto,1)
             var eleccion2014 = getNivel(recinto,2)
             var eleccion2009 = getNivel(recinto,3);
-
+            console.log(eleccion2005);
             var auxIcon;
             var todosNulos = false;
 
-            if(eleccion2005.color == eleccion2009.color && eleccion2005.color == eleccion2014.color){
+            if(eleccion2005.color == eleccion2009.color && eleccion2005.color == eleccion2014.color && 0){
 
                 if(eleccion2005.color == 'grey'){ 
                     todosNulos = true;
@@ -785,7 +785,10 @@
                     popupAnchor: [0, -36],
                     html : '<div class="recuadro"><span class="badge badge-'+eleccion2005.badge+'">2005</span>'+
                             '<span class="badge badge-'+eleccion2009.badge+'">2009</span>'+
-                            '<span class="badge badge-'+eleccion2014.badge+'">2014</span></div>'
+                            '<span class="badge badge-'+eleccion2014.badge+'">2014</span></div>'+
+                            '<div class="recuadro"><span class="badge badge-'+eleccion2005.badge+'">'+eleccion2005.porcentaje+'</span>'+
+                            '<span class="badge badge-'+eleccion2009.badge+'">'+eleccion2009.porcentaje+'</span>'+
+                            '<span class="badge badge-'+eleccion2014.badge+'">'+eleccion2014.porcentaje+'</span></div>'
                 })
                 auxIcon = puntoIcon
             }
