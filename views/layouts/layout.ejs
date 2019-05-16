@@ -127,6 +127,7 @@
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_c/1">Circunscripción</a></li>
                                     <li class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/1">General</a></li>
+                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_azul/1">Solo Azul</a></li>
 
                                 </ul>
                             </li>
@@ -141,6 +142,8 @@
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_c/3">Circunscripción</a></li>
                                     <li class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/3">General</a></li>
+                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_azul/3">Solo Azul</a></li>
+
                                 </ul>
                             </li>
                             <li class="dropdown-divider"></li>
@@ -154,6 +157,8 @@
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_c/2">Circunscripción</a></li>
                                     <li class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/2">General</a></li>
+                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_azul/2">Solo Azul</a></li>
+
                                 </ul>
                             </li>
                             <li class="dropdown-divider"></li>
@@ -167,6 +172,8 @@
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_c/4">Circunscripción</a></li>
                                     <li class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/4">General</a></li>
+                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_azul/4">Solo Azul</a></li>
+
                                 </ul>
                             </li>
                             <li class="dropdown-divider"></li>
@@ -435,12 +442,12 @@
 
     <script>
 
-        $(".dropdown-toggle").on("mouseenter", function () {
-            // make sure it is not shown:
-            if (!$(this).parent().hasClass("show")) {
-                $(this).click();
-            }
-        });
+        // $(".dropdown-toggle").on("mouseenter", function () {
+        //     // make sure it is not shown:
+        //     if (!$(this).parent().hasClass("show")) {
+        //         $(this).click();
+        //     }
+        // });
 
         $(".btn-group, .dropdown").on("mouseleave", function () {
             // make sure it is shown:

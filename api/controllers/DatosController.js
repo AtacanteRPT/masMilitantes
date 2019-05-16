@@ -106,6 +106,32 @@ module.exports = {
             res.serverError(error);
         }
     },
+    mapa_azul: async function (req, res) {
+        var paramId= req.param("id");
+        console.log(paramId);
+        try {
+            var idEleccion2005 = paramId;
+            var datoCircunscripcion = await Circunscripcion.find();
+            var datoDistrito = await Distrito.find();
+            var datoZona = await Zona.find();
+            var datoRecintos = await Recinto.find().populate('mesas');
+            for (var i = 0; i < datoRecintos.length; i++) {
+
+                var auxMesas = datoRecintos[i].mesas.filter(dato => dato.idEleccion == idEleccion2005);
+                datoRecintos[i].mesas = auxMesas;
+            }
+            // res.send(datoRecintos)
+            res.view('pagesDatos/mapa_azul', {
+                recintos: datoRecintos,
+                zonas: datoZona,
+                distritos: datoDistrito,
+                circunscripciones: datoCircunscripcion,
+                elecciones: paramId
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
+    },
     mapa_unico: async function (req, res) {
         
         try {
