@@ -50,6 +50,11 @@ module.exports.routes = {
     'get /datos/mapa_distrito_curva/:id': 'DatosController.mapa_distrito_curva',
     'get /datos/mapa_c_curva/:id': 'DatosController.mapa_c_curva',
 
+    'get /datos/mapa_azul/:id': 'DatosController.mapa_azul',
+
+
+    
+
 
 
     // 'POST /mapa/guardar/:id': 'MapaController.guardar',
