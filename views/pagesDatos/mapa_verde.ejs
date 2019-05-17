@@ -488,7 +488,7 @@
                 var eleccion2014 = getNivel(recinto,2);
           
 
-                if ((eleccion2005.color == 'blue' || eleccion2005.estado == 0) && (eleccion2009.color == 'blue' || eleccion2009.estado == 0) && (eleccion2014.color == 'blue' || eleccion2014.estado == 0)) {
+                if ((eleccion2005.color == 'green' || eleccion2005.estado == 0) && (eleccion2009.color == 'green' || eleccion2009.estado == 0) && (eleccion2014.color == 'green' || eleccion2014.estado == 0)) {
                     sw=true;
                     contadorPuntos+=3;
                     porcentajeZona+= eleccion2005.raw + eleccion2009.raw + eleccion2014.raw
@@ -527,12 +527,12 @@
             suma2009+=  eleccion2009.estado;
             suma2014+=  eleccion2014.estado;
 
-            if ((eleccion2005.color == 'blue' || eleccion2005.estado == 0) && (eleccion2009.color == 'blue' || eleccion2009.estado == 0) && (eleccion2014.color == 'blue' || eleccion2014.estado == 0)) {
+            if ((eleccion2005.color == 'green' || eleccion2005.estado == 0) && (eleccion2009.color == 'green' || eleccion2009.estado == 0) && (eleccion2014.color == 'green' || eleccion2014.estado == 0)) {
                 sw=true;
             }
         });
         if(sw){
-            return '#0013FF'
+            return 'green'
         }else{
             return '#FFF'
         }
@@ -748,7 +748,7 @@
                     todosNulos = true;
                 }
                
-                if ((eleccion2005.color == 'blue' || eleccion2005.estado == 0) && (eleccion2009.color == 'blue' || eleccion2009.estado == 0) && (eleccion2014.color == 'blue' || eleccion2014.estado == 0)) {
+                if ((eleccion2005.color == 'green' || eleccion2005.estado == 0) && (eleccion2009.color == 'green' || eleccion2009.estado == 0) && (eleccion2014.color == 'green' || eleccion2014.estado == 0)) {
                     sw=true;
                 }
                 // const markerHtmlStylesRojo = `

@@ -106,7 +106,7 @@ module.exports = {
             res.serverError(error);
         }
     },
-    mapa_azul: async function (req, res) {
+    mapa_color: async function (req, res) {
         try {
             var datoCircunscripcion = await Circunscripcion.find();
             var datoDistrito = await Distrito.find();
@@ -114,12 +114,31 @@ module.exports = {
             var datoRecintos = await Recinto.find().populate('mesas');
             
             // res.send(datoRecintos)
-            res.view('pagesDatos/mapa_azul', {
-                recintos: datoRecintos,
-                zonas: datoZona,
-                distritos: datoDistrito,
-                circunscripciones: datoCircunscripcion
-            })
+
+            if(req.param('color')=='rojo'){
+                res.view('pagesDatos/mapa_rojo', {
+                    recintos: datoRecintos,
+                    zonas: datoZona,
+                    distritos: datoDistrito,
+                    circunscripciones: datoCircunscripcion
+                })
+            }else if(req.param('color')=='verde'){
+                res.view('pagesDatos/mapa_verde', {
+                    recintos: datoRecintos,
+                    zonas: datoZona,
+                    distritos: datoDistrito,
+                    circunscripciones: datoCircunscripcion
+                })
+            }else{
+                res.view('pagesDatos/mapa_azul', {
+                    recintos: datoRecintos,
+                    zonas: datoZona,
+                    distritos: datoDistrito,
+                    circunscripciones: datoCircunscripcion
+                })
+            }
+
+            
         } catch (error) {
             res.serverError(error);
         }
