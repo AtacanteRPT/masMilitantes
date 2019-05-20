@@ -99,9 +99,6 @@
 </div> -->
 <div id='map'></div>
 
-
-
-<!-- <table id="example" class="display" width="100%"></table> -->
 <script src="/js/geoJsonC2.js"></script>
 <script src="/js/geoJsonDistritosC2.js"></script>
 <script src="/js/geoJsonZonasC2.js"></script>
@@ -229,7 +226,9 @@
         //console.log(colores1);//fd0000
         //console.log(colores2);//046500
         //console.log(colores3);//143a83
-        
+        $( document ).ready(function() {
+
+
             var table = $('#example').DataTable( {
      
                 "language": {
@@ -291,7 +290,7 @@
                 ]
             } );
             
-
+        });
         div.innerHTML = '<table id="example" class="display" width="100%"></table>'
         // div.innerHTML = '<h4>Nuestra Señora de La Paz - GENERAL</h4>';
         return div;
