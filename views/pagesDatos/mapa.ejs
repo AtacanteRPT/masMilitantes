@@ -28,7 +28,7 @@
 
     #map {
         width: 100%;
-        height: 700px;
+        height: 100%;
     }
 
     .info {
@@ -255,29 +255,7 @@
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }            
                 },
-                // initComplete: function () {
-                    
-                //     this.api().columns().every( function () {
-                //         var column = this;
-                //         console.log("carlooos");
-                //         var select = $('<select><option value=""></option></select>')
-                //             .appendTo( $(column.footer()).empty() )
-                //             .on( 'change', function () {
-                //                 console.log("carlos2222")
-                //                 var val = $.fn.dataTable.util.escapeRegex(
-                //                     $(this).val()
-                //                 );
-        
-                //                 column
-                //                     .search( val ? '^'+val+'$' : '', true, false )
-                //                     .draw();
-                //             } );
-        
-                //         column.data().unique().sort().each( function ( d, j ) {
-                //             select.append( '<option value="'+d+'">'+d+'</option>' )
-                //         } );
-                //     } );
-                // },
+      
                 pageLength: 8,
                
                 'rowCallback': function(row, data, index){
@@ -339,7 +317,7 @@
         // console.log('ZONA:', zona);
         var color = 0.0;
         if (zona) {
-            color = 0.5
+            color = 0.3
         }
 
         return color;

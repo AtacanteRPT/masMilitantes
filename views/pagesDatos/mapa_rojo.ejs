@@ -409,45 +409,7 @@
         map.fitBounds(e.target.getBounds());
 
     }
-    // map.on('zoomend', function () {
-    //     // console.log('ZOOM:', map.getZoom())
-    //     if (map.getZoom() < 12) {
-    //         if (map.hasLayer(geojsonC)) {
-    //             map.removeLayer(geojsonC);
-    //         } else {
-    //             // console.log("no point layer active");
-    //         }
-    //     } else if (map.getZoom() >= 12 && map.getZoom() < 12.5) {
-    //         if (map.hasLayer(geojsonC)) {
-    //             // console.log("entre 11 y 12");
-    //         } else {
-    //             if (map.hasLayer(geojsonD)) {
 
-    //                 map.removeLayer(geojsonD)
-    //             }
-    //             map.addLayer(geojsonC);
-    //         }
-    //     } else if (map.getZoom() >= 12.5 && map.getZoom() <= 14) {
-    //         if (map.hasLayer(geojsonD)) {
-    //             // console.log("entre 13 y 14");
-    //         } else {
-    //             map.removeLayer(geojsonC)
-    //             if (map.hasLayer(geojsonZ)) {
-    //                 map.removeLayer(geojsonZ)
-    //                 //removerMarcas()
-    //             }
-    //             map.addLayer(geojsonD);
-    //         }
-    //     } else if (map.getZoom() >= 14.1) {
-    //         if (map.hasLayer(geojsonZ)) {
-    //             // console.log("entre 15 para arriva");
-    //         } else {
-    //             map.removeLayer(geojsonD)
-    //             map.addLayer(geojsonZ);
-    //             // generarMarcas();
-    //         }
-    //     }
-    // });
 
     function onEachFeature(feature, layer) {
         // console.log('LAYER:',layer)
@@ -771,7 +733,7 @@
         
             //////////////////////////////// INICIO ///////////////////////////////////
 
-            if (((recinto.latitud != null || recinto.longitud != null) && todosNulos!=true) && sw) {
+            if (((recinto.latitud != null || recinto.longitud != null) && todosNulos!=true) && 0) {
                 sw = false;
                 auxMarca['marca-' + recinto.id] = L.marker([recinto.latitud, recinto.longitud], {
                     icon: auxIcon
