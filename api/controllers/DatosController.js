@@ -81,7 +81,9 @@ module.exports = {
 
     },
     mapa: async function (req, res) {
+
         var paramId= req.param("id");
+        if(paramId == undefined) paramId = 3
         console.log(paramId);
         try {
             var idEleccion2005 = paramId;

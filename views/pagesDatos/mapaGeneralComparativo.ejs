@@ -87,13 +87,13 @@
         <div class="mapContainer" id='map0'></div>
     </div>
     <div class="col-12 col-md-6">
-        <div class="mapContainer" id='map1'></div>
+        <div class="mapContainer" id='map2'></div>
     </div>
     <div class="col-12 col-md-3">
             
-        </div>
+    </div>
     <div class="col-12 col-md-6">
-        <div class="mapContainer" id='map2'></div>
+        <div class="mapContainer" id='map1'></div>
     </div>
     
 <br>
@@ -1130,14 +1130,20 @@
 
                     recintos.forEach(function (recinto) {
 
+                       
                         recinto.mesas.forEach(function (mesa) {
+
+                            if(mesa.idEleccion == (d+1)){
+
                             totalInscritos += parseInt(mesa.inscritos);
                             totalEmitidos += parseInt(mesa.votosEmitidos);
                             totalValidos += parseInt(mesa.votosValidos);
                             totalBlancos += parseInt(mesa.votosBlancos);
                             totalNulos += parseInt(mesa.votosNulos);
                             totalMAS += parseInt(mesa.MAS);
+                            }
                         }, this);
+
 
 
                     }, this);
@@ -1183,12 +1189,15 @@
                         recintos.forEach(function (recinto) {
 
                             recinto.mesas.forEach(function (mesa) {
+                                if(mesa.idEleccion == (d+1)){
+
                                 totalInscritos += parseInt(mesa.inscritos);
                                 totalEmitidos += parseInt(mesa.votosEmitidos);
                                 totalValidos += parseInt(mesa.votosValidos);
                                 totalBlancos += parseInt(mesa.votosBlancos);
                                 totalNulos += parseInt(mesa.votosNulos);
-                                totalMAS += parseInt(mesa.MAS)
+                                totalMAS += parseInt(mesa.MAS);
+                                }
                             }, this);
 
 
@@ -1240,12 +1249,15 @@
                             recintos.forEach(function (recinto) {
 
                                 recinto.mesas.forEach(function (mesa) {
+                                    if(mesa.idEleccion == (d+1)){
+
                                     totalInscritos += parseInt(mesa.inscritos);
                                     totalEmitidos += parseInt(mesa.votosEmitidos);
                                     totalValidos += parseInt(mesa.votosValidos);
                                     totalBlancos += parseInt(mesa.votosBlancos);
                                     totalNulos += parseInt(mesa.votosNulos);
-                                    totalMAS += parseInt(mesa.MAS)
+                                    totalMAS += parseInt(mesa.MAS);
+                                    }
                                 }, this);
 
 
@@ -1404,7 +1416,7 @@
                 grades = [0, 10, 20, 50, 100, 300, 500, 1000],
                 labels = [],
                 from, to;
-            labels.push('Concentración');
+            labels.push('Concentración de Votos');
 
             labels.push('<span class="badge badge-dark badge-pill">' + cantidadAzules[d] + '</span><i style="background:blue"></i> ' +
                 '&ndash; Alta 66 - 100');

@@ -117,48 +117,20 @@
                         <ul class="dropdown-menu">
 
                             <li class="dropdown-submenu">
-                                <a class="dropdown-item" tabindex="-1" href="#">Elección 2005</a>
-                                <ul class="dropdown-menu">
-
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_zona/1">Zona</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_distrito/1">Distrito</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_c/1">Circunscripción</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/1">General</a></li>
-
-                                </ul>
+                                <a class="dropdown-item" tabindex="-1" href="/datos/mapa/1">Elección 2005</a>
+                             
                             </li>
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-submenu">
-                                <a class="dropdown-item" tabindex="-1" href="#">Elecciones 2009</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_zona/3">Zona</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_distrito/3">Distrito</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_c/3">Circunscripción</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/3">General</a></li>
-
-                                </ul>
+                                <a class="dropdown-item" tabindex="-1" href="/datos/mapa/3">Elecciones 2009</a>
+                            
                             </li>
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-submenu">
-                                <a class="dropdown-item" tabindex="-1" href="#">Elección 2014</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_zona/2">Zona</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_distrito/2">Distrito</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_c/2">Circunscripción</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/2">General</a></li>
-
-                                </ul>
+                                <a class="dropdown-item" tabindex="-1" href="/datos/mapa/2">Elección 2014</a>
+                            
                             </li>
-                            <li class="dropdown-divider"></li>
+                            <!-- <li class="dropdown-divider"></li>
                             <li class="dropdown-submenu">
                                 <a class="dropdown-item" tabindex="-1" href="#">Elección primarias 2019</a>
                                 <ul class="dropdown-menu">
@@ -171,7 +143,7 @@
                                     <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa/4">General</a></li>
 
                                 </ul>
-                            </li>
+                            </li> -->
                             <li class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/datos/mapa_comparativo_general">Comparación de elecciones</a></li>
 
@@ -180,7 +152,7 @@
                 </li>
                 
                 <!-- MAPAS CON CURVA -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <div class="btn-group">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">Mapas Curva</a>
@@ -259,7 +231,7 @@
                             <li><a class="dropdown-item" href="/datos/mapa_comparativo">Comparar</a></li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
                     <a class="nav-link" href="/datos/mapa_unico">Comparativo
@@ -268,14 +240,17 @@
 
                 <li class="nav-item">
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                             zona color
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="/datos/mapa_color/azul">AZUL</a>
-                          <a class="dropdown-item" href="/datos/mapa_color/verde">VERDE</a>
-                          <a class="dropdown-item" href="/datos/mapa_color/rojo">ROJO</a>
-                        </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_color/azul">AZUL</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_color/verde">VERDE</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" tabindex="-1" href="/datos/mapa_color/rojo">ROJO</a></li>
+                            <li class="dropdown-divider"></li>
+                        </ul>
                       </div>
                 </li> 
 
@@ -465,12 +440,12 @@
         //     }
         // });
 
-        $(".btn-group, .dropdown").on("mouseleave", function () {
-            // make sure it is shown:
-            if ($(this).hasClass("show")) {
-                $(this).children('.dropdown-toggle').first().click();
-            }
-        });
+        // $(".btn-group, .dropdown").on("mouseleave", function () {
+        //     // make sure it is shown:
+        //     if ($(this).hasClass("show")) {
+        //         $(this).children('.dropdown-toggle').first().click();
+        //     }
+        // });
     </script>
 
     <!--<script src="js/miScriptk.js"></script>-->
