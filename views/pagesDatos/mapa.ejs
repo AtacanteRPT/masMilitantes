@@ -93,7 +93,6 @@
         box-shadow: 0 0px 0px;
     }
 </style>
-
 <!-- <div class="container">
     <h1>Mapa de Nuestra señora de La Paz</h1>
 </div> -->
@@ -609,7 +608,9 @@
                 cantidadVerdes++;
             }
 
-
+            if(porcentMasValidos =='NaN'){
+                console.log("PORCENTAJE VALIDOS MAS",porcentajeEmitidos);
+            }
             ///////////////////////////////// INICIO ///////////////////////////////////
 
 
@@ -785,7 +786,7 @@
                    
                     '</thead>' +
                     '<tbody>' +
-                    datoMesas +
+                    (porcentMasValidos=='NaN'? '<tr><td colspan="6">Recinto no habilitado para esta Gestión</td></tr>':datoMesas) +
                     '</tbody>' +
                     ' </table>' +
 
